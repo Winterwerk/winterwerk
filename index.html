@@ -16,22 +16,25 @@
       --bg:#ffffff;
       --text:#0a0a0a;
       --muted:#5b5b5b;
-      --line:rgba(0,0,0,.08);
-      --card:rgba(0,0,0,.03);
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --shadow2: 0 1px 0 rgba(255,255,255,.7) inset;
+      --line:rgba(0,0,0,.10);
+      --shadow: 0 12px 34px rgba(0,0,0,.10);
+      --shadowSoft: 0 10px 24px rgba(0,0,0,.06);
 
-      /* Winterwerk-Akzent (Logo-Rot) */
       --accent:#A11608;
       --accent2:#7F1206;
 
       --radius:22px;
       --radius2:16px;
       --max:1120px;
+
+      /* Motion */
+      --ease:cubic-bezier(.2,.8,.2,1);
+      --dur:650ms;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0; padding:0}
+    html{scroll-behavior:smooth;}
     body{
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
                    system-ui, Segoe UI, Roboto, Arial, sans-serif;
@@ -40,20 +43,46 @@
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x:hidden;
     }
     a{color:inherit; text-decoration:none}
     a:hover{text-decoration:underline}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 80px;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 88px;}
 
-    /* Top Nav (Apple-ish) */
+    /* Subtle background glow */
+    .bg-glow{
+      position:fixed;
+      inset:-40vh -20vw auto -20vw;
+      height:70vh;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 460px at 50% 30%, rgba(161,22,8,.10) 0%, rgba(161,22,8,0) 60%),
+        radial-gradient(700px 380px at 15% 20%, rgba(0,0,0,.06) 0%, rgba(0,0,0,0) 55%);
+      filter: blur(8px);
+      opacity:.9;
+      transform: translateZ(0);
+      animation: drift 10s var(--ease) infinite alternate;
+    }
+    @keyframes drift{
+      from{transform: translate3d(0,0,0)}
+      to{transform: translate3d(0,14px,0)}
+    }
+
+    /* Sticky Nav */
     .nav{
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: saturate(180%) blur(16px);
-      background: rgba(255,255,255,.78);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      background: rgba(255,255,255,.76);
       border-bottom: 1px solid var(--line);
+      transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .nav.scrolled{
+      background: rgba(255,255,255,.90);
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
     }
     .navin{
       max-width:var(--max);
@@ -75,10 +104,13 @@
       background:#fff;
       border:1px solid var(--line);
       padding:4px;
+      transition: transform 300ms var(--ease);
+      will-change: transform;
     }
+    .brand:hover img{transform: translateY(-1px) scale(1.02)}
     .brand strong{
       font-size:14px;
-      font-weight:800;
+      font-weight:850;
       letter-spacing:.2px;
       white-space:nowrap;
     }
@@ -90,27 +122,33 @@
       text-overflow:ellipsis;
       max-width:52vw;
     }
-    .navlinks{display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+    .navlinks{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
     .navlinks a{
       font-size:12px;
       color: var(--muted);
       padding:8px 10px;
       border-radius:999px;
+      transition: background 220ms var(--ease), color 220ms var(--ease), transform 220ms var(--ease);
     }
     .navlinks a:hover{
-      background: rgba(0,0,0,.04);
+      background: rgba(0,0,0,.045);
       text-decoration:none;
       color: var(--text);
+      transform: translateY(-1px);
     }
     .navlinks .pill{
       color:#fff;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 20px rgba(161,22,8,.18);
+      box-shadow: 0 12px 22px rgba(161,22,8,.18);
+    }
+    .navlinks .pill:hover{
+      background: linear-gradient(180deg, #b81a0a, #861307);
+      transform: translateY(-1px);
     }
 
-    /* Hero (Apple-style) */
+    /* Hero */
     .hero{
-      padding:56px 0 28px;
+      padding:62px 0 22px;
       text-align:center;
     }
     .eyebrow{
@@ -125,51 +163,53 @@
       width:7px; height:7px; border-radius:50%;
       background: var(--accent);
       display:inline-block;
+      box-shadow: 0 0 0 6px rgba(161,22,8,.08);
     }
-
     h1{
       margin:0 auto 14px;
       max-width:22ch;
-      font-size: clamp(36px, 5vw, 64px);
-      line-height: 1.05;
+      font-size: clamp(36px, 5vw, 66px);
+      line-height: 1.04;
       letter-spacing: -0.02em;
-      font-weight: 900;
+      font-weight: 950;
     }
     .lead{
       margin:0 auto 22px;
-      max-width: 70ch;
+      max-width: 74ch;
       color: var(--muted);
       font-size: 17px;
     }
-
     .ctarow{
       display:flex;
       gap:12px;
       justify-content:center;
       flex-wrap:wrap;
-      margin-top:16px;
+      margin-top:14px;
     }
     .btn{
       border-radius:999px;
       padding:12px 16px;
       font-size:13px;
-      font-weight:700;
+      font-weight:800;
       border:1px solid var(--line);
       background:#fff;
       color: var(--text);
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), filter 220ms var(--ease);
+      will-change: transform;
     }
     .btn.primary{
       color:#fff;
       border-color: transparent;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 12px 28px rgba(161,22,8,.20);
+      box-shadow: 0 14px 30px rgba(161,22,8,.20);
     }
-    .btn:hover{text-decoration:none; filter:brightness(1.02);}
+    .btn:hover{ text-decoration:none; transform: translateY(-2px); }
+    .btn.primary:hover{ filter: brightness(1.03); }
 
-    /* Big feature panel */
+    /* Feature panel */
     .panel{
       margin-top:22px;
       border-radius: var(--radius);
@@ -177,7 +217,7 @@
       background:
         radial-gradient(900px 420px at 20% 0%, rgba(161,22,8,.10) 0%, rgba(161,22,8,0) 60%),
         linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.01));
-      box-shadow: var(--shadow2);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
       overflow:hidden;
     }
     .panelin{
@@ -202,18 +242,26 @@
       font-size:12px;
       color: var(--text);
       background: rgba(0,0,0,.035);
-      border:1px solid rgba(0,0,0,.06);
+      border:1px solid rgba(0,0,0,.07);
       border-radius:999px;
       padding:8px 10px;
-      font-weight:700;
+      font-weight:750;
+      transition: transform 220ms var(--ease), background 220ms var(--ease);
     }
+    .chip:hover{transform: translateY(-1px); background: rgba(0,0,0,.05);}
 
     .card{
       border-radius: var(--radius2);
       border:1px solid var(--line);
       background: #fff;
-      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+      box-shadow: var(--shadowSoft);
       padding:18px;
+      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
+      will-change: transform;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.10);
     }
     .card h3{
       margin:0 0 8px;
@@ -223,14 +271,10 @@
       font-weight:900;
     }
     .card p{margin:0; color: var(--muted); font-size:14px;}
-    .fine{
-      margin-top:10px;
-      font-size:12px;
-      color: var(--muted);
-    }
+    .fine{margin-top:10px; font-size:12px; color: var(--muted);}
 
     /* Sections */
-    section{margin-top:36px;}
+    section{margin-top:40px;}
     .secthead{
       display:flex;
       align-items:flex-end;
@@ -271,7 +315,12 @@
       border:1px solid var(--line);
       background:#fff;
       padding:18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
+      box-shadow: var(--shadowSoft);
+      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
+    }
+    .step:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.10);
     }
     .step b{
       display:block;
@@ -288,19 +337,23 @@
       background:#fff;
       padding:14px 14px 0;
       margin-top:12px;
+      transition: box-shadow 260ms var(--ease);
     }
+    details[open]{box-shadow: var(--shadowSoft);}
     summary{
       cursor:pointer;
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
       letter-spacing:.08em;
       text-transform:uppercase;
       padding-bottom:14px;
+      list-style:none;
     }
+    summary::-webkit-details-marker{display:none}
     details .content{padding:0 0 14px; color: var(--muted); font-size:13px;}
 
     footer{
-      margin-top:46px;
+      margin-top:50px;
       border-top:1px solid var(--line);
       padding-top:18px;
       color: var(--muted);
@@ -313,6 +366,31 @@
     footer a{color: var(--muted);}
     footer a:hover{color: var(--text); text-decoration:none;}
 
+    /* ===== Scroll reveal (smooth) ===== */
+    .reveal{
+      opacity:0;
+      transform: translate3d(0, 16px, 0);
+      transition:
+        opacity var(--dur) var(--ease),
+        transform var(--dur) var(--ease);
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translate3d(0, 0, 0);
+    }
+    .delay-1{transition-delay:120ms}
+    .delay-2{transition-delay:220ms}
+    .delay-3{transition-delay:320ms}
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .bg-glow{animation:none}
+      .reveal{opacity:1; transform:none; transition:none}
+      .btn,.card,.step,.chip,.navlinks a,.brand img{transition:none}
+    }
+
     @media (max-width: 920px){
       .panelin{grid-template-columns:1fr}
       .grid3{grid-template-columns:1fr}
@@ -323,8 +401,9 @@
 </head>
 
 <body>
+  <div class="bg-glow" aria-hidden="true"></div>
 
-  <div class="nav">
+  <div class="nav" id="nav">
     <div class="navin">
       <div class="brand">
         <img src="assets/winterwerk-logo.png" alt="Winterwerk Logo">
@@ -344,7 +423,7 @@
 
   <div class="wrap">
 
-    <div class="hero">
+    <div class="hero reveal in">
       <div class="eyebrow"><span class="dot"></span> Klar. Hart. Seriös.</div>
       <h1>Außenflächen sauber. Punkt.</h1>
       <p class="lead">
@@ -357,9 +436,9 @@
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel reveal">
       <div class="panelin">
-        <div>
+        <div class="reveal in">
           <h2>Reinigung statt Handwerk.</h2>
           <p>
             Winterwerk reinigt. Ich repariere nichts, installiere nichts und verspreche kein Handwerk.
@@ -375,41 +454,39 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card reveal delay-1">
           <h3>So läuft’s</h3>
           <p>
             Du schickst Fläche + Ort/PLZ + grobe Größe. Foto optional.<br>
             Ich gebe eine klare Einschätzung. Dann wird gereinigt – ordentlich, fertig.
           </p>
-          <div class="fine">
-            Unklare Anfragen ohne Infos werden nicht priorisiert.
-          </div>
+          <div class="fine">Unklare Anfragen ohne Infos werden nicht priorisiert.</div>
         </div>
       </div>
     </div>
 
-    <section id="leistungen">
+    <section id="leistungen" class="reveal">
       <div class="secthead">
         <h2>Leistungen</h2>
         <span>Reinigung & Ordnung – klar abgegrenzt</span>
       </div>
 
       <div class="grid3">
-        <div class="card">
+        <div class="card reveal delay-1">
           <h3>Hochdruckreinigung</h3>
           <p>Terrassen, Einfahrten, Stellplätze, Gehwege, Höfe – gründlich und sauber umgesetzt.</p>
         </div>
-        <div class="card">
+        <div class="card reveal delay-2">
           <h3>Grünbelag & Schmutz</h3>
           <p>Entfernung von Grünbelag, Schmutz und Ablagerungen – realistisch eingeschätzt, sauber erledigt.</p>
         </div>
-        <div class="card">
+        <div class="card reveal delay-3">
           <h3>Außenbereich aufgeräumt</h3>
           <p>Ordnung und Vorbereitung rund um Haus & Hof (ohne Gartenbau). Damit es wieder ordentlich aussieht.</p>
         </div>
       </div>
 
-      <div class="listcard" style="margin-top:14px;">
+      <div class="listcard reveal" style="margin-top:14px;">
         <b style="letter-spacing:.08em; text-transform:uppercase; font-size:13px;">Nicht im Angebot</b>
         <ul>
           <li>Reparaturen jeglicher Art</li>
@@ -419,47 +496,47 @@
       </div>
     </section>
 
-    <section id="ablauf">
+    <section id="ablauf" class="reveal">
       <div class="secthead">
         <h2>Ablauf</h2>
         <span>3 Schritte. Kein Theater.</span>
       </div>
 
       <div class="steps">
-        <div class="step">
+        <div class="step reveal delay-1">
           <b>1 · Anfrage</b>
           <p>Mail mit Fläche + Ort/PLZ + grober Größe. Foto optional (spart Zeit).</p>
         </div>
-        <div class="step">
+        <div class="step reveal delay-2">
           <b>2 · Einschätzung</b>
           <p>Ich sage dir, ob Reinigung sinnvoll ist und was realistisch rauskommt.</p>
         </div>
-        <div class="step">
+        <div class="step reveal delay-3">
           <b>3 · Reinigung</b>
           <p>Hochdruck, ordentlich, fertig. Ich halte Termine ein und kommuniziere klar.</p>
         </div>
       </div>
     </section>
 
-    <section id="gebiet">
+    <section id="gebiet" class="reveal">
       <div class="secthead">
         <h2>Gebiet</h2>
         <span>Süd-Berliner Speckgürtel</span>
       </div>
 
-      <div class="card">
+      <div class="card reveal">
         <h3>Fokus</h3>
         <p>Einfamilienhäuser im Süd-Berliner Speckgürtel. Wenn du unsicher bist, ob dein Ort reinfällt: kurze Mail – ich sage dir direkt Bescheid.</p>
       </div>
     </section>
 
-    <section id="kontakt">
+    <section id="kontakt" class="reveal">
       <div class="secthead">
         <h2>Kontakt</h2>
         <span>Direkt. Ohne Umwege.</span>
       </div>
 
-      <div class="card">
+      <div class="card reveal">
         <h3>Anfrage</h3>
         <p>
           <b>E-Mail:</b> <a href="mailto:davidwinter.business@icloud.com">davidwinter.business@icloud.com</a><br><br>
@@ -467,7 +544,7 @@
         </p>
       </div>
 
-      <details>
+      <details class="reveal">
         <summary>Impressum (Muster)</summary>
         <div class="content">
           <p>
@@ -485,7 +562,7 @@
         </div>
       </details>
 
-      <details>
+      <details class="reveal">
         <summary>Datenschutz (Kurzfassung)</summary>
         <div class="content">
           <p>Diese Website nutzt keine Cookies, kein Tracking und keine Analyse-Tools. Es werden keine personenbezogenen Daten automatisch erhoben.</p>
@@ -494,7 +571,7 @@
       </details>
     </section>
 
-    <footer>
+    <footer class="reveal">
       <div>© <span id="year"></span> Winterwerk</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
         <a href="#leistungen">Leistungen</a>
@@ -506,7 +583,39 @@
   </div>
 
   <script>
+    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Nav style on scroll
+    const nav = document.getElementById("nav");
+    const onScroll = () => {
+      if (window.scrollY > 8) nav.classList.add("scrolled");
+      else nav.classList.remove("scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Smooth reveal on scroll
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!prefersReduced && "IntersectionObserver" in window) {
+      const els = Array.from(document.querySelectorAll(".reveal"));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+
+      els.forEach(el => {
+        // hero is already "in" initially; others animate when entering
+        if (!el.classList.contains("in")) io.observe(el);
+      });
+    } else {
+      // Fallback: just show everything
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+    }
   </script>
 </body>
 </html>
