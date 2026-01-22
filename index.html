@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Winterwerk – Außenflächen reinigen</title>
-  <meta name="description" content="Winterwerk: Hochdruckreinigung für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel. Klar. Seriös. Sauber." />
+  <title>Winterwerk – Hochdruckreinigung für Außenflächen</title>
+  <meta name="description" content="Winterwerk: Hochdruckreinigung (Kärcher) für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel. Klar. Hart. Seriös." />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="Winterwerk – Außenflächen sauber. Punkt." />
-  <meta property="og:description" content="Hochdruckreinigung (Kärcher) für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel." />
+  <meta property="og:description" content="Hochdruckreinigung für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel." />
   <meta property="og:type" content="website" />
 
   <style>
@@ -17,19 +17,16 @@
       --text:#0a0a0a;
       --muted:#5b5b5b;
       --line:rgba(0,0,0,.10);
-      --shadow: 0 12px 34px rgba(0,0,0,.10);
-      --shadowSoft: 0 10px 24px rgba(0,0,0,.06);
 
       --accent:#A11608;
       --accent2:#7F1206;
 
-      --radius:22px;
-      --radius2:16px;
       --max:1120px;
+      --radius:24px;
 
-      /* Motion */
+      /* motion */
       --ease:cubic-bezier(.2,.8,.2,1);
-      --dur:650ms;
+      --dur:720ms;
     }
 
     *{box-sizing:border-box}
@@ -48,28 +45,7 @@
     a{color:inherit; text-decoration:none}
     a:hover{text-decoration:underline}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px 16px 88px;}
-
-    /* Subtle background glow */
-    .bg-glow{
-      position:fixed;
-      inset:-40vh -20vw auto -20vw;
-      height:70vh;
-      pointer-events:none;
-      background:
-        radial-gradient(900px 460px at 50% 30%, rgba(161,22,8,.10) 0%, rgba(161,22,8,0) 60%),
-        radial-gradient(700px 380px at 15% 20%, rgba(0,0,0,.06) 0%, rgba(0,0,0,0) 55%);
-      filter: blur(8px);
-      opacity:.9;
-      transform: translateZ(0);
-      animation: drift 10s var(--ease) infinite alternate;
-    }
-    @keyframes drift{
-      from{transform: translate3d(0,0,0)}
-      to{transform: translate3d(0,14px,0)}
-    }
-
-    /* Sticky Nav */
+    /* ===== Sticky nav (clean) ===== */
     .nav{
       position: sticky;
       top: 0;
@@ -81,8 +57,8 @@
       transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
     }
     .nav.scrolled{
-      background: rgba(255,255,255,.90);
-      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
     }
     .navin{
       max-width:var(--max);
@@ -139,23 +115,50 @@
     .navlinks .pill{
       color:#fff;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 12px 22px rgba(161,22,8,.18);
+      box-shadow: 0 14px 28px rgba(161,22,8,.18);
     }
     .navlinks .pill:hover{
-      background: linear-gradient(180deg, #b81a0a, #861307);
+      filter: brightness(1.03);
       transform: translateY(-1px);
     }
 
-    /* Hero */
+    /* ===== Layout wrappers ===== */
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 16px;}
+    .spacer{height:12px}
+
+    /* ===== Hero (image + subtle water animation) ===== */
     .hero{
-      padding:62px 0 22px;
-      text-align:center;
+      position:relative;
+      max-width:var(--max);
+      margin:18px auto 0;
+      border-radius: calc(var(--radius) + 4px);
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#0b0b0b;
+      min-height: 560px;
+      box-shadow: 0 22px 60px rgba(0,0,0,.14);
+    }
+    .hero .photo{
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.32) 45%, rgba(0,0,0,.18) 65%, rgba(0,0,0,.45) 100%),
+        url("assets/hero.jpg");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.02);
+      will-change: transform;
+    }
+    .hero .content{
+      position:relative;
+      z-index:2;
+      padding: 62px 22px 22px;
+      max-width: 740px;
     }
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      color: var(--muted);
+      color: rgba(255,255,255,.85);
       font-size:13px;
       margin-bottom:14px;
     }
@@ -163,201 +166,229 @@
       width:7px; height:7px; border-radius:50%;
       background: var(--accent);
       display:inline-block;
-      box-shadow: 0 0 0 6px rgba(161,22,8,.08);
+      box-shadow: 0 0 0 7px rgba(161,22,8,.16);
     }
-    h1{
-      margin:0 auto 14px;
-      max-width:22ch;
-      font-size: clamp(36px, 5vw, 66px);
-      line-height: 1.04;
-      letter-spacing: -0.02em;
+    .hero h1{
+      margin:0 0 14px;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height:1.04;
+      letter-spacing:-0.02em;
       font-weight: 950;
+      color:#fff;
+      max-width: 18ch;
     }
-    .lead{
-      margin:0 auto 22px;
-      max-width: 74ch;
-      color: var(--muted);
+    .hero .lead{
+      margin:0 0 18px;
+      color: rgba(255,255,255,.82);
       font-size: 17px;
+      max-width: 70ch;
     }
+
     .ctarow{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:14px;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin-top: 14px;
     }
     .btn{
       border-radius:999px;
       padding:12px 16px;
       font-size:13px;
       font-weight:800;
-      border:1px solid var(--line);
-      background:#fff;
-      color: var(--text);
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      color:#fff;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), filter 220ms var(--ease);
+      transition: transform 220ms var(--ease), filter 220ms var(--ease), background 220ms var(--ease);
       will-change: transform;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
+    .btn:hover{ text-decoration:none; transform: translateY(-2px); background: rgba(255,255,255,.14); }
     .btn.primary{
-      color:#fff;
       border-color: transparent;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 30px rgba(161,22,8,.20);
+      box-shadow: 0 16px 32px rgba(161,22,8,.22);
     }
-    .btn:hover{ text-decoration:none; transform: translateY(-2px); }
     .btn.primary:hover{ filter: brightness(1.03); }
 
-    /* Feature panel */
-    .panel{
-      margin-top:22px;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background:
-        radial-gradient(900px 420px at 20% 0%, rgba(161,22,8,.10) 0%, rgba(161,22,8,0) 60%),
-        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.01));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
-      overflow:hidden;
-    }
-    .panelin{
-      display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap:18px;
-      padding:22px;
-      align-items:stretch;
-    }
-    .panel h2{
-      margin:0 0 10px;
-      font-size:22px;
-      letter-spacing:-.01em;
-    }
-    .panel p{
-      margin:0;
-      color: var(--muted);
-      font-size:15px;
-    }
-    .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
-    .chip{
+    .hero .note{
+      margin-top:14px;
       font-size:12px;
-      color: var(--text);
-      background: rgba(0,0,0,.035);
-      border:1px solid rgba(0,0,0,.07);
-      border-radius:999px;
-      padding:8px 10px;
-      font-weight:750;
-      transition: transform 220ms var(--ease), background 220ms var(--ease);
+      color: rgba(255,255,255,.72);
     }
-    .chip:hover{transform: translateY(-1px); background: rgba(0,0,0,.05);}
 
-    .card{
-      border-radius: var(--radius2);
-      border:1px solid var(--line);
-      background: #fff;
-      box-shadow: var(--shadowSoft);
-      padding:18px;
-      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
-      will-change: transform;
+    /* Water spray SVG overlay */
+    .spray{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      opacity: .55;
+      mix-blend-mode: screen;
     }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.10);
-    }
-    .card h3{
-      margin:0 0 8px;
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:900;
-    }
-    .card p{margin:0; color: var(--muted); font-size:14px;}
-    .fine{margin-top:10px; font-size:12px; color: var(--muted);}
 
-    /* Sections */
-    section{margin-top:40px;}
-    .secthead{
+    /* ===== Sections (no tiles) ===== */
+    section{
+      padding: 64px 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    section:last-of-type{border-bottom:none}
+
+    .section-head{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:14px;
+      gap:16px;
       flex-wrap:wrap;
-      margin-bottom:14px;
+      margin-bottom: 18px;
     }
-    .secthead h2{
+    .section-head h2{
       margin:0;
-      font-size:22px;
-      letter-spacing:-.01em;
+      font-size: 28px;
+      letter-spacing:-0.01em;
+      font-weight: 900;
     }
-    .secthead span{color:var(--muted); font-size:13px;}
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      max-width: 65ch;
+      font-size: 14px;
+    }
 
-    .grid3{
+    /* Split with image */
+    .split{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 26px;
+      align-items: center;
     }
+    .copy h3{
+      margin:0 0 10px;
+      font-size: 16px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+    .copy p{
+      margin:0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .bullets{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .bullets li{margin:8px 0}
 
-    .listcard{
-      border-radius: var(--radius2);
+    .image{
+      border-radius: var(--radius);
+      overflow:hidden;
       border:1px solid var(--line);
-      background: rgba(0,0,0,.02);
-      padding:18px;
+      background: #0f0f0f;
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+      position:relative;
+      min-height: 360px;
     }
-    ul{margin:10px 0 0; padding-left:18px; color: var(--muted);}
-    li{margin:8px 0;}
+    .image .bg{
+      position:absolute; inset:0;
+      background-size: cover;
+      background-position:center;
+      transform: scale(1.02);
+      will-change: transform;
+      filter: saturate(1.03) contrast(1.02);
+    }
+    .image .label{
+      position:absolute;
+      left: 14px;
+      bottom: 14px;
+      color:#fff;
+      font-size:12px;
+      font-weight:850;
+      padding: 8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.38);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
 
+    /* Steps – no cards: just clean lines */
     .steps{
       display:grid;
-      gap:12px;
       grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
     }
     .step{
-      border-radius: var(--radius2);
-      border:1px solid var(--line);
-      background:#fff;
-      padding:18px;
-      box-shadow: var(--shadowSoft);
-      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
-    }
-    .step:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.10);
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,.10);
     }
     .step b{
       display:block;
-      font-size:13px;
-      letter-spacing:.08em;
+      font-size: 12px;
+      letter-spacing:.10em;
       text-transform:uppercase;
-      margin-bottom:8px;
+      font-weight: 950;
+      margin-bottom: 8px;
     }
-    .step p{margin:0; color: var(--muted); font-size:14px;}
+    .step p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Contact block – clean */
+    .contact{
+      border:1px solid rgba(0,0,0,.10);
+      border-radius: var(--radius);
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.01));
+    }
+    .contact p{margin:0; color: var(--muted); font-size: 15px}
+    .contact .email{
+      display:inline-flex;
+      margin-top: 10px;
+      font-weight: 900;
+      color: var(--text);
+      border-bottom: 2px solid rgba(161,22,8,.35);
+      padding-bottom: 2px;
+    }
 
     details{
-      border:1px solid var(--line);
-      border-radius: var(--radius2);
+      margin-top: 14px;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius: 16px;
+      padding: 14px 14px 0;
       background:#fff;
-      padding:14px 14px 0;
-      margin-top:12px;
-      transition: box-shadow 260ms var(--ease);
     }
-    details[open]{box-shadow: var(--shadowSoft);}
     summary{
       cursor:pointer;
-      font-weight:900;
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      padding-bottom:14px;
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      padding-bottom: 14px;
       list-style:none;
     }
     summary::-webkit-details-marker{display:none}
-    details .content{padding:0 0 14px; color: var(--muted); font-size:13px;}
+    details .content{
+      padding:0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
     footer{
-      margin-top:50px;
-      border-top:1px solid var(--line);
-      padding-top:18px;
+      padding: 28px 0 60px;
       color: var(--muted);
-      font-size:12px;
+      font-size: 12px;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+    footer .fwrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 16px;
       display:flex;
       justify-content:space-between;
       gap:10px;
@@ -366,13 +397,11 @@
     footer a{color: var(--muted);}
     footer a:hover{color: var(--text); text-decoration:none;}
 
-    /* ===== Scroll reveal (smooth) ===== */
+    /* ===== Scroll reveal + light parallax ===== */
     .reveal{
       opacity:0;
-      transform: translate3d(0, 16px, 0);
-      transition:
-        opacity var(--dur) var(--ease),
-        transform var(--dur) var(--ease);
+      transform: translate3d(0, 14px, 0);
+      transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
       will-change: opacity, transform;
     }
     .reveal.in{
@@ -383,17 +412,30 @@
     .delay-2{transition-delay:220ms}
     .delay-3{transition-delay:320ms}
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .bg-glow{animation:none}
-      .reveal{opacity:1; transform:none; transition:none}
-      .btn,.card,.step,.chip,.navlinks a,.brand img{transition:none}
+    /* subtle “water motion” path animation */
+    @keyframes dash {
+      from { stroke-dashoffset: 480; opacity:.0; }
+      10% { opacity:.55; }
+      70% { opacity:.55; }
+      to   { stroke-dashoffset: 0; opacity:.0; }
+    }
+    @keyframes mist {
+      from { transform: translate3d(0,0,0); opacity:.15; }
+      to   { transform: translate3d(10px,-6px,0); opacity:.28; }
     }
 
-    @media (max-width: 920px){
-      .panelin{grid-template-columns:1fr}
-      .grid3{grid-template-columns:1fr}
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1; transform:none; transition:none}
+      .hero .photo, .image .bg{transform:none}
+      .spray *{animation:none !important}
+    }
+
+    @media (max-width: 960px){
+      .hero{min-height: 560px}
+      .split{grid-template-columns:1fr}
+      .image{min-height: 320px}
       .steps{grid-template-columns:1fr}
       .brand span{max-width:70vw}
     }
@@ -401,8 +443,6 @@
 </head>
 
 <body>
-  <div class="bg-glow" aria-hidden="true"></div>
-
   <div class="nav" id="nav">
     <div class="navin">
       <div class="brand">
@@ -413,7 +453,7 @@
         </div>
       </div>
       <div class="navlinks">
-        <a href="#leistungen">Leistungen</a>
+        <a href="#leistungen">Leistung</a>
         <a href="#ablauf">Ablauf</a>
         <a href="#gebiet">Gebiet</a>
         <a class="pill" href="#kontakt">Anfrage</a>
@@ -421,85 +461,92 @@
     </div>
   </div>
 
-  <div class="wrap">
+  <div class="hero" id="hero">
+    <div class="photo" data-parallax="0.18"></div>
 
-    <div class="hero reveal in">
+    <!-- Subtle animated water spray overlay -->
+    <svg class="spray" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+      <!-- Mist -->
+      <defs>
+        <radialGradient id="mist" cx="70%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="rgba(255,255,255,.55)"/>
+          <stop offset="45%" stop-color="rgba(255,255,255,.20)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="820" cy="320" rx="360" ry="210" fill="url(#mist)" style="animation: mist 2.6s var(--ease) infinite alternate;"></ellipse>
+
+      <!-- Water stream lines (animated dashes) -->
+      <g fill="none" stroke="rgba(255,255,255,.65)" stroke-width="2.2" stroke-linecap="round">
+        <path d="M120 520 C 340 470, 540 410, 820 320" stroke-dasharray="480" stroke-dashoffset="480" style="animation: dash 2.4s var(--ease) infinite;"></path>
+        <path d="M140 540 C 360 490, 560 430, 840 340" stroke-dasharray="480" stroke-dashoffset="480" style="animation: dash 2.7s var(--ease) infinite; animation-delay:.25s;"></path>
+        <path d="M160 560 C 380 510, 580 450, 860 360" stroke-dasharray="480" stroke-dashoffset="480" style="animation: dash 3.0s var(--ease) infinite; animation-delay:.45s;"></path>
+      </g>
+
+      <!-- tiny droplets -->
+      <g fill="rgba(255,255,255,.35)">
+        <circle cx="760" cy="345" r="2.2"></circle>
+        <circle cx="790" cy="330" r="1.8"></circle>
+        <circle cx="820" cy="315" r="2.0"></circle>
+        <circle cx="850" cy="300" r="1.6"></circle>
+      </g>
+    </svg>
+
+    <div class="content reveal in">
       <div class="eyebrow"><span class="dot"></span> Klar. Hart. Seriös.</div>
       <h1>Außenflächen sauber. Punkt.</h1>
       <p class="lead">
         Winterwerk ist ein spezialisierter Reinigungsservice für Einfamilienhäuser im Süd-Berliner Speckgürtel.
         Hochdruckreinigung (Kärcher) von Terrassen, Einfahrten und Höfen – sauber umgesetzt, klar kommuniziert.
       </p>
+
       <div class="ctarow">
-        <a class="btn primary" href="mailto:davidwinter.business@icloud.com?subject=Winterwerk%20Anfrage%20-%20%5BOrt%2FPLZ%5D&body=Hallo%20Winterwerk%2C%0A%0AFl%C3%A4che%3A%20(z.%20B.%20Terrasse%2C%20Einfahrt%2C%20Hof)%0AOrt%2FPLZ%3A%20%0AGr%C3%B6%C3%9Fe%20(grob)%3A%20%0AZustand%3A%20(z.%20B.%20Gr%C3%BCnbelag%2C%20stark%20verschmutzt)%0AZeitraum%3A%20%0A%0AFoto%20(optional)%3A%20%0A%0ADanke%2C">Anfrage per E-Mail</a>
-        <a class="btn" href="#leistungen">Leistungen ansehen</a>
+        <a class="btn primary" href="mailto:davidwinter.business@icloud.com?subject=Winterwerk%20Anfrage%20-%20%5BOrt%2FPLZ%5D&body=Hallo%20Winterwerk%2C%0A%0AFl%C3%A4che%3A%20(Terrasse%2C%20Einfahrt%2C%20Hof%2C%20Gehweg)%0AOrt%2FPLZ%3A%20%0AGr%C3%B6%C3%9Fe%20(grob)%3A%20%0AZustand%3A%20(Gr%C3%BCnbelag%2C%20stark%20verschmutzt%2C%20etc.)%0AZeitraum%3A%20%0A%0AFoto%20(optional)%3A%20%0A%0ADanke%2C">Anfrage per E-Mail</a>
+        <a class="btn" href="#leistungen">Leistung ansehen</a>
+      </div>
+
+      <div class="note">
+        In die Mail gehören: Fläche · Ort/PLZ · grobe Größe · Zustand · Zeitraum · optional Foto.
       </div>
     </div>
+  </div>
 
-    <div class="panel reveal">
-      <div class="panelin">
-        <div class="reveal in">
-          <h2>Reinigung statt Handwerk.</h2>
-          <p>
-            Winterwerk reinigt. Ich repariere nichts, installiere nichts und verspreche kein Handwerk.
-            Wer saubere Außenflächen will, ist hier richtig. Wer etwas repariert haben will, nicht.
-          </p>
-
-          <div class="chips">
-            <div class="chip">Terrasse</div>
-            <div class="chip">Einfahrt</div>
-            <div class="chip">Hof</div>
-            <div class="chip">Gehweg</div>
-            <div class="chip">Grünbelag</div>
-          </div>
-        </div>
-
-        <div class="card reveal delay-1">
-          <h3>So läuft’s</h3>
-          <p>
-            Du schickst Fläche + Ort/PLZ + grobe Größe. Foto optional.<br>
-            Ich gebe eine klare Einschätzung. Dann wird gereinigt – ordentlich, fertig.
-          </p>
-          <div class="fine">Unklare Anfragen ohne Infos werden nicht priorisiert.</div>
-        </div>
-      </div>
-    </div>
+  <div class="wrap">
 
     <section id="leistungen" class="reveal">
-      <div class="secthead">
-        <h2>Leistungen</h2>
-        <span>Reinigung & Ordnung – klar abgegrenzt</span>
+      <div class="section-head">
+        <h2>Leistung</h2>
+        <p>Fokus auf Hochdruckreinigung und Außenflächen. Keine Reparaturen, keine Installationen, kein Handwerk.</p>
       </div>
 
-      <div class="grid3">
-        <div class="card reveal delay-1">
-          <h3>Hochdruckreinigung</h3>
-          <p>Terrassen, Einfahrten, Stellplätze, Gehwege, Höfe – gründlich und sauber umgesetzt.</p>
+      <div class="split">
+        <div class="copy reveal delay-1">
+          <h3>Hochdruckreinigung (Kärcher)</h3>
+          <p>
+            Terrassen, Einfahrten, Stellplätze, Gehwege und Höfe – gründlich und sauber umgesetzt.
+            Ich sage vorher, was realistisch möglich ist. Keine leeren Versprechen.
+          </p>
+          <ul class="bullets">
+            <li>Entfernung von Schmutz, Grünbelag und Ablagerungen</li>
+            <li>Saubere Kanten, klare Fläche, ordentliches Finish</li>
+            <li>Ordnung & Vorbereitung im Außenbereich (ohne Gartenbau)</li>
+          </ul>
+          <p style="margin-top:14px;">
+            <strong>Nicht im Angebot:</strong> Reparaturen, Bau/Elektro/Sanitär/Installationen, „mal eben“ Sonderwünsche außerhalb Reinigung/Ordnung.
+          </p>
         </div>
-        <div class="card reveal delay-2">
-          <h3>Grünbelag & Schmutz</h3>
-          <p>Entfernung von Grünbelag, Schmutz und Ablagerungen – realistisch eingeschätzt, sauber erledigt.</p>
-        </div>
-        <div class="card reveal delay-3">
-          <h3>Außenbereich aufgeräumt</h3>
-          <p>Ordnung und Vorbereitung rund um Haus & Hof (ohne Gartenbau). Damit es wieder ordentlich aussieht.</p>
-        </div>
-      </div>
 
-      <div class="listcard reveal" style="margin-top:14px;">
-        <b style="letter-spacing:.08em; text-transform:uppercase; font-size:13px;">Nicht im Angebot</b>
-        <ul>
-          <li>Reparaturen jeglicher Art</li>
-          <li>Bau-, Elektro-, Sanitär- oder Installationsarbeiten</li>
-          <li>„Mal eben mitmachen“-Sonderwünsche außerhalb Reinigung/Ordnung</li>
-        </ul>
+        <div class="image reveal delay-2">
+          <div class="bg" data-parallax="0.10" style="background-image:url('assets/terrasse.jpg')"></div>
+          <div class="label">Terrasse</div>
+        </div>
       </div>
     </section>
 
     <section id="ablauf" class="reveal">
-      <div class="secthead">
+      <div class="section-head">
         <h2>Ablauf</h2>
-        <span>3 Schritte. Kein Theater.</span>
+        <p>3 Schritte. Kein Theater. Klare Kommunikation, saubere Umsetzung.</p>
       </div>
 
       <div class="steps">
@@ -513,34 +560,74 @@
         </div>
         <div class="step reveal delay-3">
           <b>3 · Reinigung</b>
-          <p>Hochdruck, ordentlich, fertig. Ich halte Termine ein und kommuniziere klar.</p>
+          <p>Hochdruck, ordentlich, fertig. Termine werden eingehalten.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <h2>Typische Flächen</h2>
+        <p>Modern, sauber, einladend – genau dafür ist das gemacht.</p>
+      </div>
+
+      <div class="split">
+        <div class="image reveal delay-1">
+          <div class="bg" data-parallax="0.10" style="background-image:url('assets/einfahrt.jpg')"></div>
+          <div class="label">Einfahrt</div>
+        </div>
+        <div class="copy reveal delay-2">
+          <h3>Einfahrt · Hof · Gehweg</h3>
+          <p>
+            Das Ziel ist nicht „irgendwie besser“, sondern sichtbar sauber.
+            Wenn du eine klare Fläche willst, ohne Diskussion, dann passt Winterwerk.
+          </p>
+          <ul class="bullets">
+            <li>Starker Grünbelag → sichtbar reduziert</li>
+            <li>Hartnäckige Ablagerungen → sauber gelöst (im Rahmen der Fläche)</li>
+            <li>Ordnung im Außenbereich → klare Optik</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:26px;">
+        <div class="copy reveal delay-1">
+          <h3>Hof & Außenbereich</h3>
+          <p>
+            Sauberkeit wirkt sofort. Und genau das verkaufen wir: Ergebnis.
+            Keine Handwerksnummer, kein Bla – Reinigung, fertig.
+          </p>
+        </div>
+        <div class="image reveal delay-2">
+          <div class="bg" data-parallax="0.10" style="background-image:url('assets/hof.jpg')"></div>
+          <div class="label">Hof</div>
         </div>
       </div>
     </section>
 
     <section id="gebiet" class="reveal">
-      <div class="secthead">
+      <div class="section-head">
         <h2>Gebiet</h2>
-        <span>Süd-Berliner Speckgürtel</span>
+        <p>Fokus: Einfamilienhäuser im Süd-Berliner Speckgürtel. Wenn du unsicher bist: Mail reicht.</p>
       </div>
-
-      <div class="card reveal">
-        <h3>Fokus</h3>
-        <p>Einfamilienhäuser im Süd-Berliner Speckgürtel. Wenn du unsicher bist, ob dein Ort reinfällt: kurze Mail – ich sage dir direkt Bescheid.</p>
-      </div>
+      <p style="margin:0; color:var(--muted); font-size:15px;">
+        Ich arbeite regional und effizient. Kurze Wege, klare Termine, saubere Leistung.
+      </p>
     </section>
 
     <section id="kontakt" class="reveal">
-      <div class="secthead">
+      <div class="section-head">
         <h2>Kontakt</h2>
-        <span>Direkt. Ohne Umwege.</span>
+        <p>Direkt. Ohne Umwege. Wenn die Mail klar ist, ist die Antwort auch klar.</p>
       </div>
 
-      <div class="card reveal">
-        <h3>Anfrage</h3>
+      <div class="contact">
         <p>
-          <b>E-Mail:</b> <a href="mailto:davidwinter.business@icloud.com">davidwinter.business@icloud.com</a><br><br>
-          <b>In die Mail gehören:</b> Fläche · Ort/PLZ · grobe Größe · Zustand · Zeitraum · optional Foto
+          <strong>E-Mail:</strong><br>
+          <a class="email" href="mailto:davidwinter.business@icloud.com">davidwinter.business@icloud.com</a>
+        </p>
+        <p style="margin-top:12px;">
+          <strong>In die Mail gehören:</strong> Fläche · Ort/PLZ · grobe Größe · Zustand · Zeitraum · optional Foto
         </p>
       </div>
 
@@ -571,16 +658,19 @@
       </details>
     </section>
 
-    <footer class="reveal">
+    <div class="spacer"></div>
+  </div>
+
+  <footer>
+    <div class="fwrap">
       <div>© <span id="year"></span> Winterwerk</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
-        <a href="#leistungen">Leistungen</a>
+        <a href="#leistungen">Leistung</a>
         <a href="#ablauf">Ablauf</a>
         <a href="#kontakt">Kontakt</a>
       </div>
-    </footer>
-
-  </div>
+    </div>
+  </footer>
 
   <script>
     // Year
@@ -595,7 +685,7 @@
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Smooth reveal on scroll
+    // Scroll reveal
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!prefersReduced && "IntersectionObserver" in window) {
       const els = Array.from(document.querySelectorAll(".reveal"));
@@ -609,12 +699,24 @@
       }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
 
       els.forEach(el => {
-        // hero is already "in" initially; others animate when entering
         if (!el.classList.contains("in")) io.observe(el);
       });
     } else {
-      // Fallback: just show everything
       document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+    }
+
+    // Very light parallax (images only)
+    if (!prefersReduced) {
+      const parallaxEls = Array.from(document.querySelectorAll("[data-parallax]"));
+      const parallax = () => {
+        const y = window.scrollY || 0;
+        parallaxEls.forEach(el => {
+          const factor = parseFloat(el.getAttribute("data-parallax")) || 0.1;
+          el.style.transform = `translate3d(0, ${y * factor * -0.06}px, 0) scale(1.02)`;
+        });
+      };
+      parallax();
+      window.addEventListener("scroll", parallax, { passive: true });
     }
   </script>
 </body>
