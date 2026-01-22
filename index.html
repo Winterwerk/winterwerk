@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winterwerk – Hochdruckreinigung für Außenflächen</title>
+  <meta name="description" content="Winterwerk: Hochdruckreinigung (Kärcher) für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel. Klar. Hart. Seriös." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Basic Open Graph for link previews -->
+  <meta property="og:title" content="Winterwerk – Außenflächen sauber. Punkt." />
+  <meta property="og:description" content="Hochdruckreinigung (Kärcher) für Terrassen, Einfahrten und Höfe im Süd-Berliner Speckgürtel." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      /* Logo-inspiriert */
+      --red:#A11608;
+      --red2:#7F1206;
+      --black:#060A0A;
+      --paper:#ffffff;
+      --panel:#f4f4f4;
+      --shadow:rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--black);
+      background:
+        radial-gradient(900px 520px at 50% -120px, #ededed 0%, var(--paper) 55%),
+        linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 16px 70px;}
+
+    /* Topbar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border:2px solid var(--black);
+      border-radius:14px;
+      background: linear-gradient(180deg, #ffffff, #f4f4f4);
+      box-shadow: 0 10px 0 var(--shadow);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:0;
+    }
+    .brand img{
+      width:58px; height:58px;
+      object-fit:contain;
+      border:2px solid var(--black);
+      border-radius:12px;
+      background:#fff;
+      padding:6px;
+    }
+    .brandtext{display:flex; flex-direction:column; gap:2px; min-width:0}
+    .brandtext strong{
+      letter-spacing:1px;
+      font-weight:900;
+      text-transform:uppercase;
+      font-size:16px;
+      line-height:1.1;
+    }
+    .brandtext span{
+      color:#222;
+      font-size:13px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:62vw;
+    }
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    nav a{
+      font-size:13px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      padding:10px 10px;
+      border:2px solid var(--black);
+      border-radius:12px;
+      background:#fff;
+    }
+    nav a:hover{background:var(--panel); text-decoration:none}
+
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      border:2px solid var(--black);
+      border-radius:18px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 12px 0 var(--shadow);
+    }
+    .herohead{
+      padding:18px 18px 16px;
+      background:
+        linear-gradient(90deg, var(--black) 0%, #0f0f0f 60%),
+        radial-gradient(700px 220px at 30% 0%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 60%);
+      color:#fff;
+    }
+    .kicker{
+      display:inline-block;
+      padding:6px 10px;
+      border:2px solid #fff;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      opacity:.95;
+      margin-bottom:10px;
+    }
+    .herohead h1{
+      margin:0 0 8px;
+      font-size:40px;
+      line-height:1.05;
+      letter-spacing:-0.7px;
+    }
+    .herohead p{
+      margin:0;
+      max-width:80ch;
+      opacity:.92;
+      font-size:15px;
+    }
+    .herobody{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:14px;
+      padding:16px 18px 18px;
+      background:
+        radial-gradient(900px 500px at 70% -30%, rgba(161,22,8,0.10) 0%, rgba(161,22,8,0) 55%),
+        linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+    }
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 14px}
+    .pill{
+      border:2px solid var(--black);
+      background:#fff;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
+    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:8px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:12px;
+      border:2px solid var(--black);
+      background:#fff;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      font-size:13px;
+    }
+    .btn.primary{
+      background: linear-gradient(180deg, var(--red) 0%, var(--red2) 100%);
+      color:#fff;
+      border-color: var(--black);
+    }
+    .btn:hover{filter:brightness(1.03); text-decoration:none}
+
+    .card{
+      border:2px solid var(--black);
+      border-radius:16px;
+      background:#fff;
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size:14px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
+    .card p{margin:0; color:#111; font-size:14px;}
+    .note{margin-top:10px; font-size:12px; color:#222;}
+
+    /* Sections */
+    section{margin-top:18px;}
+    .sectiontitle{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin:0 0 10px;
+    }
+    .sectiontitle h2{
+      margin:0;
+      font-size:18px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.9px;
+    }
+    .tag{
+      background:#fff;
+      border:2px solid var(--black);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    ul{margin:10px 0 0; padding-left:18px;}
+    li{margin:7px 0; color:#111; font-size:14px;}
+
+    .steps{display:grid; gap:10px; margin-top:10px;}
+    .step{
+      display:flex; gap:10px; align-items:flex-start;
+      border:2px solid var(--black);
+      border-radius:14px;
+      padding:12px;
+      background: var(--panel);
+    }
+    .num{
+      width:30px; height:30px;
+      border:2px solid var(--black);
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:1000;
+      background:#fff;
+      flex:0 0 30px;
+    }
+    .step strong{
+      display:block;
+      font-size:13px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      margin-bottom:2px;
+    }
+    .step span{display:block; color:#111; font-size:14px;}
+
+    details{
+      border:2px solid var(--black);
+      border-radius:16px;
+      background:#fff;
+      padding:12px 12px 0;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      padding-bottom:12px;
+    }
+    details .content{padding:0 0 12px; color:#111; font-size:13px;}
+    .muted{color:#222}
+
+    footer{
+      margin-top:18px;
+      border:2px solid var(--black);
+      border-radius:16px;
+      background:#fff;
+      padding:14px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      font-size:12px;
+      color:#111;
+    }
+    footer .links{display:flex; gap:12px; flex-wrap:wrap}
+
+    @media (max-width: 900px){
+      .herobody{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .two{grid-template-columns:1fr}
+      .herohead h1{font-size:32px}
+      nav{justify-content:flex-start}
+      .brandtext span{max-width:70vw}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/winterwerk-logo.png" alt="Winterwerk Logo">
+        <div class="brandtext">
+          <strong>Winterwerk</strong>
+          <span>Hochdruckreinigung für Außenflächen – Süd-Berliner Speckgürtel</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#gebiet">Gebiet</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div class="herohead">
+        <div class="kicker">Klar. Hart. Seriös.</div>
+        <h1>Außenflächen sauber. Punkt.</h1>
+        <p>
+          Winterwerk ist ein spezialisierter Reinigungsservice für Einfamilienhäuser im Süd-Berliner Speckgürtel.
+          Hochdruckreinigung (Kärcher) von Terrassen, Einfahrten und Höfen – klar geregelt, sauber erledigt.
+        </p>
+      </div>
+
+      <div class="herobody">
+        <div>
+          <div class="pillrow">
+            <div class="pill">Terrasse</div>
+            <div class="pill">Einfahrt</div>
+            <div class="pill">Hof</div>
+            <div class="pill">Gehweg</div>
+          </div>
+
+          <div class="cta">
+            <a class="btn primary" href="mailto:davidwinter.business@icloud.com?subject=Winterwerk%20Anfrage%20-%20%5BOrt%2FPLZ%5D&body=Hallo%20Winterwerk%2C%0A%0AFl%C3%A4che%3A%20(z.%20B.%20Terrasse%2C%20Einfahrt%2C%20Hof)%0AOrt%2FPLZ%3A%20%0AGr%C3%B6%C3%9Fe%20(grob)%3A%20%0AZustand%3A%20(z.%20B.%20Gr%C3%BCnbelag%2C%20stark%20verschmutzt)%0AZeitraum%3A%20%0A%0AFoto%20(optional)%3A%20%0A%0ADanke%2C">
+              Anfrage per E-Mail
+            </a>
+            <a class="btn" href="#leistungen">Leistungen ansehen</a>
+          </div>
+
+          <div class="note">
+            In die Mail gehören: Fläche, Ort/PLZ, grobe Größe, Zustand. Foto optional. Unklare Anfragen ohne Infos werden nicht priorisiert.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Klare Ansage</h3>
+          <p>
+            Winterwerk reinigt. Ich repariere nichts, installiere nichts und verspreche kein Handwerk.
+            Wer saubere Außenflächen will, ist hier richtig. Wer etwas repariert haben will, nicht.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section id="leistungen">
+      <div class="sectiontitle">
+        <h2>Leistungen</h2>
+        <div class="tag">Reinigung & Ordnung</div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Hochdruckreinigung</h3>
+          <p>Terrassen, Einfahrten, Stellplätze, Gehwege, Höfe – gründlich mit Kärcher, sauber bis in die Fuge (im Rahmen der Fläche).</p>
+        </div>
+        <div class="card">
+          <h3>Grünbelag & Ablagerungen</h3>
+          <p>Entfernung von Schmutz, Grünbelag und festgesetzten Ablagerungen – realistisch eingeschätzt, sauber umgesetzt.</p>
+        </div>
+        <div class="card">
+          <h3>Außenfläche aufgeräumt</h3>
+          <p>Ordnung und Vorbereitung rund um Haus & Hof (ohne Gartenbau). Damit es wieder ordentlich aussieht.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h3>Nicht im Angebot</h3>
+        <ul>
+          <li>Reparaturen jeglicher Art</li>
+          <li>Bau-, Elektro-, Sanitär- oder Installationsarbeiten</li>
+          <li>„Mal eben mitmachen“-Sonderwünsche außerhalb Reinigung/Ordnung</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="ablauf" class="two">
+      <div>
+        <div class="sectiontitle">
+          <h2>Ablauf</h2>
+          <div class="tag">3 Schritte</div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Anfrage</strong>
+              <span>Mail mit Fläche + Ort/PLZ + grober Größe. Foto optional (spart Zeit).</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Einschätzung</strong>
+              <span>Ich sage dir, ob Reinigung sinnvoll ist und was realistisch rauskommt.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Reinigung</strong>
+              <span>Hochdruck, ordentlich, fertig. Kein Theater.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h3>So arbeite ich</h3>
+          <p>
+            Ich halte Termine ein. Ich kommuniziere klar. Wenn ich zusage, wird sauber gearbeitet.
+            Mehr ist es nicht – aber genau das liefert Ergebnisse.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Typische Anfragen</h3>
+        <ul>
+          <li>„Terrasse hat Grünbelag – ich will wieder saubere Fläche.“</li>
+          <li>„Einfahrt ist dreckig – soll ordentlich aussehen.“</li>
+          <li>„Hof/Wege sind verschmutzt – einmal richtig sauber machen.“</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="gebiet">
+      <div class="sectiontitle">
+        <h2>Gebiet</h2>
+        <div class="tag">Süd-Berliner Speckgürtel</div>
+      </div>
+
+      <div class="card">
+        <p>
+          Fokus: Einfamilienhäuser im Süd-Berliner Speckgürtel.
+          Wenn du unsicher bist, ob dein Ort reinfällt: kurze Mail – ich sage dir direkt Bescheid.
+        </p>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="sectiontitle">
+        <h2>Kontakt</h2>
+        <div class="tag">Direkt</div>
+      </div>
+
+      <div class="card">
+        <p><strong>E-Mail:</strong> <a href="mailto:davidwinter.business@icloud.com">davidwinter.business@icloud.com</a></p>
+        <p class="muted" style="margin-top:8px;">
+          Betreff: „Winterwerk Anfrage – Ort/PLZ“<br />
+          Inhalt: Fläche + Ort/PLZ + grobe Größe + Zustand + Zeitraum. Foto optional.
+        </p>
+      </div>
+
+      <details style="margin-top:12px;">
+        <summary>Impressum (Muster)</summary>
+        <div class="content">
+          <p>
+            <strong>Winterwerk</strong><br />
+            Inhaber: Max Mustermann<br />
+            Mustermannstraße 1<br />
+            12345 Musterstadt<br />
+            Deutschland
+          </p>
+          <p>
+            E-Mail: davidwinter.business@icloud.com
+          </p>
+          <p class="muted">
+            Hinweis: Dieses Impressum dient aktuell als Platzhalter und wird vor Aufnahme des Geschäftsbetriebs
+            durch die korrekten Angaben ersetzt.
+          </p>
+        </div>
+      </details>
+
+      <details style="margin-top:12px;">
+        <summary>Datenschutz (Kurzfassung)</summary>
+        <div class="content">
+          <p>
+            Diese Website nutzt keine Cookies, kein Tracking und keine Analyse-Tools.
+            Es werden keine personenbezogenen Daten automatisch erhoben.
+          </p>
+          <p>
+            Bei Kontaktaufnahme per E-Mail werden die übermittelten Daten ausschließlich zur Bearbeitung der Anfrage verwendet.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Winterwerk</div>
+      <div class="links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
