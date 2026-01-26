@@ -3,241 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winterwerk</title>
+<title>Winterwerk – Außenreinigung</title>
 
 <style>
-:root {
-  --bg: #2a2c30;
-  --bg-soft: rgba(42,44,48,0.92);
-  --text-main: #f4f4f4;
-  --text-sub: #c2c2c2;
-  --accent: #b00000;
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-
+/* ---------- BASIS ---------- */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif;
-  color: var(--text-main);
-  line-height: 1.6;
-
-  /* Fliesen-Anmutung */
-  background:
-    linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
-    var(--bg);
-  background-size: 40px 40px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f1f1f1;
+  color: #1e1e1e;
+  overflow-x: hidden;
 }
 
-/* HEADER */
+section {
+  padding: 120px 8vw;
+  position: relative;
+}
+
+/* ---------- HEADER ---------- */
 header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 72px;
+  height: 90px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: rgba(42,44,48,0.7);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
 }
 
-.logo {
-  height: 40px;
+#logo {
+  width: 220px;
+  transition: all 0.4s ease;
 }
 
-.menu-toggle {
-  position: absolute;
-  right: 22px;
-  font-size: 22px;
+header.shrink #logo {
+  width: 110px;
+}
+
+/* ---------- MENU ---------- */
+#menu-btn {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 30px;
   cursor: pointer;
+  z-index: 200;
 }
 
-/* MENU */
-#side-menu {
+#menu-btn span {
+  display: block;
+  height: 2px;
+  background: #b20000;
+  margin: 7px 0;
+}
+
+/* ---------- SIDE MENU ---------- */
+#menu {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 85%;
+  width: 80%;
+  max-width: 400px;
   height: 100%;
-  background: var(--bg-soft);
-  backdrop-filter: blur(12px);
-  padding: 90px 30px;
-  transition: right 0.45s cubic-bezier(0.4,0,0.2,1);
-  z-index: 2000;
+  background: rgba(245,245,245,0.97);
+  padding: 120px 40px;
+  transition: 0.4s ease;
+  z-index: 300;
 }
 
-#side-menu.open { right: 0; }
+#menu.active {
+  right: 0;
+}
 
-#side-menu a {
+#menu a {
   display: block;
-  font-size: 22px;
+  font-size: 1.3rem;
   margin-bottom: 30px;
   text-decoration: none;
-  color: var(--text-main);
+  color: #1e1e1e;
 }
 
-/* CONTENT */
-main {
-  padding: 130px 26px 100px;
-  max-width: 720px;
-  margin: auto;
+/* ---------- HERO ---------- */
+#hero {
+  height: 100vh;
+  background:
+    linear-gradient(to bottom, rgba(241,241,241,0.9), rgba(241,241,241,0.95)),
+    url("assets/img/hero.jpg") center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-section {
-  margin-bottom: 120px;
-  opacity: 0;
-  transform: translateY(28px);
-  animation: fadeUp 1s ease forwards;
+#hero h2 {
+  margin-top: 20px;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
-section:nth-child(2){animation-delay:.2s}
-section:nth-child(3){animation-delay:.4s}
-section:nth-child(4){animation-delay:.6s}
-section:nth-child(5){animation-delay:.8s}
-
-h1 {
-  font-size: 44px;
-  line-height: 1.15;
-  margin-bottom: 26px;
+/* ---------- FLUID BACKGROUND ---------- */
+.flow {
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.02) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, rgba(0,0,0,0.02) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, rgba(0,0,0,0.02) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%);
+  background-size: 20px 20px;
 }
 
-h2 {
-  font-size: 26px;
-  margin-bottom: 22px;
+/* ---------- CONTENT ---------- */
+h3 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
 p {
-  font-size: 17px;
-  color: var(--text-sub);
-  margin-bottom: 16px;
+  max-width: 700px;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-/* IMAGES */
-.image {
-  margin: 40px 0;
+/* ---------- BEFORE AFTER ---------- */
+#compare {
+  display: flex;
+  overflow: hidden;
+  max-width: 900px;
 }
 
-.image img {
+#compare img {
   width: 100%;
-  border-radius: 2px;
-  opacity: 0.92;
 }
 
-/* FORM */
-form { margin-top: 30px; }
+/* ---------- FORM ---------- */
+form {
+  max-width: 600px;
+}
 
 input, textarea {
   width: 100%;
-  background: transparent;
+  padding: 15px;
+  margin-bottom: 20px;
   border: none;
-  border-bottom: 1px solid #555;
-  padding: 14px 0;
-  margin-bottom: 28px;
-  color: var(--text-main);
-  font-size: 16px;
+  background: #e6e6e6;
 }
 
-input:focus, textarea:focus {
-  outline: none;
-  border-bottom-color: var(--accent);
+button {
+  background: #b20000;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
 }
 
-.contact-links a {
-  margin-right: 20px;
-  text-decoration: none;
-  color: var(--text-main);
-  border-bottom: 1px solid #666;
+/* ---------- MAP ---------- */
+iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
 }
 
-/* FOOTER */
+/* ---------- FOOTER ---------- */
 footer {
-  font-size: 13px;
-  color: #888;
-}
-
-/* ANIMATION */
-@keyframes fadeUp {
-  to { opacity:1; transform:translateY(0); }
+  padding: 60px 8vw;
+  font-size: 0.9rem;
+  background: #e8e8e8;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <img src="assets/logo.png" class="logo" alt="Winterwerk">
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<header id="header">
+  <img id="logo" src="assets/img/logo.png" alt="Winterwerk Logo">
 </header>
 
-<nav id="side-menu">
-  <a href="#leistung" onclick="toggleMenu()">Leistung</a>
-  <a href="#ablauf" onclick="toggleMenu()">Ablauf</a>
-  <a href="#gebiet" onclick="toggleMenu()">Gebiet</a>
-  <a href="#anfrage" onclick="toggleMenu()">Anfrage</a>
-  <a href="#impressum" onclick="toggleMenu()">Impressum</a>
+<div id="menu-btn">
+  <span></span><span></span><span></span>
+</div>
+
+<nav id="menu">
+  <a href="#leistungen">Leistungen</a>
+  <a href="#ablauf">Ablauf</a>
+  <a href="#vergleich">Vorher / Nachher</a>
+  <a href="#gebiet">Einsatzgebiet</a>
+  <a href="#anfrage">Anfrage</a>
+  <a href="#impressum">Impressum</a>
 </nav>
 
-<main>
-
-<section>
-  <h1>Außenflächen sauber.<br>Punkt.</h1>
-  <p>Hochdruckreinigung für Terrassen, Einfahrten und Höfe<br>
-  im südlichen Berliner Speckgürtel.</p>
-
-  <div class="image">
-    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="">
-  </div>
+<section id="hero">
+  <h2>Professionelle Außenreinigung</h2>
 </section>
 
-<section id="leistung">
-  <h2>Leistung</h2>
-  <p>Professionelle Außenreinigung mit Hochdruck.</p>
-  <p>Keine Reparaturen. Kein Handwerk. Keine baulichen Arbeiten.</p>
-
-  <div class="image">
-    <img src="https://images.unsplash.com/photo-1597008641621-4c3a0d4d1f38" alt="">
-  </div>
+<section id="leistungen" class="flow">
+  <h3>Leistungen</h3>
+  <p>Gründliche Reinigung von Terrassen, Einfahrten, Höfen und Außenflächen – effizient, materialschonend und zuverlässig.</p>
 </section>
 
 <section id="ablauf">
-  <h2>Ablauf</h2>
-  <p>1. Anfrage</p>
-  <p>2. Einschätzung & Termin</p>
-  <p>3. Reinigung vor Ort</p>
+  <h3>Ablauf</h3>
+  <p>Anfrage – Termin – Reinigung. Klar strukturiert, ohne Umwege.</p>
 </section>
 
-<section id="anfrage">
-  <h2>Anfrage</h2>
-
-  <form action="mailto:davidwinter.business@icloud.com" method="POST" enctype="text/plain">
-    <input type="text" name="Name" placeholder="Name">
-    <input type="text" name="Ort" placeholder="Ort / Adresse">
-    <input type="text" name="Flaeche" placeholder="Art der Fläche">
-    <textarea name="Nachricht" placeholder="Nachricht (optional)"></textarea>
-    <input type="submit" value="Anfrage senden">
-  </form>
-
-  <p>Oder direkt:</p>
-  <div class="contact-links">
-    <a href="https://wa.me/4915222761896">WhatsApp</a>
-    <a href="mailto:davidwinter.business@icloud.com">E-Mail</a>
+<section id="vergleich">
+  <h3>Vorher / Nachher</h3>
+  <div id="compare">
+    <img src="assets/img/before.jpg">
+    <img src="assets/img/after.jpg">
   </div>
 </section>
 
+<section id="gebiet" class="flow">
+  <h3>Einsatzgebiet</h3>
+  <iframe src="https://www.google.com/maps?q=Berlin&output=embed"></iframe>
+</section>
+
+<section id="anfrage">
+  <h3>Anfrage</h3>
+  <form action="mailto:winterwerk.service@gmail.com" method="post" enctype="text/plain">
+    <input type="text" name="Name" placeholder="Name">
+    <input type="text" name="Ort" placeholder="Ort / Adresse">
+    <textarea name="Nachricht" placeholder="Was soll gereinigt werden?"></textarea>
+    <button>Senden</button>
+  </form>
+  <p>Telefon / WhatsApp: <strong>015222761896</strong></p>
+</section>
+
 <footer id="impressum">
-  <p>Impressum (Muster)</p>
-  <p>Max Mustermann · Musterstraße 1 · 12345 Musterstadt</p>
+  Winterwerk · Außenreinigung<br>
+  Telefon: 015222761896
 </footer>
 
-</main>
-
 <script>
-function toggleMenu() {
-  document.getElementById("side-menu").classList.toggle("open");
-}
+const header = document.getElementById("header");
+window.addEventListener("scroll", () => {
+  header.classList.toggle("shrink", window.scrollY > 50);
+});
+
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+menuBtn.onclick = () => menu.classList.toggle("active");
 </script>
 
 </body>
