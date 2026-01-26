@@ -7,24 +7,27 @@
 
 <style>
 :root {
-  --bg: #1e1f22;
-  --bg-soft: rgba(30,31,34,0.85);
-  --text-main: #f2f2f2;
-  --text-sub: #b5b5b5;
+  --bg: #2a2c30;
+  --bg-soft: rgba(42,44,48,0.92);
+  --text-main: #f4f4f4;
+  --text-sub: #c2c2c2;
   --accent: #b00000;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  background: var(--bg);
-  color: var(--text-main);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif;
+  color: var(--text-main);
   line-height: 1.6;
+
+  /* Fliesen-Anmutung */
+  background:
+    linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+    var(--bg);
+  background-size: 40px 40px;
 }
 
 /* HEADER */
@@ -32,17 +35,17 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 70px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
-  background: rgba(30,31,34,0.6);
+  background: rgba(42,44,48,0.7);
+  backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
 .logo {
-  height: 38px;
+  height: 40px;
 }
 
 .menu-toggle {
@@ -50,10 +53,9 @@ header {
   right: 22px;
   font-size: 22px;
   cursor: pointer;
-  user-select: none;
 }
 
-/* SIDE MENU */
+/* MENU */
 #side-menu {
   position: fixed;
   top: 0;
@@ -61,47 +63,45 @@ header {
   width: 85%;
   height: 100%;
   background: var(--bg-soft);
-  backdrop-filter: blur(10px);
-  padding: 80px 30px;
+  backdrop-filter: blur(12px);
+  padding: 90px 30px;
   transition: right 0.45s cubic-bezier(0.4,0,0.2,1);
   z-index: 2000;
 }
 
-#side-menu.open {
-  right: 0;
-}
+#side-menu.open { right: 0; }
 
 #side-menu a {
   display: block;
   font-size: 22px;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
   text-decoration: none;
   color: var(--text-main);
 }
 
 /* CONTENT */
 main {
-  padding: 120px 26px 100px;
-  max-width: 680px;
+  padding: 130px 26px 100px;
+  max-width: 720px;
   margin: auto;
 }
 
 section {
-  margin-bottom: 110px;
+  margin-bottom: 120px;
   opacity: 0;
-  transform: translateY(25px);
+  transform: translateY(28px);
   animation: fadeUp 1s ease forwards;
 }
 
-section:nth-child(2) { animation-delay: 0.2s; }
-section:nth-child(3) { animation-delay: 0.4s; }
-section:nth-child(4) { animation-delay: 0.6s; }
-section:nth-child(5) { animation-delay: 0.8s; }
+section:nth-child(2){animation-delay:.2s}
+section:nth-child(3){animation-delay:.4s}
+section:nth-child(4){animation-delay:.6s}
+section:nth-child(5){animation-delay:.8s}
 
 h1 {
-  font-size: 42px;
-  line-height: 1.2;
-  margin-bottom: 28px;
+  font-size: 44px;
+  line-height: 1.15;
+  margin-bottom: 26px;
 }
 
 h2 {
@@ -115,25 +115,29 @@ p {
   margin-bottom: 16px;
 }
 
-/* FORM */
-form {
-  margin-top: 30px;
+/* IMAGES */
+.image {
+  margin: 40px 0;
 }
+
+.image img {
+  width: 100%;
+  border-radius: 2px;
+  opacity: 0.92;
+}
+
+/* FORM */
+form { margin-top: 30px; }
 
 input, textarea {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #555;
   padding: 14px 0;
-  margin-bottom: 26px;
+  margin-bottom: 28px;
   color: var(--text-main);
   font-size: 16px;
-}
-
-textarea {
-  min-height: 90px;
-  resize: none;
 }
 
 input:focus, textarea:focus {
@@ -141,28 +145,22 @@ input:focus, textarea:focus {
   border-bottom-color: var(--accent);
 }
 
-/* CONTACT LINKS */
 .contact-links a {
-  display: inline-block;
-  margin-right: 18px;
-  color: var(--text-main);
+  margin-right: 20px;
   text-decoration: none;
-  border-bottom: 1px solid #555;
-  padding-bottom: 2px;
+  color: var(--text-main);
+  border-bottom: 1px solid #666;
 }
 
 /* FOOTER */
 footer {
   font-size: 13px;
-  color: #777;
-  margin-top: 120px;
+  color: #888;
 }
 
+/* ANIMATION */
 @keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
@@ -170,7 +168,7 @@ footer {
 <body>
 
 <header>
-  <img src="assets/logo.png" class="logo" alt="Winterwerk Logo">
+  <img src="assets/logo.png" class="logo" alt="Winterwerk">
   <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
@@ -188,13 +186,20 @@ footer {
   <h1>Außenflächen sauber.<br>Punkt.</h1>
   <p>Hochdruckreinigung für Terrassen, Einfahrten und Höfe<br>
   im südlichen Berliner Speckgürtel.</p>
+
+  <div class="image">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="">
+  </div>
 </section>
 
 <section id="leistung">
   <h2>Leistung</h2>
   <p>Professionelle Außenreinigung mit Hochdruck.</p>
   <p>Keine Reparaturen. Kein Handwerk. Keine baulichen Arbeiten.</p>
-  <p>Terrassen · Einfahrten · Wege · Höfe</p>
+
+  <div class="image">
+    <img src="https://images.unsplash.com/photo-1597008641621-4c3a0d4d1f38" alt="">
+  </div>
 </section>
 
 <section id="ablauf">
@@ -204,23 +209,18 @@ footer {
   <p>3. Reinigung vor Ort</p>
 </section>
 
-<section id="gebiet">
-  <h2>Gebiet</h2>
-  <p>Südlicher Berliner Speckgürtel.<br>
-  Fokus auf Einfamilienhäuser und private Außenflächen.</p>
-</section>
-
 <section id="anfrage">
   <h2>Anfrage</h2>
 
-  <form>
-    <input type="text" placeholder="Name">
-    <input type="text" placeholder="Ort / Adresse">
-    <input type="text" placeholder="Art der Fläche">
-    <textarea placeholder="Nachricht (optional)"></textarea>
+  <form action="mailto:davidwinter.business@icloud.com" method="POST" enctype="text/plain">
+    <input type="text" name="Name" placeholder="Name">
+    <input type="text" name="Ort" placeholder="Ort / Adresse">
+    <input type="text" name="Flaeche" placeholder="Art der Fläche">
+    <textarea name="Nachricht" placeholder="Nachricht (optional)"></textarea>
+    <input type="submit" value="Anfrage senden">
   </form>
 
-  <p>Oder direkt kontaktieren:</p>
+  <p>Oder direkt:</p>
   <div class="contact-links">
     <a href="https://wa.me/4915222761896">WhatsApp</a>
     <a href="mailto:davidwinter.business@icloud.com">E-Mail</a>
@@ -229,9 +229,7 @@ footer {
 
 <footer id="impressum">
   <p>Impressum (Muster)</p>
-  <p>Max Mustermann<br>
-  Mustermannstraße 1<br>
-  12345 Musterstadt</p>
+  <p>Max Mustermann · Musterstraße 1 · 12345 Musterstadt</p>
 </footer>
 
 </main>
