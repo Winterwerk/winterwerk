@@ -3,340 +3,311 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winterwerk</title>
+<title>Winterwerk – Außenreinigung ohne Umwege</title>
+
+<!-- Leaflet (Karte) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-
-/* BASIS */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background:#ffffff;
-  color:#111;
-  overflow-x:hidden;
+/* =====================
+   GRUNDLAGEN
+===================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* HEADER */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111;
+  line-height: 1.5;
+}
+
+/* =====================
+   HEADER / LOGO
+===================== */
 header {
-  position:fixed;
-  top:0;
-  width:100%;
-  height:120px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:rgba(255,255,255,0.9);
-  backdrop-filter: blur(8px);
-  z-index:100;
-  transition:all .6s ease;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  z-index: 1000;
+  transition: all 0.4s ease;
 }
 
 header.shrink {
-  height:80px;
+  height: 60px;
 }
 
-#logo {
-  width:240px;
-  transition:all .6s ease;
+header img {
+  height: 55px;
+  transition: all 0.4s ease;
 }
 
-header.shrink #logo {
-  width:120px;
+header.shrink img {
+  height: 35px;
 }
 
-#line {
-  position:absolute;
-  bottom:0;
-  width:60%;
-  height:1px;
-  background:#cfcfcf;
-  opacity:0;
-  transition:.6s;
+/* =====================
+   HAMBURGER MENÜ
+===================== */
+.menu-btn {
+  position: absolute;
+  right: 24px;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
 }
 
-header.shrink #line {
-  opacity:1;
+.menu-btn span {
+  display: block;
+  height: 2px;
+  background: #b30000;
+  margin: 5px 0;
 }
 
-/* MENU */
-#menu-btn {
-  position:fixed;
-  top:35px;
-  right:30px;
-  width:28px;
-  cursor:pointer;
-  z-index:200;
+/* Overlay Menü */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
-#menu-btn span {
-  display:block;
-  height:2px;
-  background:#b20000;
-  margin:7px 0;
+.menu-overlay ul {
+  list-style: none;
+  text-align: center;
 }
 
-/* SIDE MENU */
-#menu {
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,0.85);
-  backdrop-filter: blur(12px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:30px;
-  transform:translateX(100%);
-  transition:.5s ease;
-  z-index:300;
+.menu-overlay li {
+  font-size: 24px;
+  margin: 18px 0;
 }
 
-#menu.active {
-  transform:translateX(0);
+/* =====================
+   HERO
+===================== */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 90px;
+  text-align: center;
 }
 
-#menu a {
-  font-size:1.4rem;
-  text-decoration:none;
-  color:#111;
+.hero h1 {
+  font-size: clamp(42px, 8vw, 80px);
+  letter-spacing: 2px;
 }
 
-/* HERO */
-#hero {
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.hero p {
+  margin-top: 12px;
+  font-size: 18px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* TITEL */
+/* =====================
+   SEKTIONEN
+===================== */
 section {
-  padding:140px 10vw;
+  padding: 90px 24px;
+  max-width: 1100px;
+  margin: auto;
 }
 
-#title {
-  text-align:center;
+section h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
 }
 
-#title h1 {
-  font-size:4rem;
-  letter-spacing:3px;
-  transform:scale(0.95);
-  opacity:0;
-  transition:1s ease;
+/* =====================
+   VORHER / NACHHER
+===================== */
+.compare {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
 }
 
-#title.visible h1 {
-  transform:scale(1);
-  opacity:1;
+.compare img {
+  width: 100%;
+  display: block;
 }
 
-#title p {
-  margin-top:20px;
-  font-size:1.2rem;
-  color:#555;
+.compare .after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
 }
 
-/* TEXT */
-p {
-  max-width:720px;
-  line-height:1.6;
+.compare input {
+  width: 100%;
+  margin-top: 12px;
 }
 
-/* PARALLAX */
-.parallax {
-  background:url("assets/img/hero.jpg") center/cover fixed;
-  height:60vh;
+/* =====================
+   KARTE
+===================== */
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: 6px;
 }
 
-/* SLIDER */
-.slider {
-  position:relative;
-  max-width:900px;
-  overflow:hidden;
-}
-
-.slider img {
-  width:100%;
-  display:block;
-}
-
-.after {
-  position:absolute;
-  top:0;
-  left:0;
-  width:50%;
-  overflow:hidden;
-}
-
-/* FORM */
+/* =====================
+   FORMULAR
+===================== */
 form {
-  max-width:600px;
+  max-width: 500px;
 }
 
 input, textarea {
-  width:100%;
-  padding:15px;
-  margin-bottom:20px;
-  border:1px solid #ddd;
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid #ccc;
 }
 
 button {
-  background:#b20000;
-  color:#fff;
-  border:none;
-  padding:15px 30px;
+  padding: 14px;
+  width: 100%;
+  background: #111;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-/* FOOTER */
+/* =====================
+   FOOTER
+===================== */
 footer {
-  padding:60px 10vw;
-  font-size:.9rem;
-  border-top:1px solid #eee;
+  padding: 24px;
+  font-size: 13px;
+  text-align: center;
+  border-top: 1px solid #eee;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header id="header">
-  <img id="logo" src="assets/img/logo.png">
-  <div id="line"></div>
+  <img src="assets/logo.png" alt="Winterwerk Logo">
+  <div class="menu-btn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </header>
 
-<div id="menu-btn">
-  <span></span><span></span><span></span>
+<!-- MENÜ -->
+<div class="menu-overlay" id="menu">
+  <ul>
+    <li>Philosophie</li>
+    <li>Leistungen</li>
+    <li>Einsatzgebiet</li>
+    <li>Anfrage</li>
+  </ul>
 </div>
 
-<nav id="menu">
-  <a href="#leistungen">Leistungen</a>
-  <a href="#ablauf">Ablauf</a>
-  <a href="#gebiet">Einsatzgebiet</a>
-  <a href="#vergleich">Vorher / Nachher</a>
-  <a href="#anfrage">Anfrage</a>
-  <a href="#impressum">Impressum</a>
-</nav>
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>WINTERWERK</h1>
+    <p>Winterwerk steht für professionelle Außenreinigung ohne Umwege.</p>
+  </div>
+</div>
 
-<div id="hero"></div>
-
-<section id="title">
-  <h1>WINTERWERK</h1>
-  <p>Klarheit beginnt außen.</p>
-</section>
-
+<!-- PHILOSOPHIE -->
 <section>
-  <p>Winterwerk steht für professionelle Außenreinigung ohne Umwege.</p>
+  <h2>Philosophie</h2>
+  <p>Klarheit beginnt außen. Winterwerk arbeitet ruhig, präzise und ohne unnötige Versprechen.</p>
 </section>
 
-<section id="leistungen">
+<!-- LEISTUNGEN -->
+<section>
   <h2>Leistungen</h2>
-  <p>Terrassen, Einfahrten, Höfe und Außenflächen. Präzise. Materialschonend.</p>
+  <p>Außenreinigung von Einfahrten, Höfen, Terrassen und Fassaden – fokussiert, hochwertig, dauerhaft.</p>
 </section>
 
-<section id="ablauf">
-  <h2>Ablauf</h2>
-  <p>Anfrage → Termin → Reinigung.</p>
-</section>
-
-<section id="gebiet">
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Winterwerk Einsatzgebiet</title>
-
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-
-  <style>
-    body {
-      margin: 0;
-    }
-    #map {
-      height: 100vh;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-
-<div id="map"></div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  const map = L.map('map').setView([52.39, 13.52], 11); // Schönefeld
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
-
-  L.marker([52.39, 13.52])
-    .addTo(map)
-    .bindPopup('Winterwerk – Einsatzgebiet');
-</script>
-
-</body>
-</html>
-
-</section>
-
-<section id="vergleich">
+<!-- VORHER / NACHHER -->
+<section>
   <h2>Vorher / Nachher</h2>
-  <div class="slider" id="slider">
-    <img src="assets/img/before.jpg">
+  <div class="compare">
+    <img src="assets/vorher.jpg">
     <div class="after" id="after">
-      <img src="assets/img/after.jpg">
+      <img src="assets/nachher.jpg">
     </div>
+    <input type="range" min="0" max="100" value="50" oninput="compare(this.value)">
   </div>
 </section>
 
-<section id="anfrage">
-  <h2>Anfrage</h2>
-
-  <!-- HIER Formspree-URL einsetzen -->
-  <form action="https://formspree.io/f/xqebbdkp" method="POST">
-    <input name="Name" placeholder="Name" required>
-    <input name="Telefon" placeholder="Telefon" required>
-    <input name="Adresse" placeholder="Adresse">
-    <textarea name="Nachricht" placeholder="Anliegen"></textarea>
-    <button>Senden</button>
-  </form>
-
-  <p>Telefon / WhatsApp: <strong>015758040389</strong><br>
-  Mail: davidwinter.business@icloud.com</p>
+<!-- KARTE -->
+<section>
+  <h2>Einsatzgebiet</h2>
+  <div id="map"></div>
 </section>
 
-<footer id="impressum">
-  Winterwerk · Außenreinigung · 015758040389
+<!-- ANFRAGE -->
+<section>
+  <h2>Anfrage</h2>
+  <form>
+    <input type="text" placeholder="Name">
+    <input type="tel" placeholder="Telefon">
+    <input type="text" placeholder="Adresse">
+    <textarea placeholder="Nachricht"></textarea>
+    <button>Anfrage senden</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © Winterwerk · winterwerk.service@gmail.com · 0157 58040389
 </footer>
 
+<!-- SCRIPTS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* Header Scroll */
-window.addEventListener("scroll",()=>{
+/* Header shrink */
+window.addEventListener("scroll", () => {
   document.getElementById("header")
-  .classList.toggle("shrink",scrollY>80);
-  document.getElementById("title")
-  .classList.toggle("visible",scrollY>150);
+    .classList.toggle("shrink", window.scrollY > 50);
 });
 
-/* Menu */
-const btn=document.getElementById("menu-btn");
-const menu=document.getElementById("menu");
-btn.onclick=()=>menu.classList.toggle("active");
+/* Menü */
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
 
-/* Slider */
-const slider=document.getElementById("slider");
-const after=document.getElementById("after");
-slider.addEventListener("mousemove",e=>{
-  const rect=slider.getBoundingClientRect();
-  after.style.width=(e.clientX-rect.left)+"px";
-});
+/* Vorher / Nachher */
+function compare(value) {
+  document.getElementById("after").style.width = value + "%";
+}
+
+/* Karte */
+const map = L.map('map').setView([52.39, 13.52], 10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.circle([52.39, 13.52], {
+  radius: 40000,
+  color: '#000',
+  fillOpacity: 0.08
+}).addTo(map);
 </script>
 
 </body>
 </html>
-
-
