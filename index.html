@@ -3,287 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winterwerk – Außenreinigung ohne Umwege</title>
+<title>Winterwerk – Professionelle Außenreinigung</title>
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --logo-red: #b30000;
+    --logo-grey: #bfc3c6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
-    background-color: #f7f7f7;
-    background-image: url("assets/stone.png");
-    background-repeat: repeat;
-    background-size: 400px 400px;
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f7 url("assets/stone.png");
+    color: #111;
+    overflow-x: hidden;
 }
 
 /* HEADER */
 header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(6px);
-  transition: all 0.6s ease;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.4s ease;
+    pointer-events: none;
 }
 
-header.shrink {
-  height: 70px;
+header.scrolled {
+    height: 70px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
 }
 
 header img {
-  height: 80px;
-  cursor: pointer;
-  transition: all 0.6s ease;
+    height: 120px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    pointer-events: auto;
 }
 
-header.shrink img {
-  height: 40px;
+header.scrolled img {
+    height: 55px;
 }
 
 /* MENU */
-.menu-btn {
-  position: absolute;
-  right: 24px;
-  width: 30px;
-  cursor: pointer;
-}
-
-.menu-btn span {
-  display: block;
-  height: 2px;
-  background: #b30000;
-  margin: 6px 0;
+.menu-toggle {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    font-size: 28px;
+    color: var(--logo-red);
+    cursor: pointer;
+    z-index: 1200;
 }
 
 .menu {
-  position: fixed;
-  inset: 0;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(12px);
-  transform: translateX(100%);
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-  z-index: 999;
-  overflow-y: auto;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100%;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(14px);
+    padding: 40px;
+    transition: right 0.4s ease;
+    z-index: 1100;
 }
 
 .menu.open {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.menu ul {
-  list-style: none;
-  padding: 120px 32px;
-}
-
-.menu li {
-  font-size: 26px;
-  margin: 22px 0;
+    right: 0;
 }
 
 .menu a {
-  text-decoration: none;
-  color: #111;
+    display: block;
+    margin: 20px 0;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #111;
 }
 
 /* HERO */
 .hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 120px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    text-align: center;
 }
 
 .hero h1 {
-  font-size: clamp(42px, 8vw, 80px);
-  opacity: 0;
-  transition: opacity 1s ease;
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin-top: 20px;
+}
+
+.hero p {
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    opacity: 0.7;
 }
 
 /* SECTIONS */
-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 100px 24px;
+.section {
+    padding: 120px 20px;
+    max-width: 900px;
+    margin: auto;
 }
 
-section h2 {
-  font-size: 32px;
-  margin-bottom: 24px;
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.85;
 }
 
 /* MAP */
 #map {
-  width: 100%;
-  height: 420px;
-  border-radius: 8px;
+    width: 100%;
+    height: 420px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.map-hint {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin-top: 14px;
 }
 
 /* FORM */
-form { max-width: 520px; }
-input, textarea {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 14px;
-  border: 1px solid #ccc;
+form input, form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
-button {
-  width: 100%;
-  padding: 14px;
-  background: #111;
-  color: #fff;
-  border: none;
+
+form button {
+    padding: 14px 24px;
+    border: none;
+    background: var(--logo-red);
+    color: white;
+    cursor: pointer;
 }
 
 /* FOOTER */
 footer {
-  font-size: 13px;
-  padding: 32px;
-  border-top: 1px solid #eee;
-  text-align: center;
+    padding: 60px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
 
-<header id="header">
-  <img src="assets/logo.png" onclick="scrollToTop()">
-  <div class="menu-btn" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</header>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
 <nav class="menu" id="menu">
-  <ul>
-    <li><a href="#philosophie" onclick="toggleMenu()">Philosophie</a></li>
-    <li><a href="#leistungen" onclick="toggleMenu()">Leistungen</a></li>
-    <li><a href="#ablauf" onclick="toggleMenu()">Ablauf</a></li>
-    <li><a href="#einsatzgebiet" onclick="toggleMenu()">Einsatzgebiet</a></li>
-    <li><a href="#anfrage" onclick="toggleMenu()">Anfrage</a></li>
-    <li><a href="#impressum" onclick="toggleMenu()">Impressum & Datenschutz</a></li>
-  </ul>
+    <a href="#philosophie" onclick="closeMenu()">Philosophie</a>
+    <a href="#leistungen" onclick="closeMenu()">Leistungen</a>
+    <a href="#ablauf" onclick="closeMenu()">Ablauf</a>
+    <a href="#einsatzgebiet" onclick="closeMenu()">Einsatzgebiet</a>
+    <a href="#anfrage" onclick="closeMenu()">Anfrage</a>
+    <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
+    <a href="#impressum" onclick="closeMenu()">Impressum & Datenschutz</a>
 </nav>
 
-<div class="hero">
-  <h1 id="headline">Winterwerk</h1>
-</div>
+<header id="header">
+    <img src="assets/logo.png" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+</header>
 
-<section id="philosophie">
+<section class="hero">
+    <h1>Winterwerk</h1>
+    <p>Klarheit beginnt außen.</p>
+</section>
+
+<section id="philosophie" class="section">
 <h2>Philosophie</h2>
 <p>
-Winterwerk steht für Klarheit, Ordnung und sichtbare Ergebnisse.
-Außenflächen prägen den ersten Eindruck – und dieser Eindruck entscheidet.
-Ich arbeite mit Hochdruck, weil halbe Lösungen keinen Bestand haben.
-Ohne Umwege, ohne Versprechen, die nicht gehalten werden.
+Winterwerk steht für professionelle Außenreinigung ohne Umwege.
+Ich arbeite bewusst fokussiert, präzise und sauber – ohne unnötige Versprechen,
+ohne Reparaturen, ohne Ablenkung.  
+Was ich mache, mache ich richtig: Hochdruckreinigung mit Struktur, Ruhe und Respekt
+vor Objekt und Umgebung.
 </p>
 </section>
 
-<section id="leistungen">
+<section id="leistungen" class="section">
 <h2>Leistungen</h2>
 <p>
-Professionelle Hochdruckreinigung von Einfahrten, Terrassen, Höfen und Gehwegen.
+Hochdruckreinigung von Terrassen, Einfahrten, Höfen, Wegen und Außenflächen.
 Auch Mülltonnenreinigung per Hochdruck ist möglich.
-Besondere Anfragen können jederzeit gestellt werden.
-Keine Reparaturen. Keine Hausmeisterdienste.
+Besondere Anfragen können gern gestellt werden – im Rahmen professioneller Reinigung.
 </p>
 </section>
 
-<section id="ablauf">
+<section id="ablauf" class="section">
 <h2>Ablauf</h2>
 <p>
-Anfrage → Einschätzung → Vorbereitung → Hochdruckreinigung → Übergabe.
-Klar strukturiert. Ohne unnötige Schritte.
+Kontaktaufnahme per Formular, Mail oder WhatsApp.  
+Je nach Situation komme ich vorbei und begutachte das Gelände,
+oder analysiere Fotos aus der Ferne.  
+Anschließend erhältst du eine klare Einschätzung und einen sauberen Ablauf.
 </p>
 </section>
 
-<section id="einsatzgebiet">
+<section id="einsatzgebiet" class="section">
 <h2>Einsatzgebiet</h2>
 <div id="map"></div>
+<p class="map-hint">Weitere Anfahrtswege sind nach Absprache möglich.</p>
 </section>
 
-<section id="anfrage">
-<h2>Unverbindliche Anfrage</h2>
-<form 
-  action="https://formspree.io/f/xqebbdkp" 
-  method="POST">
-
-  <input type="text" name="name" placeholder="Name" required>
-  <input type="tel" name="phone" placeholder="Telefon" required>
-  <input type="text" name="address" placeholder="Adresse">
-  <textarea name="message" placeholder="Nachricht" required></textarea>
-
-  <button type="submit">Unverbindliche Anfrage</button>
+<section id="anfrage" class="section">
+<h2>Anfrage</h2>
+<form action="mailto:winterwerk.service@gmail.com" method="post" enctype="text/plain">
+<input type="text" name="Name" placeholder="Name" required>
+<input type="tel" name="Telefon" placeholder="Telefon" required>
+<textarea name="Nachricht" placeholder="Nachricht" required></textarea>
+<button type="submit">Anfrage senden</button>
 </form>
+</section>
 
-<p style="margin-top:16px; font-size:14px;">
-  Oder direkt per WhatsApp:
-  <br>
-  <a 
-    href="https://wa.me/4915758040389" 
-    target="_blank" 
-    style="color:#111; text-decoration:underline;">
-    Nachricht per WhatsApp senden
-  </a>
+<section id="kontakt" class="section">
+<h2>Kontakt</h2>
+<p>
+📞 015758040389  
+<br><br>
+YouTube – Winterwerk  
+<br>Instagram – Winterwerk  
+<br>TikTok – Winterwerk  
+<br>Facebook – Winterwerk
 </p>
-
 </section>
 
 <footer id="impressum">
-© Winterwerk · winterwerk.service@gmail.com · 0157 58040389
+<p>Impressum & Datenschutz – Musterangaben</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
 const header = document.getElementById("header");
-const headline = document.getElementById("headline");
-
 window.addEventListener("scroll", () => {
-  header.classList.toggle("shrink", scrollY > 60);
-  if (scrollY > 120) headline.style.opacity = 1;
+    header.classList.toggle("scrolled", window.scrollY > 100);
 });
 
 function toggleMenu() {
-  const m = document.getElementById("menu");
-  m.classList.toggle("open");
-  document.body.style.overflow = m.classList.contains("open") ? "hidden" : "";
+    document.getElementById("menu").classList.toggle("open");
+    document.body.style.overflow =
+        document.getElementById("menu").classList.contains("open") ? "hidden" : "auto";
 }
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function closeMenu() {
+    document.getElementById("menu").classList.remove("open");
+    document.body.style.overflow = "auto";
 }
 
 /* MAP */
-const map = L.map('map').setView([52.39, 13.52], 10);
+const map = L.map('map', { scrollWheelZoom: false }).setView([52.45, 13.45], 10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-L.polygon([
-  [52.52, 13.23],
-  [52.60, 13.45],
-  [52.53, 13.70],
-  [52.35, 13.85],
-  [52.25, 13.55],
-  [52.30, 13.25]
-], {
-  fillColor: '#111',
-  fillOpacity: 0.06,
-  weight: 1
+const area = [
+[52.445,13.574],[52.476,13.707],[52.279,13.765],[52.217,13.451],
+[52.242,13.206],[52.353,13.063],[52.400,13.058],[52.407,13.225],
+[52.433,13.259],[52.426,13.335],[52.422,13.398],[52.437,13.501]
+];
+
+const poly = L.polygon(area,{
+color:'#b30000',fillColor:'#b30000',fillOpacity:0.08
 }).addTo(map);
 
-L.marker([52.39, 13.52]).addTo(map);
+map.fitBounds(poly.getBounds());
 </script>
 
 </body>
 </html>
-
