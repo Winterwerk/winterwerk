@@ -174,17 +174,112 @@
         </div>
     </section>
 
-    <section id="preise">
-        <h2>Preisliste</h2>
-        <div class="price-wrapper">
-            <table>
-                <tr><th>Leistung</th><th>Einheit</th><th>Preis (ab)</th></tr>
-                <tr><td>Grundreinigung</td><td>m²</td><td>4,50 €</td></tr>
-                <tr><td>Fugenverfüllung</td><td>m²</td><td>2,00 €</td></tr>
-                <tr><td>Imprägnierung</td><td>m²</td><td>3,00 €</td></tr>
-            </table>
+    <section id="konfigurator">
+    <h2>Preiskalkulator</h2>
+    <p style="margin-bottom: 20px; opacity: 0.8;">Berechnen Sie hier unverbindlich einen Richtpreis für Ihr Projekt:</p>
+    
+    <div class="card" style="background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow);">
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+            
+            <div>
+                <label style="display:block; margin-bottom: 8px; font-weight: 600;">Fläche in m²</label>
+                <input type="number" id="sqm" value="20" min="1" oninput="updatePrice()" style="width:100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
+                
+                <label style="display:block; margin: 20px 0 8px; font-weight: 600;">Material</label>
+                <select id="material" onchange="updatePrice()" style="width:100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                    <option value="stein">Steinfläche (€ 6,50/m²)</option>
+                    <option value="holz">Holzfläche (€ 9,50/m²)</option>
+                </select>
+
+                <label style="display:block; margin: 20px 0 8px; font-weight: 600;">Verschmutzungsgrad</label>
+                <select id="dirt" onchange="updatePrice()" style="width:100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                    <option value="1">Normal verschmutzt</option>
+                    <option value="1.1">Stark verschmutzt (+10% Aufschlag)</option>
+                </select>
+            </div>
+
+            <div>
+                <div id="stein-options">
+                    <label style="display:block; margin-bottom: 12px; font-weight: 600;">Zusatzleistungen Stein</label>
+                    <label style="display:block; margin-bottom: 8px; cursor:pointer;">
+                        <input type="checkbox" id="bio" onchange="updatePrice()"> Bio-Reiniger (+ € 2,50/m²)
+                    </label>
+                    <label style="display:block; margin-bottom: 8px; cursor:pointer;">
+                        <input type="checkbox" id="seal" onchange="updatePrice()"> Versiegelung (+ € 7,50/m²)
+                    </label>
+                </div>
+
+                <div id="holz-options" style="display:none;">
+                    <label style="display:block; margin-bottom: 12px; font-weight: 600;">Zusatzleistungen Holz</label>
+                    <label style="display:block; margin-bottom: 8px; cursor:pointer;">
+                        <input type="checkbox" id="oil" onchange="updatePrice()"> Anschließende Öl-Behandlung (+ € 12,50/m²)
+                    </label>
+                </div>
+            </div>
         </div>
-    </section>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--bg); text-align: center;">
+            <div style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Voraussichtlicher Richtpreis:</div>
+            <div id="total-price" style="font-size: 2.5rem; font-weight: 700; color: var(--green);">0,00 €</div>
+            <div style="font-size: 0.85rem; color: #888; margin-top: 10px;">
+                zzgl. Anfahrtskosten<br>
+                Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.
+            </div>
+            <a href="https://wa.me/4915758040389" id="whatsapp-link" class="btn-whatsapp" style="margin-top: 20px; display: inline-flex;">
+                Dieses Angebot per WhatsApp anfragen
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+function updatePrice() {
+    // Preise definieren
+    const prices = {
+        stein: 6.50,
+        holz: 9.50,
+        bio: 2.50,
+        seal: 7.50,
+        oil: 12.50
+    };
+
+    const sqm = parseFloat(document.getElementById('sqm').value) || 0;
+    const material = document.getElementById('material').value;
+    const dirtFactor = parseFloat(document.getElementById('dirt').value);
+    
+    // UI-Elemente umschalten
+    if (material === 'stein') {
+        document.getElementById('stein-options').style.display = 'block';
+        document.getElementById('holz-options').style.display = 'none';
+    } else {
+        document.getElementById('stein-options').style.display = 'none';
+        document.getElementById('holz-options').style.display = 'block';
+    }
+
+    // Kalkulation
+    let basePrice = (material === 'stein') ? prices.stein : prices.holz;
+    let totalPerM2 = basePrice;
+
+    if (material === 'stein') {
+        if (document.getElementById('bio').checked) totalPerM2 += prices.bio;
+        if (document.getElementById('seal').checked) totalPerM2 += prices.seal;
+    } else {
+        if (document.getElementById('oil').checked) totalPerM2 += prices.oil;
+    }
+
+    let finalTotal = sqm * totalPerM2 * dirtFactor;
+
+    // Anzeige aktualisieren
+    document.getElementById('total-price').innerText = finalTotal.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+
+    // WhatsApp Link dynamisch anpassen
+    const text = `Hallo Winterwerk, ich habe meinen Richtpreis berechnet: ${finalTotal.toFixed(2)}€ für ${sqm}m² ${material}. Ich bitte um Kontaktaufnahme!`;
+    document.getElementById('whatsapp-link').href = `https://wa.me/4915758040389?text=${encodeURIComponent(text)}`;
+}
+
+// Initialer Aufruf beim Laden
+window.addEventListener('load', updatePrice);
+</script>
 
     <section id="anfahrt">
         <h2>Einsatzgebiet</h2>
@@ -255,4 +350,5 @@
         L.marker(center).addTo(map);
     </script>
 </body>
+
 </html>
