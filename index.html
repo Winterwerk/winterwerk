@@ -352,19 +352,24 @@
         <input type="number" id="holz-flaeche" placeholder="0" oninput="calculate()">
     </div>
 
+    <div class="checkbox-group" style="grid-column: span 2;">
+        <input type="checkbox" id="stein-bio" onchange="calculate()">
+        <label for="stein-bio">Bio-Reiniger für Stein nutzen</label>
+    </div>
+    
     <div class="checkbox-group">
         <input type="checkbox" id="fugen-sand" onchange="calculate()">
         <label for="fugen-sand">Fugensand einkehren (+ 4,50 €/m²)</label>
     </div>
     
     <div class="checkbox-group">
-        <input type="checkbox" id="versiegelung" onchange="calculate()">
-        <label for="versiegelung">Nano-Versiegelung (+ 5,00 €/m²)</label>
+        <input type="checkbox" id="stein-versiegelung" onchange="calculate()">
+        <label for="stein-versiegelung">Versiegelung (Stein) (+ 5,00 €/m²)</label>
     </div>
 
-    <div class="checkbox-group">
+    <div class="checkbox-group" style="grid-column: span 2; margin-top: 10px; border-top: 1px solid #eee; pt-10">
         <input type="checkbox" id="holz-oel" onchange="calculate()">
-        <label for="holz-oel">Premium Holz-Öl (+ 6,00 €/m²)</label>
+        <label for="holz-oel">Pflegeöl für Holz auftragen (+ 6,00 €/m²)</label>
     </div>
 
     <hr style="grid-column: span 2; border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
@@ -438,27 +443,32 @@ function calculate() {
     const tKlein = parseInt(document.getElementById('tonnen-klein').value) || 0;
     const tGross = parseInt(document.getElementById('tonnen-gross').value) || 0;
     
+    const bioCheck = document.getElementById('stein-bio').checked;
     const fugenCheck = document.getElementById('fugen-sand').checked;
-    const versiegelungCheck = document.getElementById('versiegelung').checked;
+    const versiegelungCheck = document.getElementById('stein-versiegelung').checked;
     const oelCheck = document.getElementById('holz-oel').checked;
 
     let total = 0;
     const flaecheGesamt = stein + holz;
 
-    // 1. Basis-Preise Reinigung
+    // Basispreise Reinigung (Stein 10€, Holz 12€)
     total += stein * 10; 
     total += holz * 12;
 
-    // 2. Zusatzoptionen berechnen
+    // Stein-Extras
     if (stein > 0) {
         if (fugenCheck) total += stein * 4.50;
         if (versiegelungCheck) total += stein * 5.00;
+        // Bio-Reiniger (falls du hierfür einen Aufpreis willst, hier einfügen, aktuell 0€)
+        // if (bioCheck) total += stein * 2.00; 
     }
+
+    // Holz-Extras
     if (holz > 0 && oelCheck) {
         total += holz * 6.00;
     }
 
-    // 3. Mülltonnen Logik
+    // Mülltonnen Logik (Zusatz vs. Einzelauftrag)
     if (flaecheGesamt > 0) {
         total += (tKlein * 15) + (tGross * 35);
     } else if (tKlein > 0 || tGross > 0) {
@@ -469,7 +479,7 @@ function calculate() {
         }
     }
 
-    // 4. Mindestauftragswert bei Flächen
+    // Mindestauftragswert 99€ bei Flächenreinigung
     if (flaecheGesamt > 0 && total < 99) {
         total = 99;
     }
@@ -483,20 +493,23 @@ function sendWhatsApp() {
     const tKlein = document.getElementById('tonnen-klein').value || 0;
     const tGross = document.getElementById('tonnen-gross').value || 0;
     
+    const bio = document.getElementById('stein-bio').checked ? "Ja" : "Nein";
     const fugen = document.getElementById('fugen-sand').checked ? "Ja" : "Nein";
-    const versieg = document.getElementById('versiegelung').checked ? "Ja" : "Nein";
+    const versieg = document.getElementById('stein-versiegelung').checked ? "Ja" : "Nein";
     const oel = document.getElementById('holz-oel').checked ? "Ja" : "Nein";
     const gesamt = document.getElementById('total-price').innerText;
 
     let msg = "Hallo Winterwerk, ich bitte um ein Angebot:%0A%0A";
+    
     if(stein > 0) {
-        msg += "• Steinfläche: " + stein + " m²%0A";
+        msg += "• Steinreinigung: " + stein + " m²%0A";
+        msg += "  - Bio-Reiniger: " + bio + "%0A";
         msg += "  - Fugensand: " + fugen + "%0A";
         msg += "  - Versiegelung: " + versieg + "%0A";
     }
     if(holz > 0) {
-        msg += "• Holzfläche: " + holz + " m²%0A";
-        msg += "  - Einölen: " + oel + "%0A";
+        msg += "• Holzreinigung: " + holz + " m²%0A";
+        msg += "  - Pflegeöl: " + oel + "%0A";
     }
     if(tKlein > 0) msg += "• Tonne 240l: " + tKlein + " Stk.%0A";
     if(tGross > 0) msg += "• Container 1100l: " + tGross + " Stk.%0A";
@@ -504,7 +517,7 @@ function sendWhatsApp() {
     msg += "%0A*Geschätzter Preis: " + gesamt + " €*";
 
     window.open("https://wa.me/4915758040389?text=" + msg, '_blank');
-}}
+}
 
 // Initial beim Laden einmal ausführen
 window.addEventListener('load', calculate);
@@ -605,6 +618,7 @@ window.addEventListener('load', calculate);
 </body>
 
 </html>
+
 
 
 
