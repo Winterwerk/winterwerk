@@ -341,36 +341,46 @@
         <h2 style="text-align: center; color: var(--green); margin-top: 0;">Preiskalkulator</h2>
         <p style="text-align: center; margin-bottom: 30px;">Einfach Flächen und Tonnen eingeben für eine Sofort-Schätzung.</p>
 
-        <div class="calc-grid">
-            <div class="input-group">
-                <label>Steinfläche (m²):</label>
-                <input type="number" id="stein-flaeche" placeholder="0" oninput="calculate()">
-            </div>
+<div class="calc-grid">
+    <div class="input-group">
+        <label>Steinfläche (m²):</label>
+        <input type="number" id="stein-flaeche" placeholder="0" oninput="calculate()">
+    </div>
 
-            <div class="input-group">
-                <label>Holzfläche (m²):</label>
-                <input type="number" id="holz-flaeche" placeholder="0" oninput="calculate()">
-            </div>
+    <div class="input-group">
+        <label>Holzfläche (m²):</label>
+        <input type="number" id="holz-flaeche" placeholder="0" oninput="calculate()">
+    </div>
 
-            <div class="checkbox-group" id="fugen-sand-wrapper">
-                <input type="checkbox" id="fugen-sand" onchange="calculate()">
-                <label for="fugen-sand">Fugensand einkehren (+ 4,50 €/m²)</label>
-            </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="fugen-sand" onchange="calculate()">
+        <label for="fugen-sand">Fugensand einkehren (+ 4,50 €/m²)</label>
+    </div>
+    
+    <div class="checkbox-group">
+        <input type="checkbox" id="versiegelung" onchange="calculate()">
+        <label for="versiegelung">Nano-Versiegelung (+ 5,00 €/m²)</label>
+    </div>
 
-            <hr style="grid-column: span 2; border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
-            
-            <h4 style="grid-column: span 2; margin: 0; color: var(--green);">Mülltonnen-Reinigung</h4>
+    <div class="checkbox-group">
+        <input type="checkbox" id="holz-oel" onchange="calculate()">
+        <label for="holz-oel">Premium Holz-Öl (+ 6,00 €/m²)</label>
+    </div>
 
-            <div class="input-group">
-                <label>Kleine Tonne (bis 240l):</label>
-                <input type="number" id="tonnen-klein" placeholder="0" oninput="calculate()">
-            </div>
+    <hr style="grid-column: span 2; border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
+    
+    <h4 style="grid-column: span 2; margin: 0; color: var(--green);">Mülltonnen-Reinigung</h4>
 
-            <div class="input-group">
-                <label>Großer Container (1100l):</label>
-                <input type="number" id="tonnen-gross" placeholder="0" oninput="calculate()">
-            </div>
-        </div>
+    <div class="input-group">
+        <label>Kleine Tonne (240l):</label>
+        <input type="number" id="tonnen-klein" placeholder="0" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>Großer Container (1100l):</label>
+        <input type="number" id="tonnen-gross" placeholder="0" oninput="calculate()">
+    </div>
+</div>
 
         <div style="margin-top: 30px; padding: 20px; background: var(--green); color: white; border-radius: 10px; text-align: center;">
             <div style="font-size: 1.2rem; font-weight: bold;">
@@ -427,20 +437,28 @@ function calculate() {
     const holz = parseFloat(document.getElementById('holz-flaeche').value) || 0;
     const tKlein = parseInt(document.getElementById('tonnen-klein').value) || 0;
     const tGross = parseInt(document.getElementById('tonnen-gross').value) || 0;
+    
     const fugenCheck = document.getElementById('fugen-sand').checked;
+    const versiegelungCheck = document.getElementById('versiegelung').checked;
+    const oelCheck = document.getElementById('holz-oel').checked;
 
     let total = 0;
     const flaecheGesamt = stein + holz;
 
-    // Preise (Stein 10€, Holz 12€)
+    // 1. Basis-Preise Reinigung
     total += stein * 10; 
     total += holz * 12;
 
-    if (fugenCheck) {
-        total += stein * 4.50;
+    // 2. Zusatzoptionen berechnen
+    if (stein > 0) {
+        if (fugenCheck) total += stein * 4.50;
+        if (versiegelungCheck) total += stein * 5.00;
+    }
+    if (holz > 0 && oelCheck) {
+        total += holz * 6.00;
     }
 
-    // Mülltonnen Logik
+    // 3. Mülltonnen Logik
     if (flaecheGesamt > 0) {
         total += (tKlein * 15) + (tGross * 35);
     } else if (tKlein > 0 || tGross > 0) {
@@ -451,19 +469,12 @@ function calculate() {
         }
     }
 
-    // Mindestauftragswert bei Flächen
+    // 4. Mindestauftragswert bei Flächen
     if (flaecheGesamt > 0 && total < 99) {
         total = 99;
     }
 
-    const priceDisplay = document.getElementById('total-price');
-    priceDisplay.innerText = total.toFixed(2).replace('.', ',');
-    
-    // Hinweis-Text aktualisieren (Umsatzsteuer-Hinweis)
-    const hintDiv = document.querySelector('#total-price').parentElement.nextElementSibling;
-    if (hintDiv) {
-        hintDiv.innerHTML = "* inkl. Anfahrt Zone 1<br>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.";
-    }
+    document.getElementById('total-price').innerText = total.toFixed(2).replace('.', ',');
 }
 
 function sendWhatsApp() {
@@ -471,20 +482,29 @@ function sendWhatsApp() {
     const holz = document.getElementById('holz-flaeche').value || 0;
     const tKlein = document.getElementById('tonnen-klein').value || 0;
     const tGross = document.getElementById('tonnen-gross').value || 0;
+    
     const fugen = document.getElementById('fugen-sand').checked ? "Ja" : "Nein";
+    const versieg = document.getElementById('versiegelung').checked ? "Ja" : "Nein";
+    const oel = document.getElementById('holz-oel').checked ? "Ja" : "Nein";
     const gesamt = document.getElementById('total-price').innerText;
 
     let msg = "Hallo Winterwerk, ich bitte um ein Angebot:%0A%0A";
-    if(stein > 0) msg += "• Steinreinigung: " + stein + " m²%0A";
-    if(holz > 0) msg += "• Holzreinigung: " + holz + " m²%0A";
-    if(stein > 0) msg += "• Inkl. Fugensand: " + fugen + "%0A";
+    if(stein > 0) {
+        msg += "• Steinfläche: " + stein + " m²%0A";
+        msg += "  - Fugensand: " + fugen + "%0A";
+        msg += "  - Versiegelung: " + versieg + "%0A";
+    }
+    if(holz > 0) {
+        msg += "• Holzfläche: " + holz + " m²%0A";
+        msg += "  - Einölen: " + oel + "%0A";
+    }
     if(tKlein > 0) msg += "• Tonne 240l: " + tKlein + " Stk.%0A";
     if(tGross > 0) msg += "• Container 1100l: " + tGross + " Stk.%0A";
     
     msg += "%0A*Geschätzter Preis: " + gesamt + " €*";
 
     window.open("https://wa.me/4915758040389?text=" + msg, '_blank');
-}
+}}
 
 // Initial beim Laden einmal ausführen
 window.addEventListener('load', calculate);
@@ -585,6 +605,7 @@ window.addEventListener('load', calculate);
 </body>
 
 </html>
+
 
 
 
