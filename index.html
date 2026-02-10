@@ -59,11 +59,52 @@
         h2::after { content: ''; position: absolute; left: 0; bottom: -10px; width: 50px; height: 3px; background: var(--red); }
 
         /* LEISTUNGEN 2x2 */
-        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .service-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .service-card img { width: 100%; height: 250px; object-fit: cover; }
-        .service-card div { padding: 20px; }
-        .service-card p { font-size: 0.95rem; line-height: 1.4; color: #555; }
+        #leistungen {
+    display: grid;
+    /* Erzwingt zwei Spalten mit gleicher Breite */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#leistungen .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Sorgt dafür, dass alle Karten gleich hoch sind */
+}
+
+#leistungen .card img {
+    width: 100%;
+    height: 250px; /* Einheitliche Höhe für die Bilder */
+    object-fit: cover; /* Schneidet Bilder sauber zu, ohne sie zu quetschen */
+}
+
+#leistungen .card h3 {
+    padding: 20px 20px 10px;
+    margin: 0;
+    color: var(--green);
+}
+
+#leistungen .card p {
+    padding: 0 20px 20px;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1; /* Schiebt den Inhalt gleichmäßig nach oben */
+}
+
+/* WICHTIG: Für Mobilgeräte auf 1 Spalte umstellen */
+@media (max-width: 768px) {
+    #leistungen {
+        grid-template-columns: 1fr;
+    }
+}
 
         /* SLIDER (VORHER-NACHHER) */
         .slider-box { position: relative; width: 100%; max-width: 800px; height: 450px; margin: 40px auto; overflow: hidden; border-radius: 12px; }
@@ -426,6 +467,7 @@ window.addEventListener('load', updatePrice);
 </body>
 
 </html>
+
 
 
 
