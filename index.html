@@ -1,475 +1,231 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winterwerk – Professionelle Außenreinigung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winterwerk – Professionelle Außenreinigung</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        :root {
+            --bg-light: #F8F7F5;
+            --text-dark: #2C2C2C;
+            --brand-green: #1F3A2A; /* 30% Fokus */
+            --brand-red: #9C1F2F;   /* 10% Akzent */
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
 
-<style>
-:root {
-    --logo-red: #b30000;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: #f7f7f7 url("assets/stone.png");
-    color: #111;
-}
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000; transition: 0.3s;
+        }
 
-/* HEADER */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: 0.4s ease;
-}
+        header.scrolled {
+            background: white;
+            height: 65px;
+            box-shadow: var(--shadow);
+        }
 
-header.scrolled {
-    height: 70px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(10px);
-}
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--brand-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-header img {
-    height: 120px;
-    transition: 0.4s ease;
-    cursor: pointer;
-}
+        /* NAVIGATION */
+        .nav-links { display: none; } /* Für Mobile optimiert, hier könnte ein Desktop-Menü hin */
 
-header.scrolled img {
-    height: 55px;
-}
+        .menu-toggle {
+            font-size: 24px;
+            color: var(--brand-green);
+            cursor: pointer;
+        }
 
-/* MENU */
-.menu-toggle {
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    font-size: 28px;
-    color: var(--logo-red);
-    cursor: pointer;
-    z-index: 1200;
-}
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(31, 58, 42, 0.7), rgba(31, 58, 42, 0.7)), url('assets/hero-bg.jpg') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 20px;
+        }
 
-.menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 320px;
-    height: 100%;
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(14px);
-    padding: 40px;
-    transition: 0.4s ease;
-    z-index: 1100;
-}
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 2rem; }
 
-.menu.open { right: 0; }
+        .btn-whatsapp {
+            background-color: #25D366; /* Original WhatsApp Grün oder var(--brand-red) */
+            color: white; padding: 15px 30px;
+            border-radius: 50px; text-decoration: none;
+            font-weight: bold; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
 
-.menu a {
-    display: block;
-    margin: 20px 0;
-    text-decoration: none;
-    color: #111;
-}
+        .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-/* HERO */
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 100px;
-    text-align: center;
-}
+        /* SECTIONS */
+        section { padding: 100px 10%; max-width: 1200px; margin: auto; }
+        h2 { color: var(--brand-green); margin-bottom: 40px; font-size: 2rem; border-left: 4px solid var(--brand-red); padding-left: 15px; }
 
-.hero h1 {
-    font-size: clamp(3rem, 6vw, 5rem);
-}
+        /* GRID FÜR PREISE & FAQ */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow); }
 
-.hero p {
-    font-weight: 300;
-    margin-top: 10px;
-    opacity: 0.7;
-}
+        /* VORHER NACHHER */
+        .ba-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .ba-item img { width: 100%; border-radius: 8px; border: 1px solid #ddd; }
 
-/* SECTIONS */
-.section {
-    padding: 120px 20px;
-    max-width: 900px;
-    margin: auto;
-}
+        /* MAP */
+        #map { height: 450px; width: 100%; border-radius: 15px; margin-top: 20px; z-index: 1; }
 
-.section h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
+        /* FAQ */
+        details { margin-bottom: 15px; background: white; padding: 15px; border-radius: 8px; cursor: pointer; }
+        details summary { font-weight: 600; list-style: none; }
 
-/* BEFORE AFTER */
-.before-after {
-    position: relative;
-    width: 100%;
-    height: 420px;
-    overflow: hidden;
-    border-radius: 12px;
-}
+        /* CONTACT & SOCIALS */
+        .contact-area { text-align: center; background: var(--brand-green); color: white; padding: 80px 10%; }
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin: 30px 0; }
+        .social-icons a { color: white; font-size: 30px; transition: 0.3s; }
+        .social-icons a:hover { color: var(--brand-red); }
 
-.before-after img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.after {
-    clip-path: inset(0 50% 0 0);
-}
-
-.slider {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 4px;
-    height: 100%;
-    background: var(--logo-red);
-    cursor: ew-resize;
-}
-
-/* MAP */
-#map {
-    width: 100%;
-    height: 420px;
-    border-radius: 12px;
-    margin-top: 30px;
-}
-
-.map-hint {
-    font-size: 0.9rem;
-    opacity: 0.6;
-    margin-top: 14px;
-}
-
-/* FORM */
-form input, form textarea {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-form button {
-    padding: 14px 24px;
-    border: none;
-    background: var(--logo-red);
-    color: white;
-}
-
-/* SOCIAL */
-.socials {
-    display: flex;
-    gap: 24px;
-}
-
-.socials a img {
-    width: 34px;
-    opacity: 0.7;
-    transition: 0.3s;
-}
-
-.socials a img:hover {
-    opacity: 1;
-}
-
-/* FOOTER */
-footer {
-    padding: 60px 20px;
-    text-align: center;
-    font-size: 0.85rem;
-    opacity: 0.6;
-}
-    .legal-block {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 40px 50px;
-  background: rgba(255, 255, 255, 0.85);
-  border-top: 1px solid #cfcfcf;
-  font-size: 13px;
-  line-height: 1.6;
-  color: #444;
-}
-
-.legal-block h2 {
-  font-size: 18px;
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-
-.legal-block h3 {
-  font-size: 14px;
-  margin-top: 25px;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.legal-block p {
-  margin-bottom: 12px;
-}
-.footer-legal {
-  text-align: center;
-  font-size: 12px;
-  padding: 30px 0;
-  color: #777;
-}
-
-.footer-legal a {
-  color: #777;
-  text-decoration: none;
-}
-
-.footer-legal a:hover {
-  text-decoration: underline;
-}
-
-</style>
+        footer { padding: 40px; text-align: center; font-size: 0.9rem; }
+        footer a { color: var(--text-dark); text-decoration: none; margin: 0 10px; }
+    </style>
 </head>
-
 <body>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<nav class="menu" id="menu">
-    <a href="#philosophie" onclick="closeMenu()">Philosophie</a>
-    <a href="#leistungen" onclick="closeMenu()">Leistungen</a>
-    <a href="#ablauf" onclick="closeMenu()">Ablauf</a>
-    <a href="#vorhernachher" onclick="closeMenu()">Vorher / Nachher</a>
-    <a href="#einsatzgebiet" onclick="closeMenu()">Einsatzgebiet</a>
-    <a href="#anfrage" onclick="closeMenu()">Anfrage</a>
-    <a href="#kontakt" onclick="closeMenu()">Kontakt</a>
-    <a href="#impressum" onclick="closeMenu()">Impressum</a>
-    <a href="#datenschutz" onclick="closeMenu()">Datenschutz</a>
-</nav>
-
 <header id="header">
-    <img src="assets/logo.png" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="logo-text">Winterwerk</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 </header>
 
 <section class="hero">
-    <h1>Winterwerk</h1>
-    <p>Klarheit beginnt außen.</p>
+    <h1>Glänzende Resultate.</h1>
+    <p>Professionelle Hochdruckreinigung für Stein, Terrasse und Fassade.</p>
+    <a href="https://wa.me/4915758040389" class="btn-whatsapp">
+        <i class="fab fa-whatsapp"></i> Jetzt Anfrage via WhatsApp
+    </a>
 </section>
 
-<section id="philosophie" class="section">
-<h2>Philosophie</h2>
-<p>
-Winterwerk steht für professionelle Außenreinigung ohne Umwege.
-</p>Ich arbeite bewusst fokussiert, präzise und sauber – ohne unnötige Versprechen,
-ohne Reparaturen, ohne Ablenkung.</p>
-</p>Was ich mache, mache ich richtig:</p>
-</p>Hochdruckreinigung mit Struktur, Ruhe und Respekt
-vor Objekt und Umgebung.</p>
-</p>
+<section id="ueber-mich">
+    <h2>Über mich</h2>
+    <div class="grid">
+        <div>
+            <p>Hier kommt dein Über-mich-Text hin. Beschreibe kurz deine Leidenschaft für saubere Flächen und deinen Qualitätsanspruch.</p>
+            <br>
+            <p><strong>Dein Name / Winterwerk</strong></p>
+        </div>
+        <div>
+            <img src="assets/equipment.jpg" alt="Equipment" style="width:100%; border-radius:12px;">
+        </div>
+    </div>
 </section>
 
-<section id="leistungen" class="section">
-<h2>Leistungen</h2>
-<p>
-</p>Hochdruckreinigung von Terrassen, Einfahrten, Höfen, Wegen und Außenflächen.</p>
-</p>Auch Mülltonnenreinigung per Hochdruck ist möglich.</p>
-</p>Besondere Anfragen können gern gestellt werden – im Rahmen professioneller Reinigung.</p>
-</p>
+<section id="preise">
+    <h2>Preisliste</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Grundreinigung</h3>
+            <p>Ab X € pro m²</p>
+            <ul>
+                <li>Moosentfernung</li>
+                <li>Hochdruck-Spülung</li>
+            </ul>
+        </div>
+        </div>
 </section>
 
-<section id="ablauf" class="section">
-<h2>Ablauf</h2>
-<p>
-</p>Kontaktaufnahme per Formular, Mail oder WhatsApp.</p>
-</p>Je nach Situation komme ich vorbei und begutachte das Gelände,
-oder analysiere Fotos aus der Ferne.</p> 
-</p>Anschließend erhalten Sie eine klare Einschätzung und einen sauberen Ablauf.</p>
-</p>
+<section id="vorher-nachher">
+    <h2>Ergebnisse</h2>
+    <div class="ba-container">
+        <div class="ba-item"><p>Vorher</p><img src="assets/before1.jpg" alt=""></div>
+        <div class="ba-item"><p>Nachher</p><img src="assets/after1.jpg" alt=""></div>
+    </div>
 </section>
 
-<!-- VORHER NACHHER -->
-<section id="vorhernachher" class="section">
-<h2>Vorher / Nachher</h2>
+<section id="servicegebiet">
+    <h2>Einsatzgebiete</h2>
+    <p>Zone 1 (bis 10km): Anfahrt inklusive. Zone 2 (bis 50km): Geringe Pauschale.</p>
+    <div id="map"></div>
+</section>
 
-<div class="before-after" id="ba">
-    <img src="assets/before1.jpg">
-    <img src="assets/after1.jpg" class="after" id="after">
-    <div class="slider" id="slider"></div>
+<section id="faq">
+    <h2>Häufige Fragen (FAQ)</h2>
+    <details>
+        <summary>Wie lange dauert eine Reinigung?</summary>
+        <p>Je nach Verschmutzungsgrad und Fläche meist einen Werktag.</p>
+    </details>
+    </section>
+
+<div class="contact-area">
+    <h2>Kontakt & Social Media</h2>
+    <p>E-Mail: <a href="mailto:winterwerk.service@gmail.com" style="color:white;">winterwerk.service@gmail.com</a></p>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
 </div>
-</section>
 
-<section id="einsatzgebiet" class="section">
-<h2>Einsatzgebiet</h2>
-<div id="map"></div>
-<p class="map-hint">Weitere Anfahrtswege nach Absprache möglich.</p>
-</section>
-
-<section id="anfrage" class="section">
-<h2>Anfrage</h2>
-<form action="mailto:winterwerk.service@gmail.com" method="post">
-<input type="text" placeholder="Name" required>
-<input type="tel" placeholder="Telefon" required>
-<textarea placeholder="Nachricht" required></textarea>
-<button>Senden</button>
-</form>
-</section>
-
-<section id="kontakt" class="section">
-<h2>Kontakt</h2>
-<div class="socials">
-<a href="https://youtube.com" target="_blank"><img src="assets/youtube.png"></a>
-<a href="https://instagram.com" target="_blank"><img src="assets/instagram.png"></a>
-<a href="https://tiktok.com" target="_blank"><img src="assets/tiktok.png"></a>
-<a href="https://facebook.com" target="_blank"><img src="assets/facebook.png"></a>
-</div>
-</section>
-
-<footer id="impressum">
-<section id="impressum" class="legal-block">
-  <h2>Impressum</h2>
-
-  <p><strong>Angaben gemäß § 5 DDG</strong></p>
-
-  <p>
-    Winterwerk<br>
-    Inhaber: David Winter<br>
-    Aldebaranstraße 9<br>
-    12529 Schönefeld<br>
-    Deutschland
-  </p>
-
-  <p>
-    Telefon: 0157 58040389<br>
-    E-Mail: winterwerk.service@gmail.com
-  </p>
-
-  <p>
-    Kleinunternehmer gemäß § 19 UStG
-  </p>
-
-  <p>
-    Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:<br>
-    David Winter
-  </p>
-</section>
-
-
-<section id="datenschutz" class="legal-block">
-  <h2>Datenschutzerklärung</h2>
-
-  <p>
-    Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber,
-    welche personenbezogenen Daten beim Besuch dieser Website verarbeitet werden.
-  </p>
-
-  <h3>Verantwortlicher</h3>
-  <p>
-    Winterwerk – David Winter<br>
-    Aldebaranstraße 9<br>
-    12529 Schönefeld<br>
-    E-Mail: winterwerk.service@gmail.com
-  </p>
-
-  <h3>Zugriffsdaten</h3>
-  <p>
-    Beim Aufruf dieser Website werden durch den Hosting-Anbieter automatisch Informationen
-    in sogenannten Server-Logfiles erhoben. Diese Daten dienen der technischen Sicherheit
-    und der Stabilität der Website.
-  </p>
-
-  <h3>Kontaktaufnahme</h3>
-  <p>
-    Wenn Sie uns kontaktieren, werden Ihre Angaben zur Bearbeitung der Anfrage verarbeitet.
-    Eine Weitergabe erfolgt nicht ohne Ihre Einwilligung.
-  </p>
-
-  <h3>Google Maps</h3>
-  <p>
-    Diese Website nutzt Google Maps zur Darstellung des Einsatzgebiets.
-    Anbieter ist Google Ireland Limited. Beim Aufruf der Karte kann Ihre IP-Adresse
-    an Google übertragen werden.
-  </p>
-
-  <h3>Social Media</h3>
-  <p>
-    Unsere Website enthält Verlinkungen zu externen Social-Media-Plattformen.
-    Beim Anklicken gelten die Datenschutzbestimmungen der jeweiligen Anbieter.
-  </p>
-
-  <h3>Ihre Rechte</h3>
-  <p>
-    Sie haben das Recht auf Auskunft, Berichtigung, Löschung oder Einschränkung
-    der Verarbeitung Ihrer personenbezogenen Daten sowie ein Beschwerderecht
-    bei der zuständigen Aufsichtsbehörde.
-  </p>
-</section>
-<footer class="footer-legal">
-  <a href="#impressum">Impressum</a>
-  <span>·</span>
-  <a href="#datenschutz">Datenschutz</a>
-</footer>
-
+<footer>
+    <p>&copy; 2024 Winterwerk</p>
+    <a href="#impressum">Impressum</a> | <a href="#datenschutz">Datenschutz</a> | <a href="#agb">AGB</a>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
-/* HEADER */
-window.addEventListener("scroll", () =>
-    document.getElementById("header")
-    .classList.toggle("scrolled", window.scrollY > 100)
-);
+    // Header Scroll Effekt
+    window.onscroll = function() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("header").classList.add("scrolled");
+        } else {
+            document.getElementById("header").classList.remove("scrolled");
+        }
+    };
 
-/* MENU */
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("open");
-}
-function closeMenu(){
-    document.getElementById("menu").classList.remove("open");
-}
+    // Karte Initialisierung (Rathaus Schönefeld)
+    const center = [52.388, 13.520]; // Ungefähre Koordinaten Schönefeld Rathaus
+    const map = L.map('map').setView(center, 9);
 
-/* BEFORE AFTER SLIDER */
-const slider = document.getElementById("slider");
-const after = document.getElementById("after");
-const ba = document.getElementById("ba");
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
 
-ba.addEventListener("mousemove", e => {
-    const x = e.offsetX;
-    const percent = (x / ba.offsetWidth) * 100;
-    after.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-    slider.style.left = percent + "%";
-});
+    // Zone 1: 10km (Grün)
+    L.circle(center, {
+        color: '#1F3A2A',
+        fillColor: '#1F3A2A',
+        fillOpacity: 0.2,
+        radius: 10000 // Meter
+    }).addTo(map).bindPopup("Zone 1: Anfahrt frei");
 
-/* MAP */
-const map = L.map('map',{scrollWheelZoom:false}).setView([52.45,13.45],10);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    // Zone 2: 50km (Rot/Dezent)
+    L.circle(center, {
+        color: '#9C1F2F',
+        fillColor: '#9C1F2F',
+        fillOpacity: 0.05,
+        radius: 50000
+    }).addTo(map).bindPopup("Zone 2: Erweitertes Einsatzgebiet");
 
-const area = [
-[52.445,13.574],[52.476,13.707],[52.279,13.765],[52.217,13.451],
-[52.242,13.206],[52.353,13.063],[52.400,13.058],[52.407,13.225],
-[52.433,13.259],[52.426,13.335],[52.422,13.398],[52.437,13.501]
-];
-
-const poly = L.polygon(area,{
-color:'#b30000',fillColor:'#b30000',fillOpacity:0.08
-}).addTo(map);
-
-map.fitBounds(poly.getBounds());
+    L.marker(center).addTo(map).bindPopup("Winterwerk Standort");
 </script>
 
 </body>
