@@ -139,9 +139,46 @@
     </section>
 
     <section id="ueber-mich">
-        <h2>Über mich</h2>
-        <p>Ich sorge dafür, dass Ihre Außenanlagen wieder wie neu aussehen. Mit modernem Equipment und Auge fürs Detail entferne ich Algen, Moos und tiefsitzenden Schmutz von Stein und Fassade.</p>
-    </section>
+    <h2>Über mich</h2>
+    <div style="max-width: 800px; line-height: 1.8;">
+        <p>
+            Hinter <strong>Winterwerk</strong> stehe ich – Ihr Partner für professionelle Außenreinigung in Schönefeld und Umgebung. 
+            Ich bin kein Fan von langen Vorreden; ich bin jemand, der gerne draußen arbeitet und Ergebnisse liefert, die man sofort sieht.
+        </p>
+
+        <h3 style="margin: 30px 0 10px; color: var(--green);">Warum eigentlich „Winterwerk“?</h3>
+        <p>
+            Die Erklärung ist ganz einfach: Ich heiße <strong>Winter</strong> mit Nachnamen.<br>
+            Winterwerk ist mein persönliches Qualitätsversprechen. Wenn ich bei Ihnen eine Terrasse reinige oder die Mülltonnen auf Vordermann bringe, stehe ich mit meinem Namen für die Arbeit gerade. Mein Ziel ist es, dass Ihre Außenanlagen nicht nur sauber werden, sondern ihren Wert behalten – egal zu welcher Jahreszeit.
+        </p>
+
+        <h3 style="margin: 30px 0 10px; color: var(--green);">Meine Motivation: Der „Wow-Effekt“</h3>
+        <p>
+            Es gibt für mich kaum etwas Besseres, als eine Fläche zu übernehmen, die unter einer Schicht aus rutschigem Moos und grauem Schleier verschwunden ist, und sie wieder zum Glänzen zu bringen. 
+            Ich liebe diesen Moment, wenn der Kunde nach der Arbeit das erste Mal nach draußen tritt und sagt: 
+            <br><em style="color: var(--red);">„Wow, ich hätte nicht gedacht, dass die Terrasse eigentlich so aussieht!“</em>
+        </p>
+
+        <h3 style="margin: 30px 0 10px; color: var(--green);">Pragmatisch. Gründlich. Verlässlich.</h3>
+        <p>Ich arbeite mit System und Verstand. Statt auf Akkordarbeit setze ich auf Gründlichkeit:</p>
+        
+        <ul style="list-style: none; padding: 20px 0;">
+            <li style="margin-bottom: 15px;">
+                <strong style="color: var(--red);">Pragmatisch:</strong> Ich schaue mir das Material vor Ort genau an und finde die beste Lösung – egal wie hartnäckig der Dreck ist.
+            </li>
+            <li style="margin-bottom: 15px;">
+                <strong style="color: var(--red);">Sauber:</strong> Ich sorge dafür, dass Spritzer an Wänden oder Fenstern verschwinden, bevor ich den Einsatz beende.
+            </li>
+            <li style="margin-bottom: 15px;">
+                <strong style="color: var(--red);">Sicher:</strong> Als versicherter Fachbetrieb biete ich Ihnen die Sicherheit, die man bei privater Nachbarschaftshilfe oft vermisst.
+            </li>
+        </ul>
+
+        <p style="font-weight: 600; font-size: 1.1rem; border-top: 1px solid #ddd; padding-top: 20px;">
+            Winterwerk – Ich mache die Arbeit, Sie genießen das Ergebnis.
+        </p>
+    </div>
+</section>
 
     <section id="leistungen">
         <h2>Leistungen</h2>
@@ -240,7 +277,8 @@ function updatePrice() {
         holz: 9.50,
         bio: 2.50,
         seal: 7.50,
-        oil: 12.50
+        oil: 12.50,
+        minOrder: 99.00 // Dein Mindestauftragswert
     };
 
     const sqm = parseFloat(document.getElementById('sqm').value) || 0;
@@ -256,7 +294,7 @@ function updatePrice() {
         document.getElementById('holz-options').style.display = 'block';
     }
 
-    // Kalkulation
+    // Kalkulation pro m2
     let basePrice = (material === 'stein') ? prices.stein : prices.holz;
     let totalPerM2 = basePrice;
 
@@ -267,16 +305,31 @@ function updatePrice() {
         if (document.getElementById('oil').checked) totalPerM2 += prices.oil;
     }
 
-    let finalTotal = sqm * totalPerM2 * dirtFactor;
+    // Gesamtsumme berechnen
+    let calculatedTotal = sqm * totalPerM2 * dirtFactor;
+    
+    // Mindestauftragswert prüfen
+    let finalTotal = Math.max(calculatedTotal, prices.minOrder);
+    let isMinApplied = calculatedTotal < prices.minOrder && sqm > 0;
 
     // Anzeige aktualisieren
-    document.getElementById('total-price').innerText = finalTotal.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    const priceDisplay = document.getElementById('total-price');
+    priceDisplay.innerText = finalTotal.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    
+    // Optischer Hinweis falls Mindestwert greift
+    priceDisplay.style.color = isMinApplied ? 'var(--red)' : 'var(--green)';
+
+    // Hinweis-Text anpassen
+    const hintText = isMinApplied 
+        ? `Mindestauftragswert angewandt (zzgl. Anfahrt)<br>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.` 
+        : `Voraussichtlicher Richtpreis zzgl. Anfahrtskosten<br>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.`;
+    
+    document.querySelector('#total-price + div').innerHTML = hintText;
 
     // WhatsApp Link dynamisch anpassen
     const text = `Hallo Winterwerk, ich habe meinen Richtpreis berechnet: ${finalTotal.toFixed(2)}€ für ${sqm}m² ${material}. Ich bitte um Kontaktaufnahme!`;
     document.getElementById('whatsapp-link').href = `https://wa.me/4915758040389?text=${encodeURIComponent(text)}`;
 }
-
 // Initialer Aufruf beim Laden
 window.addEventListener('load', updatePrice);
 </script>
@@ -352,3 +405,4 @@ window.addEventListener('load', updatePrice);
 </body>
 
 </html>
+
