@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        * {
+    box-sizing: border-box;
+}
         /* inter-300 - latin (Light) */
 @font-face {
   font-family: 'Inter';
@@ -131,47 +134,70 @@ body {
 
 /* WICHTIG: Für Mobilgeräte auf 1 Spalte umstellen */
 @media (max-width: 768px) {
-    /* Statt 2 Spalten nur noch 1 Spalte auf dem Handy */
-    .calc-grid { 
-        grid-template-columns: 1fr !important; 
-    }
-    
-    /* Die Checkboxen nutzen die volle Breite */
-    .checkbox-group { 
-        grid-column: span 1 !important; 
-        padding: 15px 5px !important; /* Etwas mehr Platz für dicke Daumen */
-        border-bottom: 1px solid #eee; 
-        display: flex;
-        align-items: center; /* Text und Checkbox sauber zentriert */
-    }
-
-    /* Verhindert das automatische Rein-Zoomen bei iPhones */
-    input[type="number"], 
-    input[type="text"] {
-        font-size: 16px !important; 
-        padding: 12px !important;
-    }
-
-    /* Überschriften auf dem Handy etwas kleiner, damit sie nicht umbrechen */
-    h1 { font-size: 1.8rem !important; }
-    h2 { font-size: 1.5rem !important; }
-
-    /* Weniger Platz am Rand, damit mehr Inhalt sichtbar ist */
+    /* 1. Container & Sektionen zähmen */
     section { 
-        padding: 30px 4% !important; 
+        padding: 30px 15px !important; /* Weniger Rand links/rechts */
+        overflow-x: hidden; /* Verhindert seitliches Wackeln */
     }
 
-    /* Den WhatsApp Button auf dem Handy richtig präsent machen */
+    .calc-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        box-sizing: border-box !important; /* WICHTIG: Padding wird nicht zur Breite addiert */
+    }
+
+    /* 2. Das Raster auf 1 Spalte zwingen */
+    .calc-grid { 
+        display: flex !important;
+        flex-direction: column !important; /* Sicherste Methode für Mobile */
+        gap: 10px !important;
+    }
+
+    /* 3. Inputs & Labels */
+    .input-group {
+        width: 100% !important;
+    }
+
+    input[type="number"], input[type="text"] {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        font-size: 16px !important; /* Verhindert Zoom-Bug */
+        height: 45px; /* Bessere Touch-Fläche */
+    }
+
+    /* 4. Checkboxen schick machen */
+    .checkbox-group {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 10px;
+        padding: 12px 0 !important;
+        border-bottom: 1px solid #eee;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: 22px !important; /* Größere Checkbox zum Antippen */
+        height: 22px !important;
+        flex-shrink: 0; /* Box wird nicht gequetscht */
+    }
+
+    .checkbox-group label {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    /* 5. Preis-Box & Button */
+    .result-box {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: center;
+    }
+
     button {
         width: 100% !important;
-        padding: 16px !important;
         font-size: 1.1rem !important;
-    }
-
-    /* Die Ergebnisbox etwas kompakter */
-    .result-box {
-        margin-top: 20px !important;
-        padding: 20px !important;
+        padding: 15px !important;
     }
 }
         /* SLIDER (VORHER-NACHHER) */
@@ -713,6 +739,7 @@ window.addEventListener('load', calculate);
 </body>
 
 </html>
+
 
 
 
