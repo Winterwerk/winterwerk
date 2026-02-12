@@ -398,6 +398,15 @@
             <div style="font-size: 1.3rem; font-weight: bold;">
                 Geschätzter Preis: <span id="total-price">0,00</span> €
             </div>
+            
+            <div id="rabatt-info" style="color: #4ade80; font-size: 0.9rem; font-weight: bold; margin-top: 10px; display: none;">
+                <i class="fas fa-check-circle"></i> Glückwunsch! Du sparst gerade <span id="rabatt-prozent">0</span>% Mengenrabatt!
+            </div>
+
+            <div id="min-order-info" style="color: #ffbcbc; font-size: 0.85rem; font-weight: bold; margin-top: 10px; display: none;">
+                <i class="fas fa-info-circle"></i> Hinweis: Mindestauftragswert von 99,00 € wurde angewandt.
+            </div>
+
             <small style="opacity: 0.8; display: block; margin-top: 10px;">* Inkl. Anfahrt Zone 1 (Schönefeld)</small>
         </div>
 
@@ -408,7 +417,7 @@
 </section>
 
 <script>
-// 1. DEIN PREIS-DASHBOARD (Hier kannst du jederzeit Preise ändern)
+// 1. DEINE PREIS-ZENTRALE
 const PREISE = {
     steinBasis: 10.00,
     holzBasis: 12.00,
@@ -419,78 +428,103 @@ const PREISE = {
     tonne240: 15.00,
     tonne1100: 35.00,
     anfahrtEinzel: 39.00,
-    mindestAuftrag: 99.00
+    mindestAuftrag: 99.00,
+    
+    // Rabatt-Staffeln (Fläche in qm)
+    stufe1: 15,  // ab 15 qm -> 5%
+    stufe2: 30,  // ab 30 qm -> 10%
+    stufe3: 50,  // ab 50 qm -> 15%
 };
 
-// 2. DIE RECHEN-LOGIK (Wird bei jeder Eingabe ausgelöst)
+// 2. DIE BERECHNUNG
 function calculate() {
-    // Werte aus den Eingabefeldern holen
     const stein = parseFloat(document.getElementById('stein-flaeche').value) || 0;
     const holz = parseFloat(document.getElementById('holz-flaeche').value) || 0;
     const tKlein = parseInt(document.getElementById('tonnen-klein').value) || 0;
     const tGross = parseInt(document.getElementById('tonnen-gross').value) || 0;
     
-    // Status der Checkboxen prüfen
     const bioCheck = document.getElementById('stein-bio').checked;
     const versiegCheck = document.getElementById('stein-versiegelung').checked;
     const fugenCheck = document.getElementById('fugen-sand').checked;
     const oelCheck = document.getElementById('holz-oel').checked;
 
-    let total = 0;
     const flaecheGesamt = stein + holz;
+    let grundPreis = (stein * PREISE.steinBasis) + (holz * PREISE.holzBasis);
+    
+    // Rabatt ermitteln
+    let rabattSatz = 0;
+    if (flaecheGesamt >= PREISE.stufe3) rabattSatz = 0.15;
+    else if (flaecheGesamt >= PREISE.stufe2) rabattSatz = 0.10;
+    else if (flaecheGesamt >= PREISE.stufe1) rabattSatz = 0.05;
 
-    // Stein-Rechnung
+    // Preis berechnen (Rabatt auf Grundpreis)
+    let total = grundPreis * (1 - rabattSatz);
+
+    // Extras (Materialpreise ohne Rabatt)
     if (stein > 0) {
-        total += stein * PREISE.steinBasis;
         if (bioCheck) total += stein * PREISE.steinBio;
         if (versiegCheck) total += stein * PREISE.steinVersiegelung;
         if (fugenCheck) total += stein * PREISE.fugenSand;
     }
+    if (holz > 0 && oelCheck) total += holz * PREISE.holzOel;
 
-    // Holz-Rechnung
-    if (holz > 0) {
-        total += holz * PREISE.holzBasis;
-        if (oelCheck) total += holz * PREISE.holzOel;
+    // Mülltonnen
+    total += (tKlein * PREISE.tonne240) + (tGross * PREISE.tonne1100);
+
+    // Elemente für Anzeigen
+    const rabattInfo = document.getElementById('rabatt-info');
+    const minOrderInfo = document.getElementById('min-order-info');
+    
+    // Rabatt-Anzeige steuern
+    if (rabattSatz > 0) {
+        rabattInfo.style.display = 'block';
+        document.getElementById('rabatt-prozent').innerText = (rabattSatz * 100);
+    } else {
+        rabattInfo.style.display = 'none';
     }
 
-    // Tonnen & Mindestwert Logik
+    // Mindestauftrag / Anfahrt steuern
     if (flaecheGesamt > 0) {
-        // Falls Fläche vorhanden ist, Tonnen einfach draufrechnen
-        total += (tKlein * PREISE.tonne240) + (tGross * PREISE.tonne1100);
-        // Mindestbestellwert prüfen
         if (total < PREISE.mindestAuftrag && total > 0) {
             total = PREISE.mindestAuftrag;
+            minOrderInfo.style.display = 'block';
+        } else {
+            minOrderInfo.style.display = 'none';
         }
     } else if (tKlein > 0 || tGross > 0) {
-        // Reine Tonnenreinigung (mit Anfahrtspauschale)
-        total = PREISE.anfahrtEinzel + (tKlein * PREISE.tonne240) + (tGross * PREISE.tonne1100);
+        // Reine Tonnenreinigung bekommt Anfahrtspauschale
+        total += PREISE.anfahrtEinzel;
+        minOrderInfo.style.display = 'none';
     }
 
-    // Ergebnis im Feld "total-price" anzeigen
-    const display = document.getElementById('total-price');
-    if (display) {
-        display.innerText = total.toFixed(2).replace('.', ',');
-    }
+    document.getElementById('total-price').innerText = total.toFixed(2).replace('.', ',');
 }
 
-// 3. WHATSAPP FUNKTION
+// 3. WHATSAPP SENDEN
 function sendWhatsApp() {
     const stein = document.getElementById('stein-flaeche').value || 0;
     const holz = document.getElementById('holz-flaeche').value || 0;
     const tKlein = document.getElementById('tonnen-klein').value || 0;
     const tGross = document.getElementById('tonnen-gross').value || 0;
     const gesamt = document.getElementById('total-price').innerText;
+    
+    // Rabatt für die Nachricht ermitteln
+    const flaeche = parseFloat(stein) + parseFloat(holz);
+    let rabattText = "";
+    if (flaeche >= PREISE.stufe3) rabattText = " (inkl. 15% Rabatt)";
+    else if (flaeche >= PREISE.stufe2) rabattText = " (inkl. 10% Rabatt)";
+    else if (flaeche >= PREISE.stufe1) rabattText = " (inkl. 5% Rabatt)";
 
     let msg = "Hallo Winterwerk, ich bitte um ein Angebot:%0A%0A";
     
     if(stein > 0) {
-        msg += "• *Steinreinigung:* " + stein + " m²%0A";
+        msg += "• *Steinreinigung:* " + stein + " m²" + rabattText + "%0A";
         if(document.getElementById('stein-bio').checked) msg += "  + Bio-Reiniger%0A";
         if(document.getElementById('stein-versiegelung').checked) msg += "  + Versiegelung%0A";
         if(document.getElementById('fugen-sand').checked) msg += "  + Fugensand%0A";
     }
     if(holz > 0) {
-        msg += "• *Holzreinigung:* " + holz + " m²%0A";
+        msg += "• *Holzreinigung:* " + holz + " m²" + rabattText + "%0A";
         if(document.getElementById('holz-oel').checked) msg += "  + Pflegeöl%0A";
     }
     if(tKlein > 0 || tGross > 0) {
