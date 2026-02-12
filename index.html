@@ -136,16 +136,42 @@ body {
         grid-template-columns: 1fr !important; 
     }
     
-    /* Die Checkboxen sollen die volle Breite nutzen und mehr Platz zum Klicken haben */
+    /* Die Checkboxen nutzen die volle Breite */
     .checkbox-group { 
         grid-column: span 1 !important; 
-        padding: 12px 0 !important; /* Erhöht den Klickbereich deutlich */
-        border-bottom: 1px solid #eee; /* Trennlinie zur besseren Übersicht auf dem Handy */
+        padding: 15px 5px !important; /* Etwas mehr Platz für dicke Daumen */
+        border-bottom: 1px solid #eee; 
+        display: flex;
+        align-items: center; /* Text und Checkbox sauber zentriert */
     }
 
-    /* Weniger Platz am Rand auf dem Handy */
+    /* Verhindert das automatische Rein-Zoomen bei iPhones */
+    input[type="number"], 
+    input[type="text"] {
+        font-size: 16px !important; 
+        padding: 12px !important;
+    }
+
+    /* Überschriften auf dem Handy etwas kleiner, damit sie nicht umbrechen */
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+
+    /* Weniger Platz am Rand, damit mehr Inhalt sichtbar ist */
     section { 
-        padding: 40px 5% !important; 
+        padding: 30px 4% !important; 
+    }
+
+    /* Den WhatsApp Button auf dem Handy richtig präsent machen */
+    button {
+        width: 100% !important;
+        padding: 16px !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* Die Ergebnisbox etwas kompakter */
+    .result-box {
+        margin-top: 20px !important;
+        padding: 20px !important;
     }
 }
         /* SLIDER (VORHER-NACHHER) */
@@ -687,6 +713,7 @@ window.addEventListener('load', calculate);
 </body>
 
 </html>
+
 
 
 
