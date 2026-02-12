@@ -156,46 +156,61 @@ body {
 
 /* Die Sprechblase (Tooltip) */
 .tooltip-box {
-    display: none; /* Erstmal unsichtbar */
+    display: none;
     position: absolute;
-    bottom: 135%; /* Erscheint über dem Icon */
+    bottom: 140%; /* Standard: Oben auf dem PC */
     left: 50%;
     transform: translateX(-50%);
-    width: 230px;
+    width: 260px;
     background-color: white;
     color: #333;
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    border: 1px solid #eee;
-    z-index: 1000;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    border: 1px solid #ddd;
+    z-index: 9999;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
-/* Der kleine Pfeil unten an der Blase */
+/* Der Pfeil (Standard: zeigt nach unten) */
 .tooltip-box::after {
     content: "";
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -8px;
-    border-width: 8px;
+    transform: translateX(-50%);
+    border-width: 10px;
     border-style: solid;
     border-color: white transparent transparent transparent;
 }
 
-/* Klasse wird per JS hinzugefügt */
+/* SPEZIAL-REPARATUR FÜR HANDY */
+@media (max-width: 768px) {
+    .tooltip-box {
+        bottom: auto; /* Deaktiviert die Position oben */
+        top: 140%;    /* Schiebt die Blase NACH UNTEN */
+    }
+
+    /* Der Pfeil muss auf dem Handy nach oben zeigen */
+    .tooltip-box::after {
+        top: auto;
+        bottom: 100%;
+        border-color: transparent transparent white transparent;
+    }
+}
+
 .tooltip-box.active {
     display: block;
 }
-}
-
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+section, .calc-container {
+    overflow: visible !important;
+}        
 /* WICHTIG: Für Mobilgeräte auf 1 Spalte umstellen */
 @media (max-width: 768px) {
     /* 1. Container & Sektionen zähmen */
@@ -831,6 +846,7 @@ document.addEventListener('click', function(event) {
 </body>
 
 </html>
+
 
 
 
