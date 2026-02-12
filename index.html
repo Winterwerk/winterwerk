@@ -131,27 +131,64 @@ body {
     line-height: 1.6;
     flex-grow: 1; /* Schiebt den Inhalt gleichmäßig nach oben */
 }
-/* Styling für das Rabatt-Fragezeichen */
-.info-icon {
+/* Container für Icon + Blase */
+.info-container {
+    position: relative;
     display: inline-flex;
+    align-items: center;
+}
+
+/* Das Fragezeichen-Icon */
+.info-icon {
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 22px;
     height: 22px;
-    background-color: #9C1F2F; /* Winterwerk Rot */
+    background-color: #9C1F2F; /* Dein Rot */
     color: white;
     border-radius: 50%;
     font-size: 14px;
-    cursor: help;
-    flex-shrink: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    animation: pulse 4s infinite ease-in-out; /* Dezentes Pulsieren */
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none; /* Verhindert Text-Markierung beim Klicken */
 }
 
-.info-icon:hover {
-    background-color: #1F3A2A; /* Winterwerk Grün */
-    transform: scale(1.1);
+/* Die Sprechblase (Tooltip) */
+.tooltip-box {
+    display: none; /* Erstmal unsichtbar */
+    position: absolute;
+    bottom: 135%; /* Erscheint über dem Icon */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 230px;
+    background-color: white;
+    color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border: 1px solid #eee;
+    z-index: 1000;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Der kleine Pfeil unten an der Blase */
+.tooltip-box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+/* Klasse wird per JS hinzugefügt */
+.tooltip-box.active {
+    display: block;
+}
 }
 
 @keyframes pulse {
@@ -459,9 +496,18 @@ body {
 
    <section id="konfigurator" style="background: #f4f4f4;">
     <div class="calc-container">
-        <h2 style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-    Preiskalkulator
-    <span class="info-icon" title="Unsere Mengenrabatte für Flächen:&#10;• Ab 15 m²: 5% Rabatt&#10;• Ab 30 m²: 10% Rabatt&#10;• Ab 50 m²: 15% Rabatt&#10;&#10;Der Rabatt wird automatisch abgezogen!">?</span>
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 10px; position: relative;">
+    Preiskalkulator 
+    <div class="info-container">
+        <span class="info-icon" onclick="toggleTooltip(event)">?</span>
+        <div id="tooltip" class="tooltip-box">
+            <strong>Unsere Mengenrabatte:</strong><br>
+            • Ab 15 m²: 5% Rabatt<br>
+            • Ab 30 m²: 10% Rabatt<br>
+            • Ab 50 m²: 15% Rabatt<br>
+            <small>(Wird automatisch abgezogen)</small>
+        </div>
+    </div>
 </h2>
         <p style="text-align: center; margin-bottom: 30px;">Unverbindliche Schätzung für Ihr Projekt.</p>
 
@@ -766,9 +812,26 @@ window.addEventListener('load', calculate);
         document.getElementById('cookie-banner').style.display = 'none';
     }
 </script>
+    <script>
+function toggleTooltip(event) {
+    // Verhindert, dass der Klick "nach oben" ans Dokument weitergereicht wird
+    event.stopPropagation(); 
+    const tooltip = document.getElementById('tooltip');
+    tooltip.classList.toggle('active');
+}
+
+// Wenn man irgendwo anders hinklickt, schließt sich die Blase
+document.addEventListener('click', function(event) {
+    const tooltip = document.getElementById('tooltip');
+    if (tooltip && tooltip.classList.contains('active')) {
+        tooltip.classList.remove('active');
+    }
+});
+</script>
 </body>
 
 </html>
+
 
 
 
