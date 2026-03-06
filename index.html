@@ -546,12 +546,12 @@ section, .calc-container {
             </div>
             <div class="checkbox-group">
                 <input type="checkbox" id="fugen-sand" onchange="calculate()">
-                <label for="fugen-sand">Fugensand einkehren (+ 4,50 €/m²)</label>
+                <label for="fugen-sand">Fugensand einkehren (+ 3,50 €/m²)</label>
             </div>
 
             <div class="checkbox-group" style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
                 <input type="checkbox" id="holz-oel" onchange="calculate()">
-                <label for="holz-oel">Holz-Pflegeöl auftragen (+ 6,00 €/m²)</label>
+                <label for="holz-oel">Holz-Pflegeöl auftragen (+ 5,00 €/m²)</label>
             </div>
 
             <hr style="grid-column: span 2; border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
@@ -592,14 +592,14 @@ section, .calc-container {
 <script>
 // 1. DEINE PREIS-ZENTRALE
 const PREISE = {
-    steinBasis: 06.50,
-    holzBasis: 09.50,
+    steinBasis: 6.50,
+    holzBasis: 9.50,
     steinBio: 2.00,
     steinVersiegelung: 5.00,
-    fugenSand: 4.50,
-    holzOel: 6.00,
+    fugenSand: 3.50,
+    holzOel: 5.00,
     tonne240: 15.00,
-    tonne1100: 35.00,
+    tonne1100: 30.00,
     anfahrtEinzel: 39.00,
     mindestAuftrag: 99.00,
     
@@ -880,6 +880,7 @@ document.addEventListener('click', function(event) {
 </body>
 
 </html>
+
 
 
 
