@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="f1471ec8-3c1c-44b3-8b08-f08098d823c3" type="text/javascript"></script>
+    <script async type="text/plain" data-cookieconsent="statistics" src="https://www.googletagmanager.com/gtag/js?id=G-JXX9MG0FE5"></script>
+    <script type="text/plain" data-cookieconsent="statistics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JXX9MG0FE5');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winterwerk | Geschäftskunden & B2B Schönefeld</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* DEINE BASIS-STYLES AUS DER INDEX.HTML */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('fonts/inter-v20-latin-300.woff2') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-v20-latin-regular.woff2') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-v20-latin-600.woff2') format('woff2'); }
+        
+        :root {
+            --bg: #F8F7F5;
+            --dark: #2C2C2C;
+            --green: #1F3A2A; 
+            --red: #9C1F2F;   
+            --white: #ffffff;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+
+        /* HEADER & MENU */
+        header { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; z-index: 2000; transition: 0.3s; background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+        .logo-placeholder { width: 40px; height: 40px; background: var(--green); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .logo-text { font-weight: 600; font-size: 1.2rem; letter-spacing: 1px; color: var(--green); }
+        .menu-btn { font-size: 24px; color: var(--green); cursor: pointer; z-index: 3000; transition: 0.3s; }
+        .nav-overlay { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: var(--green); transition: 0.5s cubic-bezier(0.77,0,0.175,1); z-index: 2500; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .nav-overlay.open { right: 0; }
+        .nav-overlay a { color: var(--bg); font-size: 2rem; text-decoration: none; margin: 15px; font-weight: 300; transition: 0.3s; }
+        .nav-overlay a:hover { color: var(--red); padding-left: 10px; }
+
+        /* B2B SPEZIFISCHES DESIGN */
+        .b2b-header { margin-top: 120px; text-align: center; padding: 0 20px; }
+        .b2b-header h1 { color: var(--green); font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
+        .b2b-header p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px; line-height: 1.6; }
+        
+        .b2b-content { max-width: 1000px; margin: 0 auto; padding: 0 20px 80px; }
+        .b2b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        
+        .b2b-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 4px solid var(--green); }
+        .b2b-box h2 { color: var(--green); font-size: 1.5rem; margin-bottom: 20px; }
+        .b2b-list { list-style: none; }
+        .b2b-list li { margin-bottom: 15px; padding-left: 30px; position: relative; line-height: 1.5; }
+        .b2b-list li::before { content: '✔'; color: var(--red); font-weight: bold; position: absolute; left: 0; top: 0; }
+        
+        .b2b-cta { background: var(--green); color: white; text-align: center; padding: 50px 20px; border-radius: 12px; margin-top: 40px; }
+        .b2b-cta h3 { font-size: 2rem; margin-bottom: 15px; }
+        .whatsapp-btn { display: inline-block; background: #25D366; color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 1.2rem; text-decoration: none; margin-top: 20px; transition: transform 0.2s; }
+        .whatsapp-btn:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .b2b-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* FOOTER */
+        footer { padding: 40px 5%; background: var(--bg); text-align: center; border-top: 1px dotted #ccc; }
+        footer a { color: var(--dark); text-decoration: none; margin: 0 15px; font-size: 0.85rem; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header id="mainHeader">
+        <a href="index.html" class="logo-area">
+            <div class="logo-placeholder"><img src="assets/logo.png" style="width:100%;" alt="W"></div>
+            <div class="logo-text">WINTERWERK</div>
+        </a>
+        <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav class="nav-overlay" id="navOverlay">
+        <a href="index.html#ueber-mich">Über mich</a>
+        <a href="index.html#leistungen">Leistungen</a>
+        <a href="index.html#ergebnisse">Ergebnisse</a>
+        <a href="index.html#konfigurator">Preiskalkulator</a>
+        <a href="index.html#anfahrt">Einsatzgebiet</a>
+        <a href="index.html#faq">FAQ</a>
+    </nav>
+
+    <div class="b2b-header">
+        <h1>Geschäftskunden & B2B</h1>
+        <p><strong>Repräsentative Außenanlagen für Ihr Unternehmen.</strong> Der erste Eindruck zählt. Wir entfernen tiefsitzenden Schmutz, Ölflecken, Algen und Vandalismus-Spuren effizient, materialschonend und außerhalb Ihrer Kernarbeitszeiten in Schönefeld und Umgebung.</p>
+    </div>
+
+    <div class="b2b-content">
+        <div class="b2b-grid">
+            <div class="b2b-box">
+                <h2>Leistungen für Gewerbe & Industrie</h2>
+                <ul class="b2b-list">
+                    <li><strong>Graffiti- & Vandalismusentfernung:</strong> Schnelle Reaktion, bevor das Image leidet.</li>
+                    <li><strong>Parkplatz- & Tiefgaragenreinigung:</strong> Beseitigung von Öl-, Reifen- und Kaugummispuren.</li>
+                    <li><strong>Fassaden- & Eingangsbereich:</strong> Repräsentative Sauberkeit für Ladenlokale und Bürogebäude.</li>
+                    <li><strong>Fuhrpark- & Maschinenreinigung:</strong> Mobile Reinigung direkt auf Ihrem Betriebsgelände.</li>
+                </ul>
+            </div>
+            
+            <div class="b2b-box">
+                <h2>Ihre Vorteile mit Winterwerk</h2>
+                <ul class="b2b-list">
+                    <li><strong>Zuverlässigkeit & Diskretion:</strong> Arbeit nach Absprache auch am Wochenende oder nach Geschäftsschluss.</li>
+                    <li><strong>Transparente Abrechnung:</strong> Ordnungsgemäße Rechnung mit 19% MwSt. für Ihre Buchhaltung.</li>
+                    <li><strong>Versichert:</strong> Umfassende Betriebshaftpflicht für den gewerblichen Bereich.</li>
+                    <li><strong>Wartungsverträge:</strong> Feste Reinigungsintervalle zu attraktiven B2B-Konditionen.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="b2b-cta">
+            <h3>Lassen Sie uns über Ihre Flächen sprechen.</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">Kontaktieren Sie mich für eine kostenlose Vor-Ort-Besichtigung und ein unverbindliches B2B-Angebot.</p>
+            <a href="https://wa.me/4915758040389?text=Hallo%20Winterwerk,%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20gewerbliche%20Fl%C3%A4chenreinigung%20(B2B).%20Bitte%20um%20Kontaktaufnahme." class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> B2B-Anfrage per WhatsApp
+            </a>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Oder per E-Mail an: info@winterwerk.net</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+        <p style="margin-top:20px; opacity:0.6;">© 2026 Winterwerk</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navOverlay');
+            const btn = document.getElementById('menuBtn');
+            nav.classList.toggle('open');
+            btn.innerHTML = nav.classList.contains('open') ? '✕' : '☰';
+        }
+    </script>
+</body>
+</html>
