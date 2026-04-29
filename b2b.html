@@ -12,12 +12,11 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winterwerk | Geschäftskunden & B2B Schönefeld</title>
+    <title>Winterwerk | Premium Facility Cleaning & B2B</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* DEINE BASIS-STYLES AUS DER INDEX.HTML */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('fonts/inter-v20-latin-300.woff2') format('woff2'); }
         @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-v20-latin-regular.woff2') format('woff2'); }
@@ -25,45 +24,65 @@
         
         :root {
             --bg: #F8F7F5;
-            --dark: #2C2C2C;
+            --dark: #1A1A1A; /* Noch dunkler für Premium-Look */
             --green: #1F3A2A; 
             --red: #9C1F2F;   
             --white: #ffffff;
+            --gold: #D4AF37; /* Dezenter Gold-Akzent für High-End */
         }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
-        /* HEADER & MENU */
+        /* HEADER */
         header { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; z-index: 2000; transition: 0.3s; background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
         .logo-placeholder { width: 40px; height: 40px; background: var(--green); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
-        .logo-text { font-weight: 600; font-size: 1.2rem; letter-spacing: 1px; color: var(--green); }
+        .logo-text { font-weight: 600; font-size: 1.2rem; letter-spacing: 1px; color: var(--green); text-transform: uppercase; }
         .menu-btn { font-size: 24px; color: var(--green); cursor: pointer; z-index: 3000; transition: 0.3s; }
         .nav-overlay { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: var(--green); transition: 0.5s cubic-bezier(0.77,0,0.175,1); z-index: 2500; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .nav-overlay.open { right: 0; }
         .nav-overlay a { color: var(--bg); font-size: 2rem; text-decoration: none; margin: 15px; font-weight: 300; transition: 0.3s; }
         .nav-overlay a:hover { color: var(--red); padding-left: 10px; }
 
-        /* B2B SPEZIFISCHES DESIGN */
-        .b2b-header { margin-top: 120px; text-align: center; padding: 0 20px; }
-        .b2b-header h1 { color: var(--green); font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
-        .b2b-header p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px; line-height: 1.6; }
+        /* PREMIUM HERO SECTION */
+        .premium-hero { background: var(--dark); color: var(--white); padding: 160px 20px 100px; text-align: center; position: relative; }
+        .premium-hero::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--red); }
+        .premium-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; margin-bottom: 20px; letter-spacing: -1px; }
+        .premium-hero h1 strong { font-weight: 600; color: var(--white); }
+        .premium-hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #b3b3b3; line-height: 1.6; }
+
+        /* TRUST BAR (Sehr wichtig für Konzerne) */
+        .trust-bar { background: var(--green); color: var(--white); padding: 20px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 600; }
+        .trust-bar div { display: flex; align-items: center; gap: 8px; }
+        .trust-bar i { color: var(--gold); font-size: 1.2rem; }
+
+        /* CONTENT */
+        .b2b-content { max-width: 1100px; margin: 80px auto; padding: 0 20px; }
         
-        .b2b-content { max-width: 1000px; margin: 0 auto; padding: 0 20px 80px; }
-        .b2b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .value-prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 80px; }
+        .value-card { background: var(--white); padding: 40px; border-radius: 4px; border-top: 1px solid #eee; box-shadow: 0 20px 40px rgba(0,0,0,0.03); transition: transform 0.3s; }
+        .value-card:hover { transform: translateY(-5px); }
+        .value-card i { font-size: 2.5rem; color: var(--red); margin-bottom: 20px; }
+        .value-card h3 { color: var(--dark); font-size: 1.3rem; margin-bottom: 15px; }
+        .value-card p { color: #555; line-height: 1.6; font-size: 0.95rem; }
+
+        /* SLA & COMPLIANCE SECTION */
+        .compliance-section { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: #EAE8E3; padding: 60px; border-radius: 8px; margin-bottom: 80px; }
+        .compliance-text h2 { font-size: 2rem; color: var(--green); margin-bottom: 20px; }
+        .compliance-list { list-style: none; margin-top: 20px; }
+        .compliance-list li { margin-bottom: 15px; padding-left: 30px; position: relative; color: var(--dark); font-weight: 600; }
+        .compliance-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--green); position: absolute; left: 0; top: 0; }
         
-        .b2b-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 4px solid var(--green); }
-        .b2b-box h2 { color: var(--green); font-size: 1.5rem; margin-bottom: 20px; }
-        .b2b-list { list-style: none; }
-        .b2b-list li { margin-bottom: 15px; padding-left: 30px; position: relative; line-height: 1.5; }
-        .b2b-list li::before { content: '✔'; color: var(--red); font-weight: bold; position: absolute; left: 0; top: 0; }
+        /* PREMIUM CTA */
+        .premium-cta { text-align: center; padding: 80px 20px; background: var(--dark); color: var(--white); border-radius: 8px; }
+        .premium-cta h2 { font-size: 2.5rem; font-weight: 300; margin-bottom: 20px; }
+        .premium-cta p { font-size: 1.1rem; color: #b3b3b3; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        .b2b-cta { background: var(--green); color: white; text-align: center; padding: 50px 20px; border-radius: 12px; margin-top: 40px; }
-        .b2b-cta h3 { font-size: 2rem; margin-bottom: 15px; }
-        .whatsapp-btn { display: inline-block; background: #25D366; color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 1.2rem; text-decoration: none; margin-top: 20px; transition: transform 0.2s; }
-        .whatsapp-btn:hover { transform: scale(1.05); }
+        .btn-gold { display: inline-block; background: var(--gold); color: var(--dark); padding: 18px 40px; font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .btn-gold:hover { background: #b8982e; color: var(--white); }
 
         @media (max-width: 768px) {
-            .b2b-grid { grid-template-columns: 1fr; gap: 20px; }
+            .compliance-section { grid-template-columns: 1fr; padding: 40px 20px; }
+            .trust-bar { gap: 15px; flex-direction: column; align-items: center; }
         }
 
         /* FOOTER */
@@ -91,49 +110,68 @@
         <a href="index.html#faq">FAQ</a>
     </nav>
 
-    <div class="b2b-header">
-        <h1>Geschäftskunden & B2B</h1>
-        <p><strong>Repräsentative Außenanlagen für Ihr Unternehmen.</strong> Der erste Eindruck zählt. Wir entfernen tiefsitzenden Schmutz, Ölflecken, Algen und Vandalismus-Spuren effizient, materialschonend und außerhalb Ihrer Kernarbeitszeiten in Schönefeld und Umgebung.</p>
+    <section class="premium-hero">
+        <h1>Premium Facility Cleaning<br><strong>für höchste Ansprüche.</strong></h1>
+        <p>Wir schützen den repräsentativen Wert Ihrer Immobilie. Diskret, rechtssicher und absolut kompromisslos in der Ausführung. Für Konzerne, Behörden und exklusive Hausverwaltungen.</p>
+    </section>
+
+    <div class="trust-bar">
+        <div><i class="fas fa-shield-alt"></i> Behördlich Sicherheitsüberprüft</div>
+        <div><i class="fas fa-file-contract"></i> 5 Mio. € Betriebshaftpflicht</div>
+        <div><i class="fas fa-leaf"></i> ESG-Konforme Bio-Chemie</div>
+        <div><i class="fas fa-clock"></i> Zero-Downtime Service</div>
     </div>
 
     <div class="b2b-content">
-        <div class="b2b-grid">
-            <div class="b2b-box">
-                <h2>Leistungen für Gewerbe & Industrie</h2>
-                <ul class="b2b-list">
-                    <li><strong>Graffiti- & Vandalismusentfernung:</strong> Schnelle Reaktion, bevor das Image leidet.</li>
-                    <li><strong>Parkplatz- & Tiefgaragenreinigung:</strong> Beseitigung von Öl-, Reifen- und Kaugummispuren.</li>
-                    <li><strong>Fassaden- & Eingangsbereich:</strong> Repräsentative Sauberkeit für Ladenlokale und Bürogebäude.</li>
-                    <li><strong>Fuhrpark- & Maschinenreinigung:</strong> Mobile Reinigung direkt auf Ihrem Betriebsgelände.</li>
-                </ul>
+        
+        <div class="value-prop-grid">
+            <div class="value-card">
+                <i class="fas fa-user-secret"></i>
+                <h3>Absolute Diskretion</h3>
+                <p>Unsere Mitarbeiter sind behördlich sicherheitsüberprüft. Wir arbeiten auf hochsensiblen Geländen mit maximaler Vertraulichkeit. Ihr Betriebsgeheimnis und Ihre Sicherheit bleiben unberührt.</p>
             </div>
-            
-            <div class="b2b-box">
-                <h2>Ihre Vorteile mit Winterwerk</h2>
-                <ul class="b2b-list">
-                    <li><strong>Zuverlässigkeit & Diskretion:</strong> Arbeit nach Absprache auch am Wochenende oder nach Geschäftsschluss.</li>
-                    <li><strong>Transparente Abrechnung:</strong> Ordnungsgemäße Rechnung mit 19% MwSt. für Ihre Buchhaltung.</li>
-                    <li><strong>Versichert:</strong> Umfassende Betriebshaftpflicht für den gewerblichen Bereich.</li>
-                    <li><strong>Wartungsverträge:</strong> Feste Reinigungsintervalle zu attraktiven B2B-Konditionen.</li>
-                </ul>
+            <div class="value-card">
+                <i class="fas fa-moon"></i>
+                <h3>Zero Downtime Service</h3>
+                <p>Reinigung findet statt, wenn Ihr Betrieb ruht. Wir agieren bevorzugt an Wochenenden, Feiertagen oder nachts, damit Ihr Kundenverkehr und Ihre Mitarbeiter nicht gestört werden.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Corporate Compliance</h3>
+                <p>Lückenlose Dokumentation. Sie erhalten vorab transparente SLAs, Gefährdungsbeurteilungen nach ArbSchG und ordnungsgemäße Rechnungen für Ihre Buchhaltung und Audits.</p>
             </div>
         </div>
 
-        <div class="b2b-cta">
-            <h3>Lassen Sie uns über Ihre Flächen sprechen.</h3>
-            <p style="font-size: 1.1rem; margin-bottom: 20px;">Kontaktieren Sie mich für eine kostenlose Vor-Ort-Besichtigung und ein unverbindliches B2B-Angebot.</p>
-            <a href="https://wa.me/4915758040389?text=Hallo%20Winterwerk,%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20gewerbliche%20Fl%C3%A4chenreinigung%20(B2B).%20Bitte%20um%20Kontaktaufnahme." class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> B2B-Anfrage per WhatsApp
-            </a>
-            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Oder per E-Mail an: info@winterwerk.net</p>
+        <div class="compliance-section">
+            <div class="compliance-text">
+                <h2>Werterhalt ohne Kompromisse.</h2>
+                <p style="line-height: 1.7; color: #555;">Wir wissen, dass Facility Manager keine Zeit für Mikromanagement haben. Sie buchen ein Ergebnis, keinen Prozess. Winterwerk übernimmt die volle Verantwortung für die repräsentative Außenwirkung Ihres Portfolios – von der Tiefgarage bis zur Vorstandseinfahrt.</p>
+                <ul class="compliance-list">
+                    <li>Graffiti- & Vandalismus-Notfallservice</li>
+                    <li>Rutschgefahr-Beseitigung (UVV-konform)</li>
+                    <li>Umweltschonende Heißwasser-Technik</li>
+                    <li>Feste Rahmen- & Wartungsverträge</li>
+                </ul>
+            </div>
+            <div style="background: var(--dark); border-radius: 4px; height: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center;">
+                <p style="color: var(--white); opacity: 0.5; font-style: italic;">[Hier später ein Bild einer großen Gewerbefläche einfügen]</p>
+            </div>
         </div>
+
+        <div class="premium-cta">
+            <h2>Bereit für ein Upgrade Ihres Facility Managements?</h2>
+            <p>Fordern Sie ein individuelles Konzept und eine Vor-Ort-Analyse für Ihr Objekt an. Direkter Kontakt zur Geschäftsführung.</p>
+            <a href="mailto:info@winterwerk.net?subject=B2B VIP-Anfrage: Vor-Ort-Analyse & Konzept" class="btn-gold">Consulting & Angebot anfordern</a>
+            <p style="margin-top: 25px; font-size: 0.9rem; color: #777;">Oder telefonische Direktdurchwahl: +49 157 58040389</p>
+        </div>
+
     </div>
 
     <footer>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="agb.html">AGB</a>
-        <p style="margin-top:20px; opacity:0.6;">© 2026 Winterwerk</p>
+        <p style="margin-top:20px; opacity:0.6;">© 2026 Winterwerk Facility Services</p>
     </footer>
 
     <script>
