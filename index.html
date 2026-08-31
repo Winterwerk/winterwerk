@@ -516,6 +516,30 @@
                 </div>
                 <small style="color: #777; display: block; margin-top: 12px; font-size: 0.85rem;">*Rabatte sind nicht kombinierbar. Es wird automatisch der höchste angewendet.</small>
             </div>
+                        <!-- ZUSATZLEISTUNGEN (UPSELL) -->
+            <div style="background: #e8f4f8; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #1a73e8;">
+                <strong style="display: block; margin-bottom: 15px; color: #1a73e8; font-size: 1.1rem;">Zusatzleistungen anfragen:</strong>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    
+                    <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 10px;">
+                        <input type="checkbox" id="chk-fenster" style="width: 22px; height: 22px; accent-color: #1a73e8; margin-top: 2px;">
+                        <div>
+                            <span style="font-size: 1.05rem; color: #333; font-weight: 600;">Fenster- & Glasreinigung (außen)</span><br>
+                            <span style="font-size: 0.85rem; color: #666;">Faire Paketpreise nach Besichtigung vor Ort.</span>
+                        </div>
+                    </label>
+
+                    <label style="cursor: pointer; display: flex; align-items: flex-start; gap: 10px;">
+                        <input type="checkbox" id="chk-tonnen" style="width: 22px; height: 22px; accent-color: #1a73e8; margin-top: 2px;">
+                        <div>
+                            <span style="font-size: 1.05rem; color: #333; font-weight: 600;">Mülltonnen-Reinigung</span><br>
+                            <span style="font-size: 0.85rem; color: #666;">(Ab 40 m² Steinfläche automatisch kostenlos! Darunter Angebot vor Ort.)</span>
+                        </div>
+                    </label>
+                    
+                </div>
+            </div>
+
 
                      <!-- INTERAKTIVES 3-PAKETE GRID -->
             <div id="pakete-grid">
@@ -776,6 +800,9 @@
             
             if (document.getElementById('chk-gruendung').checked) msg += "%0A- 15% Gründungs-Rabatt";
             if (document.getElementById('chk-blaulicht').checked) msg += "%0A- 10% Blaulicht-Rabatt";
+            if (document.getElementById('chk-fenster').checked) msg += "%0A- ZUSATZWUNSCH: Fensterreinigung (außen)";
+            if (document.getElementById('chk-tonnen').checked && qm < 40) msg += "%0A- ZUSATZWUNSCH: Mülltonnen-Reinigung";
+
             
             window.open("https://wa.me/4915758040389?text=" + msg, '_blank');
         }
