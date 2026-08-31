@@ -508,21 +508,31 @@
                 🎉 Gratulation! Ab 40 m² ist die Mülltonnen-Reinigung (Wert: 29 €) für Sie völlig GRATIS inklusive!
             </div>
 
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 40px;">
+                      <!-- Rabatt Checkboxen -->
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                 <strong style="display: block; margin-bottom: 15px; color: var(--green); font-size: 1.1rem;">Verfügbare Aktionen aktivieren:</strong>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                        <input type="checkbox" id="chk-gruendung" onchange="calculateNew()" checked style="width: 22px; height: 22px; accent-color: var(--red);">
-                        <span style="font-size: 1.05rem;"><strong>15% Gründungs-Rabatt</strong> (Aktion für Schönefeld)</span>
-                    </label>
-                    <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-    <input type="checkbox" id="chk-gruendung" onchange="calculateNew()" checked style="width: 22px; height: 22px; accent-color: var(--red);">
-    <span <p style="font-size: 0.85rem; color: #555; margin-left: 32px; margin-top: -4px; margin-bottom: 8px;">
-    🎁 <strong>Ihr Vorteil:</strong> 15% Sofort-Rabatt + bevorzugte Terminvergabe & dauerhafte VIP-Preisgarantie für Folgereinigungen.
-</p></span>
-</label>
-<!-- NEU: Vorteils-Text zur Gründungs-Mitgliedschaft -->
+                    
+                    <!-- 1. Gründungs-Rabatt inkl. Vorteilstext -->
+                    <div>
+                        <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="chk-gruendung" onchange="calculateNew()" checked style="width: 22px; height: 22px; accent-color: var(--red);">
+                            <span style="font-size: 1.05rem;"><strong>15% Gründungs-Rabatt</strong> (Aktion für Schönefeld)</span>
+                        </label>
+                        <p style="font-size: 0.85rem; color: #555; margin-left: 32px; margin-top: 4px; margin-bottom: 0;">
+                            🎁 <strong>Ihr Vorteil:</strong> 15% Sofort-Rabatt + bevorzugte Terminvergabe & dauerhafte VIP-Preisgarantie für Folgereinigungen.
+                        </p>
+                    </div>
 
+                    <!-- 2. Blaulicht-Rabatt -->
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                        <input type="checkbox" id="chk-blaulicht" onchange="calculateNew()" style="width: 22px; height: 22px; accent-color: var(--red);">
+                        <span style="font-size: 1.05rem;"><strong>10% Blaulicht-Rabatt</strong> (Polizei, Feuerwehr, Rettungsdienst, Bundeswehr)</span>
+                    </label>
+
+                </div>
+                <small style="color: #777; display: block; margin-top: 12px; font-size: 0.85rem;">*Rabatte sind nicht kombinierbar. Es wird automatisch der höchste angewendet.</small>
+            </div>
 
                     <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
                         <input type="checkbox" id="chk-blaulicht" onchange="calculateNew()" style="width: 22px; height: 22px; accent-color: var(--red);">
