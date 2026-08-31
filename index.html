@@ -494,26 +494,73 @@
     </section>
 
 
+        <!-- PREISKALKULATOR -->
     <section id="konfigurator" style="background: #f4f4f4;">
         <div class="calc-container" style="max-width: 1100px; margin: auto; background: white; padding: 40px 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
             <h2 style="text-align: center; margin-bottom: 10px;">Interaktiver Preiskalkulator</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666;">Fläche eingeben, Rabatte aktivieren und Ihr Wunsch-Paket wählen.</p>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">Fläche eingeben, Ihr Wunsch-Paket wählen und Rabatte aktivieren.</p>
 
+            <!-- 1. m² EINGABE -->
             <div style="margin-bottom: 30px; text-align: center;">
                 <label style="font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 10px;">Geschätzte Fläche in Quadratmetern (m²):</label>
                 <input type="number" id="qm-input" value="40" min="10" max="500" oninput="calculateNew()" style="width: 150px; padding: 12px; font-size: 1.3rem; text-align: center; border: 2px solid var(--green); border-radius: 8px; font-family: 'Inter', sans-serif;">
             </div>
 
-            <div id="bonus-alert" style="display: none; background: #e6f8ec; color: var(--green); padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 20px; border: 1px solid #bbf7d0;">
+            <!-- 2. BONUS ALERT (AUCH DIREKT OBEN SICHBAR) -->
+            <div id="bonus-alert" style="display: none; background: #e6f8ec; color: var(--green); padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 25px; border: 1px solid #bbf7d0;">
                 🎉 Gratulation! Ab 40 m² ist die Mülltonnen-Reinigung (Wert: 29 €) für Sie völlig GRATIS inklusive!
             </div>
 
-                      <!-- Rabatt Checkboxen -->
+            <!-- 3. DIE 3 PAKETE (JETZT DIREKT WEITER OBEN) -->
+            <div id="pakete-grid" style="margin-bottom: 30px;">
+                
+                <!-- Paket 1: Basis -->
+                <div class="paket-card" onclick="togglePackage(this)">
+                    <div class="paket-header">
+                        <h3>Basis</h3>
+                        <div class="paket-price-display" id="p1-price">0 €</div>
+                        <span class="paket-toggle">+</span>
+                    </div>
+                    <div class="paket-details">
+                        <p>Porentiefe Reinigung & Wände/Sockel abspülen</p>
+                        <button class="paket-btn btn-basis" onclick="event.stopPropagation(); sendWhatsAppNew('Basis-Paket')">Anfragen</button>
+                    </div>
+                </div>
+
+                <!-- Paket 2: Komfort (Bestseller - standardmäßig offen) -->
+                <div class="paket-card bestseller active" onclick="togglePackage(this)">
+                    <div class="bestseller-badge">TIPP</div>
+                    <div class="paket-header">
+                        <h3>Komfort</h3>
+                        <div class="paket-price-display" id="p2-price">0 €</div>
+                        <span class="paket-toggle">+</span>
+                    </div>
+                    <div class="paket-details">
+                        <p>Basis + Quarzsand-Fugen + Langzeit-Versiegelung</p>
+                        <button class="paket-btn btn-komfort" onclick="event.stopPropagation(); sendWhatsAppNew('Komfort-Paket (Bestseller)')">Anfragen</button>
+                    </div>
+                </div>
+
+                <!-- Paket 3: Premium -->
+                <div class="paket-card" onclick="togglePackage(this)">
+                    <div class="paket-header">
+                        <h3>Premium</h3>
+                        <div class="paket-price-display" id="p3-price">0 €</div>
+                        <span class="paket-toggle">+</span>
+                    </div>
+                    <div class="paket-details">
+                        <p>Komfort + Sorgenfrei-Abo (2x jährliche Pflege inklusive)</p>
+                        <button class="paket-btn btn-premium" onclick="event.stopPropagation(); sendWhatsAppNew('Premium-Paket')">Anfragen</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 4. RABATT CHECKBOXEN (JETZT UNTER DEN PAKETEN) -->
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                 <strong style="display: block; margin-bottom: 15px; color: var(--green); font-size: 1.1rem;">Verfügbare Aktionen aktivieren:</strong>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     
-                    <!-- 1. Gründungs-Rabatt inkl. Vorteilstext -->
                     <div>
                         <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" id="chk-gruendung" onchange="calculateNew()" checked style="width: 22px; height: 22px; accent-color: var(--red);">
@@ -524,7 +571,6 @@
                         </p>
                     </div>
 
-                    <!-- 2. Blaulicht-Rabatt -->
                     <label style="cursor: pointer; display: flex; align-items: center; gap: 10px; margin-top: 5px;">
                         <input type="checkbox" id="chk-blaulicht" onchange="calculateNew()" style="width: 22px; height: 22px; accent-color: var(--red);">
                         <span style="font-size: 1.05rem;"><strong>10% Blaulicht-Rabatt</strong> (Polizei, Feuerwehr, Rettungsdienst, Bundeswehr)</span>
@@ -534,9 +580,8 @@
                 <small style="color: #777; display: block; margin-top: 12px; font-size: 0.85rem;">*Rabatte sind nicht kombinierbar. Es wird automatisch der höchste angewendet.</small>
             </div>
 
-         
-                        <!-- ZUSATZLEISTUNGEN (UPSELL) -->
-            <div style="background: #e8f4f8; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #1a73e8;">
+            <!-- 5. ZUSATZLEISTUNGEN (UPSELL) -->
+            <div style="background: #e8f4f8; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #1a73e8;">
                 <strong style="display: block; margin-bottom: 15px; color: #1a73e8; font-size: 1.1rem;">Zusatzleistungen anfragen:</strong>
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     
@@ -558,6 +603,11 @@
                     
                 </div>
             </div>
+            
+            <p style="text-align: center; font-size: 0.85rem; color: #888; margin-top: 10px;">*Alle Preise sind unverbindliche Schätzwerte. Mindestauftragswert 149€ / 299€ / 449€ bis 22 m².</p>
+        </div>
+    </section>
+
 
 
                      <!-- INTERAKTIVES 3-PAKETE GRID -->
