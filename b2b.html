@@ -12,7 +12,9 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winterwerk | Premium Facility Cleaning & B2B</title>
+    <title>Winterwerk | B2B & Facility Außenreinigung Schönefeld</title>
+    
+    <meta name="description" content="Winterwerk B2B - Ihr Partner für gewerbliche Steinreinigung, Glas- & Außenreinigung sowie Müllplatz-Hygiene in Schönefeld und Umgebung. Individuelle Konzepte für Gewerbeobjekte.">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -24,11 +26,11 @@
         
         :root {
             --bg: #F8F7F5;
-            --dark: #1A1A1A; /* Noch dunkler für Premium-Look */
+            --dark: #1A1A1A;
             --green: #1F3A2A; 
             --red: #9C1F2F;   
             --white: #ffffff;
-            --gold: #D4AF37; /* Dezenter Gold-Akzent für High-End */
+            --gold: #D4AF37;
         }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
@@ -46,11 +48,11 @@
         /* PREMIUM HERO SECTION */
         .premium-hero { background: var(--dark); color: var(--white); padding: 160px 20px 100px; text-align: center; position: relative; }
         .premium-hero::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--red); }
-        .premium-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; margin-bottom: 20px; letter-spacing: -1px; }
+        .premium-hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 300; margin-bottom: 20px; letter-spacing: -1px; }
         .premium-hero h1 strong { font-weight: 600; color: var(--white); }
-        .premium-hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #b3b3b3; line-height: 1.6; }
+        .premium-hero p { font-size: 1.2rem; max-width: 750px; margin: 0 auto; color: #b3b3b3; line-height: 1.6; }
 
-        /* TRUST BAR (Sehr wichtig für Konzerne) */
+        /* TRUST BAR */
         .trust-bar { background: var(--green); color: var(--white); padding: 20px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 600; }
         .trust-bar div { display: flex; align-items: center; gap: 8px; }
         .trust-bar i { color: var(--gold); font-size: 1.2rem; }
@@ -65,13 +67,24 @@
         .value-card h3 { color: var(--dark); font-size: 1.3rem; margin-bottom: 15px; }
         .value-card p { color: #555; line-height: 1.6; font-size: 0.95rem; }
 
-        /* SLA & COMPLIANCE SECTION */
+        /* B2B PORTFOLIO GRID */
+        .b2b-services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 80px; }
+        .b2b-service-box { background: white; padding: 30px; border-radius: 8px; border-left: 4px solid var(--green); box-shadow: 0 10px 20px rgba(0,0,0,0.04); }
+        .b2b-service-box h4 { color: var(--green); font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .b2b-service-box p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+        /* COMPLIANCE & STATS SECTION */
         .compliance-section { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: #EAE8E3; padding: 60px; border-radius: 8px; margin-bottom: 80px; }
         .compliance-text h2 { font-size: 2rem; color: var(--green); margin-bottom: 20px; }
         .compliance-list { list-style: none; margin-top: 20px; }
         .compliance-list li { margin-bottom: 15px; padding-left: 30px; position: relative; color: var(--dark); font-weight: 600; }
         .compliance-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--green); position: absolute; left: 0; top: 0; }
         
+        .b2b-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .b2b-stat-card { background: var(--dark); color: white; padding: 25px; border-radius: 6px; text-align: center; }
+        .b2b-stat-card .num { font-size: 2rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
+        .b2b-stat-card .label { font-size: 0.85rem; color: #b3b3b3; line-height: 1.3; }
+
         /* PREMIUM CTA */
         .premium-cta { text-align: center; padding: 80px 20px; background: var(--dark); color: var(--white); border-radius: 8px; }
         .premium-cta h2 { font-size: 2.5rem; font-weight: 300; margin-bottom: 20px; }
@@ -82,6 +95,7 @@
 
         @media (max-width: 768px) {
             .compliance-section { grid-template-columns: 1fr; padding: 40px 20px; }
+            .b2b-services-grid { grid-template-columns: 1fr; }
             .trust-bar { gap: 15px; flex-direction: column; align-items: center; }
         }
 
@@ -95,74 +109,121 @@
 
     <header id="mainHeader">
         <a href="index.html" class="logo-area">
-            <div class="logo-placeholder"><img src="assets/logo.png" style="width:100%;" alt="W"></div>
+            <div class="logo-placeholder"><img src="assets/logo.png" style="width:100%;" alt="W" onerror="this.style.display='none'"></div>
             <div class="logo-text">WINTERWERK</div>
         </a>
         <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰</div>
     </header>
 
     <nav class="nav-overlay" id="navOverlay">
-        <a href="index.html#ueber-mich">Über mich</a>
-        <a href="index.html#leistungen">Leistungen</a>
-        <a href="index.html#ergebnisse">Ergebnisse</a>
-        <a href="index.html#konfigurator">Preiskalkulator</a>
-        <a href="index.html#anfahrt">Einsatzgebiet</a>
-        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#ueber-mich" onclick="toggleMenu()">Über mich</a>
+        <a href="index.html#leistungen" onclick="toggleMenu()">Leistungen</a>
+        <a href="index.html#ergebnisse" onclick="toggleMenu()">Ergebnisse</a>
+        <a href="index.html#konfigurator" onclick="toggleMenu()">Preiskalkulator</a>
+        <a href="galerie.html" style="color: #ffcccc;" onclick="toggleMenu()">📸 Galerie</a>
+        <a href="index.html#anfahrt" onclick="toggleMenu()">Einsatzgebiet</a>
+        <a href="index.html#faq" onclick="toggleMenu()">FAQ</a>
     </nav>
 
     <section class="premium-hero">
-        <h1>Premium Facility Cleaning<br><strong>für höchste Ansprüche.</strong></h1>
-        <p>Wir schützen den repräsentativen Wert Ihrer Immobilie. Diskret, rechtssicher und absolut kompromisslos in der Ausführung. Für Konzerne, Behörden und exklusive Hausverwaltungen.</p>
+        <h1>B2B Außenreinigung & Werterhalt<br><strong>für Gewerbeobjekte und Immobilien.</strong></h1>
+        <p>Wir sichern die repräsentative Visitenkarte Ihres Firmenareals oder Ihrer Wohnanlage. Zuverlässig, flexibel und mit maßgeschneiderten Angeboten für Hausverwaltungen, Gewerbebetriebe und Eigentümergemeinschaften.</p>
     </section>
 
     <div class="trust-bar">
-        <div><i class="fas fa-shield-alt"></i> Behördlich Sicherheitsüberprüft</div>
-        <div><i class="fas fa-file-contract"></i> 5 Mio. € Betriebshaftpflicht</div>
-        <div><i class="fas fa-leaf"></i> ESG-Konforme Bio-Chemie</div>
-        <div><i class="fas fa-clock"></i> Zero-Downtime Service</div>
+        <div><i class="fas fa-shield-alt"></i> Gewerblich Versichert</div>
+        <div><i class="fas fa-file-contract"></i> Individuelle B2B-Konzepte</div>
+        <div><i class="fas fa-leaf"></i> Schonende Tiefenreinigung</div>
+        <div><i class="fas fa-clock"></i> Termintreuer Service</div>
     </div>
 
     <div class="b2b-content">
         
+        <!-- B2B VORTEILE -->
         <div class="value-prop-grid">
             <div class="value-card">
-                <i class="fas fa-user-secret"></i>
-                <h3>Absolute Diskretion</h3>
-                <p>Unsere Mitarbeiter sind behördlich sicherheitsüberprüft. Wir arbeiten auf hochsensiblen Geländen mit maximaler Vertraulichkeit. Ihr Betriebsgeheimnis und Ihre Sicherheit bleiben unberührt.</p>
+                <i class="fas fa-building"></i>
+                <h3>Repräsentative Optik</h3>
+                <p>Kunden, Mieter und Geschäftspartner urteilen nach dem ersten Eindruck. Wir befreien Eingangsflächen, Zufahrten und Fassadenfenster zuverlässig von Verschmutzungen und Verwitterung.</p>
             </div>
             <div class="value-card">
-                <i class="fas fa-moon"></i>
-                <h3>Zero Downtime Service</h3>
-                <p>Reinigung findet statt, wenn Ihr Betrieb ruht. Wir agieren bevorzugt an Wochenenden, Feiertagen oder nachts, damit Ihr Kundenverkehr und Ihre Mitarbeiter nicht gestört werden.</p>
+                <i class="fas fa-calendar-check"></i>
+                <h3>Flexible Einsatzzeiten</h3>
+                <p>Reinigung nach Ihrem Betriebsablauf. Wir stimmen unsere Einsatzzeiten flexibel ab, um Ihren Kundenverkehr, Ihre Mieter oder den laufenden Geschäftsbetrieb nicht zu beeinträchtigen.</p>
             </div>
             <div class="value-card">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <h3>Corporate Compliance</h3>
-                <p>Lückenlose Dokumentation. Sie erhalten vorab transparente SLAs, Gefährdungsbeurteilungen nach ArbSchG und ordnungsgemäße Rechnungen für Ihre Buchhaltung und Audits.</p>
+                <i class="fas fa-file-invoice"></i>
+                <h3>Transparente Abrechnung</h3>
+                <p>Keine versteckten Nebenkosten. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festangebot mit ordnungsgemäßer Rechnung inklusive ausgewiesener Mehrwertsteuer für Ihre Buchhaltung.</p>
             </div>
         </div>
 
+        <!-- B2B LEISTUNGSPORTFOLIO -->
+        <h2 style="color: var(--green); text-align: center; margin-bottom: 40px;">Unsere Leistungen für Ihr Objekt</h2>
+        <div class="b2b-services-grid">
+            
+            <div class="b2b-service-box">
+                <h4><i class="fas fa-road"></i> Gewerbliche Steinreinigung</h4>
+                <p>Porentiefe Reinigung von Kundenparkplätzen, Gehwegarealen, Ladezonen und repräsentativen Eingangsbereichen. Befreiung von Moos, Algen und Verwitterungsspuren.</p>
+            </div>
+
+            <div class="b2b-service-box">
+                <h4><i class="fas fa-gem"></i> Fugen-Service & Versiegelung</h4>
+                <p>Fachgerechte Neuverfugung mit Quarzsand und anschließender Oberflächenversiegelung. Beugt schnellem Unkrautwuchs vor und schützt Pflasterflächen vor Frostschäden.</p>
+            </div>
+
+            <div class="b2b-service-box">
+                <h4><i class="fas fa-window-maximize"></i> Fenster- & Glasreinigung (Außen)</h4>
+                <p>Streifenfreie Reinigung von Außenfenstern, Wintergärten, Vordächern und Glasfassaden-Elementen für maximale Lichtdurchlässigkeit und ein makelloses Erscheinungsbild.</p>
+            </div>
+
+            <div class="b2b-service-box">
+                <h4><i class="fas fa-trash-alt"></i> Müllplatz- & Tonnenreinigung</h4>
+                <p>Hygienische Reinigung von Mülltonnen und Großcontainern sowie Säuberung der Müllstellplätze in Wohnanlagen zur Vermeidung von Unrat und Geruchsbelästigung.</p>
+            </div>
+
+        </div>
+
+        <!-- COMPLIANCE & FAKTEN GRID (OHNE BILD-PLATZHALTER) -->
         <div class="compliance-section">
             <div class="compliance-text">
-                <h2>Werterhalt ohne Kompromisse.</h2>
-                <p style="line-height: 1.7; color: #555;">Wir wissen, dass Facility Manager keine Zeit für Mikromanagement haben. Sie buchen ein Ergebnis, keinen Prozess. Winterwerk übernimmt die volle Verantwortung für die repräsentative Außenwirkung Ihres Portfolios – von der Tiefgarage bis zur Vorstandseinfahrt.</p>
+                <h2>Werterhalt mit System.</h2>
+                <p style="line-height: 1.7; color: #555;">Gewerbliche Außenflächen erfordern professionelle Sorgfalt. Wir entlasten Objektleiter und Hausverwaltungen durch eine eigenständige, saubere und termingerechte Durchführung aller vereinbarten Arbeiten.</p>
                 <ul class="compliance-list">
-                    <li>Graffiti- & Vandalismus-Notfallservice</li>
-                    <li>Rutschgefahr-Beseitigung (UVV-konform)</li>
-                    <li>Umweltschonende Heißwasser-Technik</li>
-                    <li>Feste Rahmen- & Wartungsverträge</li>
+                    <li>Kostenlose Vor-Ort-Besichtigung & Bedarfsanalyse</li>
+                    <li>Schonendes Materialverfahren ohne Gewebeschäden</li>
+                    <li>Regelmäßige Pflege-Abonnements auf Wunsch möglich</li>
+                    <li>Ordnungsgemäßes Nachspülen aller angrenzenden Bereiche</li>
                 </ul>
             </div>
-            <div style="background: var(--dark); border-radius: 4px; height: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center;">
-                <p style="color: var(--white); opacity: 0.5; font-style: italic;">[Hier später ein Bild einer großen Gewerbefläche einfügen]</p>
+            
+            <!-- STARKES B2B STATS GRID -->
+            <div class="b2b-stats-grid">
+                <div class="b2b-stat-card">
+                    <div class="num">100%</div>
+                    <div class="label">Feste Preiszusage nach Besichtigung</div>
+                </div>
+                <div class="b2b-stat-card">
+                    <div class="num">0€</div>
+                    <div class="label">Anfahrtskosten für Erstbesichtigung</div>
+                </div>
+                <div class="b2b-stat-card">
+                    <div class="num">24h</div>
+                    <div class="label">Reaktionszeit für B2B-Anfragen</div>
+                </div>
+                <div class="b2b-stat-card">
+                    <div class="num">100%</div>
+                    <div class="label">Regionaler Ansprechpartner</div>
+                </div>
             </div>
         </div>
 
+        <!-- B2B CTA -->
         <div class="premium-cta">
-            <h2>Bereit für ein Upgrade Ihres Facility Managements?</h2>
-            <p>Fordern Sie ein individuelles Konzept und eine Vor-Ort-Analyse für Ihr Objekt an. Direkter Kontakt zur Geschäftsführung.</p>
-            <a href="mailto:info@winterwerk.net?subject=B2B VIP-Anfrage: Vor-Ort-Analyse & Konzept" class="btn-gold">Consulting & Angebot anfordern</a>
-            <p style="margin-top: 25px; font-size: 0.9rem; color: #777;">Oder telefonische Direktdurchwahl: +49 157 58040389</p>
+            <h2>Individuelles Objekt-Angebot anfragen</h2>
+            <p>Senden Sie uns Ihre Eckdaten oder vereinbaren Sie einen kostenlosen Besichtigungstermin vor Ort in Schönefeld und Umgebung.</p>
+            <a href="mailto:info@winterwerk.net?subject=B2B%20Anfrage:%20Objekt-Besichtigung%20%26%20Angebot" class="btn-gold">Besichtigung & Angebot anfordern</a>
+            <p style="margin-top: 25px; font-size: 0.95rem; color: #b3b3b3;">Direkter Draht per Telefon / WhatsApp: <a href="https://wa.me/4915758040389" style="color: var(--gold); text-decoration: none; font-weight: bold;">+49 157 58040389</a></p>
         </div>
 
     </div>
@@ -171,7 +232,7 @@
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="agb.html">AGB</a>
-        <p style="margin-top:20px; opacity:0.6;">© 2026 Winterwerk Facility Services</p>
+        <p style="margin-top:20px; opacity:0.6;">© 2026 Winterwerk</p>
     </footer>
 
     <script>
