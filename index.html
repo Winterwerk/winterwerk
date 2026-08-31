@@ -219,16 +219,45 @@
         footer a { color: var(--dark); text-decoration: none; margin: 0 15px; font-size: 0.85rem; }
         footer a:hover { text-decoration: underline; }
 
-        /* RESPONSIVE DESIGN */
+                /* MOBILE ADJUSTMENTS (2x2 Grid für Leistungen auf dem Handy) */
         @media (max-width: 768px) {
             header { top: 34px; }
-            section { padding: 50px 20px !important; }
-            #leistungen { grid-template-columns: 1fr; }
+            section { padding: 50px 15px !important; }
             .hero h1 { font-size: 1.9rem; }
             .tooltip-box { bottom: auto; top: 140%; }
             .tooltip-box::after { top: auto; bottom: 100%; border-color: transparent transparent white transparent; }
             .slider-box { height: 300px; }
+            
+            /* NEU: Das 2x2 Layout für Handys erzwingen & optimieren */
+            #leistungen { 
+                grid-template-columns: repeat(2, 1fr) !important; /* Erzwingt 2 Spalten */
+                gap: 10px; /* Weniger Abstand zwischen den Boxen */
+                padding: 30px 10px !important;
+            }
+            .card-img-wrapper img { 
+                height: 120px !important; /* Flachere Bilder, damit es proportioniert aussieht */
+            }
+            .card-title-bar { 
+                padding: 10px; /* Weniger Rahmen */
+                align-items: flex-start; /* Wenn der Text umbricht, bleibt das Plus oben */
+            }
+            .card-title-bar h3 { 
+                font-size: 0.8rem !important; /* Kleinere Schrift für 2 Spalten */
+                line-height: 1.3;
+            }
+            .toggle-icon { 
+                font-size: 1.2rem; 
+                margin-left: 5px;
+            }
+            #leistungen .card.active .card-text { 
+                max-height: 400px; 
+                padding: 15px 10px; 
+            }
+            .card-text p { 
+                font-size: 0.8rem; /* Fließtext auch leicht verkleinern */
+            }
         }
+
     </style>
 </head>
 <body>
@@ -325,8 +354,9 @@
         </div>
     </section>
 
-    <!-- LEISTUNGEN (INTERAKTIVES 2x2 GRID) -->
+        <!-- LEISTUNGEN (INTERAKTIVES 2x2 GRID) -->
     <section id="leistungen">
+        <!-- 1. OBEN LINKS: Steinreinigung -->
         <div class="card" onclick="toggleService(this)">
             <div class="card-img-wrapper">
                 <img src="assets/stone-clean.jpg" alt="Steinreinigung">
@@ -340,19 +370,7 @@
             </div>
         </div>
 
-        <div class="card" onclick="toggleService(this)">
-            <div class="card-img-wrapper">
-                <img src="assets/fenster.jpg" alt="Fensterreinigung" onerror="this.src='assets/facade.jpg'">
-            </div>
-            <div class="card-title-bar">
-                <h3>Fenster- & Glasreinigung</h3>
-                <span class="toggle-icon">+</span>
-            </div>
-            <div class="card-text">
-                <p>Streifenfreie Sauberkeit für Ihre Fenster, Wintergärten und Glasüberdachungen. Wir reinigen schonend und extrem gründlich, damit Ihr Haus auch von außen wieder strahlt.</p>
-            </div>
-        </div>
-
+        <!-- 2. OBEN RECHTS: Fugen-Service -->
         <div class="card" onclick="toggleService(this)">
             <div class="card-img-wrapper">
                 <img src="assets/facade.jpg" alt="Fugen-Service">
@@ -366,6 +384,21 @@
             </div>
         </div>
 
+        <!-- 3. UNTEN LINKS: Fensterreinigung -->
+        <div class="card" onclick="toggleService(this)">
+            <div class="card-img-wrapper">
+                <img src="assets/fenster.jpg" alt="Fensterreinigung" onerror="this.src='assets/facade.jpg'">
+            </div>
+            <div class="card-title-bar">
+                <h3>Fenster- & Glasreinigung</h3>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="card-text">
+                <p>Streifenfreie Sauberkeit für Ihre Fenster, Wintergärten und Glasüberdachungen. Wir reinigen schonend und extrem gründlich, damit Ihr Haus auch von außen wieder strahlt.</p>
+            </div>
+        </div>
+
+        <!-- 4. UNTEN RECHTS: Mülltonnen -->
         <div class="card" onclick="toggleService(this)">
             <div class="card-img-wrapper">
                 <img src="assets/special.jpg" alt="Mülltonnenreinigung">
