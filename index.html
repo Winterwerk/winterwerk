@@ -610,53 +610,6 @@
 
 
 
-                     <!-- INTERAKTIVES 3-PAKETE GRID -->
-            <div id="pakete-grid">
-                
-                <!-- Paket 1: Basis -->
-                <div class="paket-card" onclick="togglePackage(this)">
-                    <div class="paket-header">
-                        <h3>Basis</h3>
-                        <div class="paket-price-display" id="p1-price">0 €</div>
-                        <span class="paket-toggle">+</span>
-                    </div>
-                    <div class="paket-details">
-                        <p>Porentiefe Reinigung & Wände/Sockel abspülen</p>
-                        <!-- event.stopPropagation() verhindert, dass sich die Karte beim Button-Klick schließt -->
-                        <button class="paket-btn btn-basis" onclick="event.stopPropagation(); sendWhatsAppNew('Basis-Paket')">Anfragen</button>
-                    </div>
-                </div>
-
-                <!-- Paket 2: Komfort (Bestseller - standardmäßig offen) -->
-                <div class="paket-card bestseller active" onclick="togglePackage(this)">
-                    <div class="bestseller-badge">TIPP</div>
-                    <div class="paket-header">
-                        <h3>Komfort</h3>
-                        <div class="paket-price-display" id="p2-price">0 €</div>
-                        <span class="paket-toggle">+</span>
-                    </div>
-                    <div class="paket-details">
-                        <p>Basis + Quarzsand-Fugen + Langzeit-Versiegelung</p>
-                        <button class="paket-btn btn-komfort" onclick="event.stopPropagation(); sendWhatsAppNew('Komfort-Paket (Bestseller)')">Anfragen</button>
-                    </div>
-                </div>
-
-                <!-- Paket 3: Premium -->
-                <div class="paket-card" onclick="togglePackage(this)">
-                    <div class="paket-header">
-                        <h3>Premium</h3>
-                        <div class="paket-price-display" id="p3-price">0 €</div>
-                        <span class="paket-toggle">+</span>
-                    </div>
-                    <div class="paket-details">
-                        <p>Komfort + Sorgenfrei-Abo (2x jährliche Pflege inklusive)</p>
-                        <button class="paket-btn btn-premium" onclick="event.stopPropagation(); sendWhatsAppNew('Premium-Paket')">Anfragen</button>
-                    </div>
-                </div>
-
-            </div>
-
-    </section>
 
     <section id="anfahrt">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 10px; position: relative;">
