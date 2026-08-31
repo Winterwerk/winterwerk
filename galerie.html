@@ -1,1 +1,125 @@
-test
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildergalerie | Winterwerk</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Gleiches Basis-Design wie Hauptseite */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #F8F7F5; color: #2C2C2C; }
+        
+        :root { --green: #1F3A2A; --red: #9C1F2F; --shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+        /* Header (Nur Logo + Zurück zur Startseite) */
+        header { background: white; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-placeholder { width: 40px; height: 40px; background: var(--green); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .logo-text { font-weight: 600; font-size: 1.2rem; color: var(--green); letter-spacing: 1px; }
+        
+        .back-btn { background: var(--red); color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .back-btn:hover { background: #7a1825; }
+
+        /* Galerie-Layout */
+        .gallery-container { padding: 120px 5% 60px; max-width: 1200px; margin: auto; text-align: center; }
+        h1 { color: var(--green); margin-bottom: 10px; font-size: 2.2rem; }
+        p.subtitle { color: #666; margin-bottom: 40px; font-size: 1.1rem; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .gallery-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+        .images-split { display: flex; width: 100%; height: 250px; }
+        .images-split img { width: 50%; object-fit: cover; border-right: 2px solid white; }
+        
+        .labels-split { display: flex; background: var(--green); color: white; font-weight: bold; font-size: 0.9rem; }
+        .labels-split div { width: 50%; padding: 12px 0; text-align: center; }
+        .labels-split .vorher { background: #333; } /* Dunkleres Grau für Vorher */
+
+        .card-caption { padding: 15px; font-size: 0.95rem; color: #444; text-align: left; }
+
+        /* Footer */
+        footer { padding: 40px 5%; background: #F8F7F5; text-align: center; border-top: 1px dotted #ccc; margin-top: 40px; }
+
+        @media (max-width: 768px) {
+            .images-split { height: 180px; }
+            h1 { font-size: 1.8rem; }
+            .back-btn { padding: 8px 12px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo-area">
+            <div class="logo-placeholder"><img src="assets/logo.png" style="width:100%;" alt="W" onerror="this.style.display='none'"></div>
+            <div class="logo-text">WINTERWERK</div>
+        </a>
+        <a href="index.html" class="back-btn">← Zurück zur Startseite</a>
+    </header>
+
+    <!-- Galerie Bereich -->
+    <div class="gallery-container">
+        <h1>Vorher / Nachher Galerie</h1>
+        <p class="subtitle">Ein Bild sagt mehr als tausend Worte. Hier sehen Sie echte Ergebnisse aus unserer Region.</p>
+
+        <div class="gallery-grid">
+            
+            <!-- Bild Karte 1 -->
+            <div class="gallery-card">
+                <div class="images-split">
+                    <img src="assets/galerievorher1.jpg" alt="Vorher 1" onerror="this.src='assets/before.jpg'">
+                    <img src="assets/galerienachher1.jpg" alt="Nachher 1" onerror="this.src='assets/after.jpg'">
+                </div>
+                <div class="labels-split">
+                    <div class="vorher">VORHER</div>
+                    <div class="nachher">NACHHER</div>
+                </div>
+                <div class="card-caption">
+                    Stark verwitterte Pflastersteine inkl. Fugenreinigung.
+                </div>
+            </div>
+
+            <!-- Bild Karte 2 -->
+            <div class="gallery-card">
+                <div class="images-split">
+                    <img src="assets/galerievorher2.jpg" alt="Vorher 2" onerror="this.src='assets/before.jpg'">
+                    <img src="assets/galerienachher2.jpg" alt="Nachher 2" onerror="this.src='assets/after.jpg'">
+                </div>
+                <div class="labels-split">
+                    <div class="vorher">VORHER</div>
+                    <div class="nachher">NACHHER</div>
+                </div>
+                <div class="card-caption">
+                    Tiefenreinigung und Neuverfugung einer Garageneinfahrt.
+                </div>
+            </div>
+
+            <!-- Bild Karte 3 -->
+            <div class="gallery-card">
+                <div class="images-split">
+                    <img src="assets/galerievorher3.jpg" alt="Vorher 3" onerror="this.src='assets/before.jpg'">
+                    <img src="assets/galerienachher3.jpg" alt="Nachher 3" onerror="this.src='assets/after.jpg'">
+                </div>
+                <div class="labels-split">
+                    <div class="vorher">VORHER</div>
+                    <div class="nachher">NACHHER</div>
+                </div>
+                <div class="card-caption">
+                    Entfernung von hartnäckigem Moos und Flechten.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="opacity:0.6; font-size: 0.9rem;">© 2026 Winterwerk</p>
+    </footer>
+
+</body>
+</html>
